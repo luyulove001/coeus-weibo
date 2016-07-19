@@ -2,13 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <TextView 
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/about_me"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:text="This is Message Tab"
-        android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:layout_height="59dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="17dp"
+        android:text="@string/about_me"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="17dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="fill_parent"
+        android:layout_height="59dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="17dp"
+        android:text="@string/comment"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="17dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/write_weibo"
+        android:layout_width="fill_parent"
+        android:layout_height="59dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="17dp"
+        android:text="@string/write_weibo"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="17dp"
+        android:background="@color/white" />
 
 </LinearLayout>

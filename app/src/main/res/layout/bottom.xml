@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="首页"
+            android:text="@string/home_page"
             android:textSize="16sp"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -51,7 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="消息"
+            android:text="@string/message"
             android:textSize="16sp"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -79,7 +79,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="发现"
+            android:text="@string/find"
             android:textSize="16sp"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -107,7 +107,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我"
+            android:text="@string/me"
             android:textSize="16sp"
             android:textColor="@color/white" />
     </LinearLayout>
