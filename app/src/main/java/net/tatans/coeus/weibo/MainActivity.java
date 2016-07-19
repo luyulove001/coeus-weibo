@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
@@ -19,11 +20,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private LinearLayout id_tab_message;
     private LinearLayout id_tab_search;
     private LinearLayout id_tab_me;
-
-    private ImageButton id_tab_home_img;
-    private ImageButton id_tab_message_img;
-    private ImageButton id_tab_search_img;
-    private ImageButton id_tab_me_img;
 
     private Fragment mHomeFragment;
     private Fragment mMessageFragment;
@@ -47,11 +43,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         id_tab_message = (LinearLayout) findViewById(R.id.id_tab_message);
         id_tab_search = (LinearLayout) findViewById(R.id.id_tab_search);
         id_tab_me = (LinearLayout) findViewById(R.id.id_tab_me);
-
-        id_tab_home_img = (ImageButton) findViewById(R.id.id_tab_home_img);
-        id_tab_message_img = (ImageButton) findViewById(R.id.id_tab_message_img);
-        id_tab_search_img = (ImageButton) findViewById(R.id.id_tab_search_img);
-        id_tab_me_img = (ImageButton) findViewById(R.id.id_tab_me_img);
 
         // 设置button的监听事件
         id_tab_home.setOnClickListener(this);

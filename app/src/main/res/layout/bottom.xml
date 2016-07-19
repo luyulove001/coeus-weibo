@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="55dp"
     android:background="#000"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/id_tab_home"
@@ -11,14 +11,14 @@
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/id_tab_home_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#000000"
-            android:clickable="false"
+            android:focusable="false"
             android:src="@mipmap/icon_home_page" />
 
         <TextView
@@ -28,15 +28,20 @@
             android:textColor="#ffff" />
     </LinearLayout>
 
+    <View
+        android:layout_width="1dp"
+        android:layout_height="55dp"
+        android:background="@color/white" />
+
     <LinearLayout
         android:id="@+id/id_tab_message"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/id_tab_message_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,15 +56,20 @@
             android:textColor="#ffff" />
     </LinearLayout>
 
+    <View
+        android:layout_width="1dp"
+        android:layout_height="55dp"
+        android:background="@color/white" />
+
     <LinearLayout
         android:id="@+id/id_tab_search"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/id_tab_search_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,15 +84,20 @@
             android:textColor="#ffff" />
     </LinearLayout>
 
+    <View
+        android:layout_width="1dp"
+        android:layout_height="55dp"
+        android:background="@color/white" />
+
     <LinearLayout
         android:id="@+id/id_tab_me"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/id_tab_me_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
