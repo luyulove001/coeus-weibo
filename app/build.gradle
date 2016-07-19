@@ -3,14 +3,14 @@ import java.text.SimpleDateFormat
 apply plugin: 'com.android.application'
 
 android {
-    def AppName = "项目示例"
+    def AppName = "天坦微博"
     compileSdkVersion 19
     buildToolsVersion  '19.1.0'
     SimpleDateFormat df = new SimpleDateFormat("yyMMddHHmm")
     def version_code = df.format(new Date())
 
     defaultConfig {
-        applicationId "net.tatans.rhea.demo"
+        applicationId "net.tatans.coeus.weibo"
         minSdkVersion 19
         targetSdkVersion 19
         versionCode version_code.toInteger()

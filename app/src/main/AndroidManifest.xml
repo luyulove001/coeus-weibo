@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.tatans.rhea.demo">
+    package="net.tatans.coeus.weibo">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".TestApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${app_label}"
@@ -21,20 +20,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".GlobalActivity" />
-        <activity android:name=".SingleActivity" />
-        <activity android:name=".TestRirisActivity"/>
-
-        <activity android:name=".cache.AboutActivity" />
-        <activity android:name=".cache.CacheMainActivity" />
-        <activity android:name=".cache.SaveBitmapActivity"/>
-
-        <activity android:name=".cache.SaveDrawableActivity" />
-        <activity android:name=".cache.SaveJsonArrayActivity" />
-        <activity android:name=".cache.SaveMediaActivity"/>
-
-        <activity android:name=".cache.SaveObjectActivity" />
-        <activity android:name=".cache.SaveStringActivity" />
     </application>
 
 </manifest>

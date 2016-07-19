@@ -1,18 +1,14 @@
-package net.tatans.rhea.demo;
-
-import android.content.Intent;
-import android.widget.TextView;
+package net.tatans.coeus.weibo;
 
 import net.tatans.coeus.network.tools.BaseActivity;
-import net.tatans.rhea.demo.cache.CacheMainActivity;
+import net.tatans.rhea.weibo.cache.CacheMainActivity;
 import net.tatans.rhea.network.event.OnClick;
 import net.tatans.rhea.network.view.ContentView;
-import net.tatans.rhea.network.view.ViewIoc;
 
-@ContentView(R.layout.main)
+@ContentView(net.tatans.coeus.weibo.R.layout.main)
 public class MainActivity extends BaseActivity {
 
-    @OnClick(R.id.bt_global)
+    @OnClick(net.tatans.coeus.weibo.R.id.bt_global)
     public void btnGlobal(){
         /*Intent global_intent = new Intent();
         global_intent.setClass(this,GlobalActivity.class);
@@ -20,7 +16,7 @@ public class MainActivity extends BaseActivity {
         TatansStartActivity(GlobalActivity.class);
     }
 
-    @OnClick(R.id.bt_single)
+    @OnClick(net.tatans.coeus.weibo.R.id.bt_single)
     public void btnSingle(){
         /*Intent global_intent = new Intent();
         global_intent.setClass(this,SingleActivity.class);
@@ -28,14 +24,14 @@ public class MainActivity extends BaseActivity {
         TatansStartActivity(SingleActivity.class);
     }
 
-    @OnClick(R.id.bt_tiris)
+    @OnClick(net.tatans.coeus.weibo.R.id.bt_tiris)
     public void btTiris(){
        /* Intent tiris_intent = new Intent();
         tiris_intent.setClass(this,TestRirisActivity.class);
         startActivity(tiris_intent);*/
         TatansStartActivity(TestRirisActivity.class);
     }
-    @OnClick(R.id.bt_cache)
+    @OnClick(net.tatans.coeus.weibo.R.id.bt_cache)
     public void btCache(){
         /*Intent tiris_intent = new Intent();
         tiris_intent.setClass(this,CacheMainActivity.class);

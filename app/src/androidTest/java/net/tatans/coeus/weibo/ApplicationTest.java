@@ -1,4 +1,4 @@
-package net.tatans.rhea.demo;
+package net.tatans.coeus.weibo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
