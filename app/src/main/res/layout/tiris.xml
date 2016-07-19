@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edt_key"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:inputType="number"
+        android:textSize="25sp"
+        android:hint="输入1注册，其他弹出提示"/>
+
+    <Button
+        android:id="@+id/btn_tiris"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="检测注册"
+        android:textSize="25sp" />
+</LinearLayout>
