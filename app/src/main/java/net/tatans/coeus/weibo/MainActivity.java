@@ -11,7 +11,6 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import net.tatans.coeus.network.tools.BaseActivity;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
@@ -26,10 +25,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ImageButton id_tab_search_img;
     private ImageButton id_tab_me_img;
 
-    private Fragment mTab01;
-    private Fragment mTab02;
-    private Fragment mTab03;
-    private Fragment mTab04;
+    private Fragment mHomeFragment;
+    private Fragment mMessageFragment;
+    private Fragment mFindFragment;
+    private Fragment mMeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,35 +68,35 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         // 设置内容区域
         switch (i) {
             case 0:
-                if (mTab01 == null) {
-                    mTab01 = new HomeFragment();
-                    transaction.add(R.id.id_content, mTab01);
+                if (mHomeFragment == null) {
+                    mHomeFragment = new HomeFragment();
+                    transaction.add(R.id.id_content, mHomeFragment);
                 } else {
-                    transaction.show(mTab01);
+                    transaction.show(mHomeFragment);
                 }
                 break;
             case 1:
-                if (mTab02 == null) {
-                    mTab02 = new MessageFragment();
-                    transaction.add(R.id.id_content, mTab02);
+                if (mMessageFragment == null) {
+                    mMessageFragment = new MessageFragment();
+                    transaction.add(R.id.id_content, mMessageFragment);
                 } else {
-                    transaction.show(mTab02);
+                    transaction.show(mMessageFragment);
                 }
                 break;
             case 2:
-                if (mTab03 == null) {
-                    mTab03 = new FindFragment();
-                    transaction.add(R.id.id_content, mTab03);
+                if (mFindFragment == null) {
+                    mFindFragment = new FindFragment();
+                    transaction.add(R.id.id_content, mFindFragment);
                 } else {
-                    transaction.show(mTab03);
+                    transaction.show(mFindFragment);
                 }
                 break;
             case 3:
-                if (mTab04 == null) {
-                    mTab04 = new MeFragment();
-                    transaction.add(R.id.id_content, mTab04);
+                if (mMeFragment == null) {
+                    mMeFragment = new MeFragment();
+                    transaction.add(R.id.id_content, mMeFragment);
                 } else {
-                    transaction.show(mTab04);
+                    transaction.show(mMeFragment);
                 }
                 break;
             default:
@@ -110,17 +109,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      * 隐藏掉不是显示tab的其他内容
      */
     private void hideFragment(FragmentTransaction transaction) {
-        if (mTab01 != null) {
-            transaction.hide(mTab01);
+        if (mHomeFragment != null) {
+            transaction.hide(mHomeFragment);
         }
-        if (mTab02 != null) {
-            transaction.hide(mTab02);
+        if (mMessageFragment != null) {
+            transaction.hide(mMessageFragment);
         }
-        if (mTab03 != null) {
-            transaction.hide(mTab03);
+        if (mFindFragment != null) {
+            transaction.hide(mFindFragment);
         }
-        if (mTab04 != null) {
-            transaction.hide(mTab04);
+        if (mMeFragment != null) {
+            transaction.hide(mMeFragment);
         }
     }
 
