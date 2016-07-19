@@ -65,6 +65,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 } else {
                     transaction.show(mHomeFragment);
                 }
+                id_tab_home.setBackgroundColor(getResources().getColor(R.color.colorBottomBright));
                 break;
             case 1:
                 if (mMessageFragment == null) {
@@ -73,6 +74,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 } else {
                     transaction.show(mMessageFragment);
                 }
+                id_tab_message.setBackgroundColor(getResources().getColor(R.color.colorBottomBright));
                 break;
             case 2:
                 if (mFindFragment == null) {
@@ -81,6 +83,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 } else {
                     transaction.show(mFindFragment);
                 }
+                id_tab_search.setBackgroundColor(getResources().getColor(R.color.colorBottomBright));
                 break;
             case 3:
                 if (mMeFragment == null) {
@@ -89,6 +92,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 } else {
                     transaction.show(mMeFragment);
                 }
+                id_tab_me.setBackgroundColor(getResources().getColor(R.color.colorBottomBright));
                 break;
             default:
                 break;
@@ -116,7 +120,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-//        resetImgs();
+        resetImgs();
         switch (v.getId()) {
             case R.id.id_tab_home:
                 setSelect(0);
@@ -139,10 +143,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     /**
      * 切换图片至暗色
      */
-//    private void resetImgs() {
-//        id_tab_weixin_img.setImageResource(R.drawable.tab_weixin_normal);
-//        id_tab_frd_img.setImageResource(R.drawable.tab_find_frd_normal);
-//        id_tab_address_img.setImageResource(R.drawable.tab_address_normal);
-//        id_tab_settings_img.setImageResource(R.drawable.tab_settings_normal);
-//    }
+    private void resetImgs() {
+        id_tab_home.setBackgroundColor(getResources().getColor(R.color.colorBottomDark));
+        id_tab_message.setBackgroundColor(getResources().getColor(R.color.colorBottomDark));
+        id_tab_search.setBackgroundColor(getResources().getColor(R.color.colorBottomDark));
+        id_tab_me.setBackgroundColor(getResources().getColor(R.color.colorBottomDark));
+    }
 }
