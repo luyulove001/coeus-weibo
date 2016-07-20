@@ -12,15 +12,15 @@
         android:label="${app_label}"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar">
-        <activity android:name=".CommentsActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-            <!--android:name=".CommentsActivity"-->
-            <!--android:screenOrientation="portrait"></activity>-->
+        <activity
+            android:name=".CommentsActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
