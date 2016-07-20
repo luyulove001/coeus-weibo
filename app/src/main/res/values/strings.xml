@@ -11,4 +11,9 @@
     <string name="me">我</string>
     <string name="search_weibo">搜索微博</string>
     <string name="search_user">搜索用户</string>
+    <string name="my_home_page">我的主页</string>
+    <string name="follow">关注</string>
+    <string name="fans">粉丝</string>
+    <string name="collection">收藏</string>
+    <string name="cancellation">退出账号</string>
 </resources>

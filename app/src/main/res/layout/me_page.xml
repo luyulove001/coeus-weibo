@@ -2,13 +2,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBottomDark"
     android:orientation="vertical" >
-    <TextView 
+    <TextView
+        android:id="@+id/my_home_page"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:text="This is me Tab"
-        android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:layout_height="59dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="17dp"
+        android:text="@string/my_home_page"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="17dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/follow"
+        android:layout_width="fill_parent"
+        android:layout_height="59dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="17dp"
+        android:text="@string/follow"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="17dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/my_fans"
+        android:layout_width="fill_parent"
+        android:layout_height="59dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="17dp"
+        android:text="@string/fans"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="17dp"
+        android:background="@color/white" />
+    <TextView
+        android:id="@+id/collection"
+        android:layout_width="fill_parent"
+        android:layout_height="59dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="17dp"
+        android:text="@string/collection"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="17dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/cancellation"
+        android:layout_width="fill_parent"
+        android:layout_height="59dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="17dp"
+        android:text="@string/cancellation"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="17dp"
+        android:background="@color/white" />
 </LinearLayout>
