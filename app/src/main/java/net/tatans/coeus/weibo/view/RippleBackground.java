@@ -1,4 +1,4 @@
-package net.tatans.coeus.view;
+package net.tatans.coeus.weibo.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;

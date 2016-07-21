@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 
+import com.sina.weibo.sdk.auth.AuthInfo;
+
 import net.tatans.coeus.weibo.R;
 
 

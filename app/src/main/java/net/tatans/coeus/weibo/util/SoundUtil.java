@@ -1,4 +1,4 @@
-package net.tatans.coeus.util;
+package net.tatans.coeus.weibo.util;
 
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;

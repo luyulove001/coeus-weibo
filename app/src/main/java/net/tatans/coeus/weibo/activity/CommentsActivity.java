@@ -14,7 +14,6 @@ import android.widget.Toast;
 import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.network.tools.TatansApplication;
-import net.tatans.coeus.weibo.VoicesActivity;
 import net.tatans.rhea.network.event.OnClick;
 import net.tatans.rhea.network.view.ContentView;
 import net.tatans.rhea.network.view.ViewIoc;

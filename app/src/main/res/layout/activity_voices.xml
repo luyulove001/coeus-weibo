@@ -17,7 +17,7 @@
         android:orientation="vertical" >
 
 
-         <net.tatans.coeus.view.RippleBackground
+         <net.tatans.coeus.weibo.view.RippleBackground
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/contents"
@@ -37,7 +37,7 @@
                 android:layout_height="64dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/mic" />
-         </net.tatans.coeus.view.RippleBackground>
+         </net.tatans.coeus.weibo.view.RippleBackground>
     </LinearLayout>
 
 </LinearLayout>

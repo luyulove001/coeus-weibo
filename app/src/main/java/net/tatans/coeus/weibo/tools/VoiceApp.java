@@ -1,4 +1,4 @@
-package net.tatans.coeus.tools;
+package net.tatans.coeus.weibo.tools;
 
 import net.tatans.coeus.network.tools.TatansApplication;
 

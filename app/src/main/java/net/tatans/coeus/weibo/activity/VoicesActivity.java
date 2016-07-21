@@ -1,4 +1,4 @@
-package net.tatans.coeus.weibo;
+package net.tatans.coeus.weibo.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -35,11 +35,11 @@ import com.iflytek.sunflower.FlowerCollector;
 
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.speech.parser.JsonParser;
-import net.tatans.coeus.tools.VoiceApp;
-import net.tatans.coeus.util.NetworkConnectionUtil;
-import net.tatans.coeus.util.SoundUtil;
-import net.tatans.coeus.view.RippleBackground;
-import net.tatans.coeus.weibo.activity.CommentsActivity;
+import net.tatans.coeus.weibo.R;
+import net.tatans.coeus.weibo.tools.VoiceApp;
+import net.tatans.coeus.weibo.util.NetworkConnectionUtil;
+import net.tatans.coeus.weibo.util.SoundUtil;
+import net.tatans.coeus.weibo.view.RippleBackground;
 
 import java.io.IOException;
 import java.util.HashMap;
