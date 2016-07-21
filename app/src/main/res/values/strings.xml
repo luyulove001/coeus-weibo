@@ -18,6 +18,9 @@
     <string name="cancellation">退出账号</string>
     <string name="voice_input_button">语音输入。按钮</string>
     <string name="aall_button">"@。按钮"</string>
+    <string name="pref_key_iat_show">iat_show</string>
+    <string name="text_begin">正在录音</string>
     <string name="send_button">发送。按钮</string>
+    <string name="comments_null">""</string>
 
 </resources>

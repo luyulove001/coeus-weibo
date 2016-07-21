@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.tatans.coeus.weibo">
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="net.tatans.coeus.tools.VoiceApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${app_label}"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.CommentsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity-->
+            <!--android:name=".CommentsActivity"-->
+            <!--android:screenOrientation="portrait"></activity>-->
         <activity
-            android:name=".CommentsActivity"
-            android:screenOrientation="portrait"></activity>
+        android:name=".VoicesActivity"
+            android:label="@string/comments_null"
+        android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
