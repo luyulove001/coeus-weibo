@@ -1,4 +1,4 @@
-package net.tatans.coeus.adapter;
+package net.tatans.coeus.weibo.adapter;
 
 
 import android.content.Context;

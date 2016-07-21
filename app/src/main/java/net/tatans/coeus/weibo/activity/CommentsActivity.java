@@ -1,4 +1,4 @@
-package net.tatans.coeus.weibo;
+package net.tatans.coeus.weibo.activity;
 
 import android.os.Bundle;
 import android.widget.EditText;
@@ -6,6 +6,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.weibo.R;
 import net.tatans.rhea.network.view.ContentView;
 import net.tatans.rhea.network.view.ViewIoc;
 

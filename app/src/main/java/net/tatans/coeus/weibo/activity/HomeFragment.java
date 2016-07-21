@@ -1,4 +1,4 @@
-package net.tatans.coeus.weibo;
+package net.tatans.coeus.weibo.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import net.tatans.coeus.adapter.HomeFragmentAdapter;
+import net.tatans.coeus.weibo.adapter.HomeFragmentAdapter;
+import net.tatans.coeus.weibo.R;
 
 public class HomeFragment extends Fragment {
 	private ListView home_page_listview;
