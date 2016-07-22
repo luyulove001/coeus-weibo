@@ -54,8 +54,8 @@ public class CommentsActivity extends BaseActivity {
         Intent intent=new Intent();
         intent.setClass(CommentsActivity.this,VoicesActivity.class);
         startActivityForResult(intent, 1);View viewa = getWindow().peekDecorView();
-        InputMethodManager inputmanger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputmanger.hideSoftInputFromWindow(viewa.getWindowToken(), 0);
+        InputMethodManager inputManger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManger.hideSoftInputFromWindow(viewa.getWindowToken(), 0);
 
     }
 
