@@ -13,7 +13,7 @@
         android:label="${app_label}"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,9 +23,27 @@
             android:name=".activity.CommentsActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
         android:name=".activity.VoicesActivity"
             android:label="@string/comments_null"
         android:screenOrientation="portrait"></activity>
+
+        <!-- 必须注册在微博授权，分享微博时候用到 -->
+        <activity android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" >
+        </activity>
+
+        <meta-data
+            android:name="WEIBO_APPKEY"
+            android:value="4926617" />
+        <meta-data
+            android:name="WEIBO_CHANNEL"
+            android:value="tatans_development" />
+
     </application>
 
 </manifest>

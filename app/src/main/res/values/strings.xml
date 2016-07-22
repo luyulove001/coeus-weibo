@@ -22,5 +22,7 @@
     <string name="text_begin">正在录音</string>
     <string name="send_button">发送。按钮</string>
     <string name="comments_null">""</string>
+    <string name="login">"登录"</string>
+    <string name="register">"注册"</string>
 
 </resources>

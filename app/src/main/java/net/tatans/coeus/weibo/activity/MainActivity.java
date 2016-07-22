@@ -1,6 +1,7 @@
 package net.tatans.coeus.weibo.activity;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -28,7 +29,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Fragment mMessageFragment;
     private Fragment mFindFragment;
     private Fragment mMeFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -31,6 +31,11 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
     buildTypes {
         release {
             manifestPlaceholders = [app_label: AppName]
