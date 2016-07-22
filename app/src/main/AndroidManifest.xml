@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="net.tatans.coeus.tools.VoiceApp"
+        android:name=".tools.VoiceApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${app_label}"
@@ -23,7 +23,7 @@
             android:name=".activity.CommentsActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-        android:name=".VoicesActivity"
+        android:name=".activity.VoicesActivity"
             android:label="@string/comments_null"
         android:screenOrientation="portrait"></activity>
     </application>

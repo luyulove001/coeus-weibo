@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.widget.LoginButton;
 
 import net.tatans.coeus.weibo.R;
 

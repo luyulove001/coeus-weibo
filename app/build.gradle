@@ -5,7 +5,7 @@ apply plugin: 'com.android.application'
 android {
     def AppName = "天坦微博"
     compileSdkVersion 19
-    buildToolsVersion  '19.1.0'
+    buildToolsVersion  '22.0.1'
     SimpleDateFormat df = new SimpleDateFormat("yyMMddHHmm")
     def version_code = df.format(new Date())
 
@@ -63,7 +63,11 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor 1, 'minutes'
 }
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'net.tatans.coeus:coeus-network:5.4.0-SNAPSHOT'
-    compile 'com.android.support:appcompat-v7:19.1.0'
+    compile project(':myweibosdk')
+    compile project(':weibosdk')
+    compile('net.tatans.coeus:coeus-speech-lib:1.1.0-SNAPSHOT') {
+        exclude group: 'com.iflytek.clound', module: 'Msc'
+    }
 }
