@@ -2,6 +2,7 @@ package net.tatans.coeus.weibo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
