@@ -93,6 +93,7 @@ public class ContactListActivity extends BaseActivity implements ITatansItemClic
      * 初始化布局数据
      */
     private void initViewEvent() {
+        mShow.setVisibility(View.GONE);
         mEdtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

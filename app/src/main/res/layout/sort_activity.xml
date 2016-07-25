@@ -1,25 +1,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:orientation="vertical" >
+    android:background="#000"
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edt_search"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:hint="搜索"
-        android:textColor="#000000"
-        android:textSize="16sp">
-        <requestFocus />
-    </EditText>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="32.5dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="13dp"
+            android:text="@string/contact"
+            android:textColor="#fff"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="5"
+            android:background="#FF151B21"
+            android:hint="搜索"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="16sp">
+            <requestFocus />
+        </EditText>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_search_1" />
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000" >
+        android:background="#000000">
 
         <ListView
             android:id="@+id/listView"

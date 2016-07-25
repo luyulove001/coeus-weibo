@@ -29,5 +29,6 @@
     <string name="location">所在地:</string>
     <string name="company">公司:</string>
     <string name="verified">微博认证:</string>
+    <string name="contact">联系人</string>
 
 </resources>
