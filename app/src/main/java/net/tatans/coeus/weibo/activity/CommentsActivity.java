@@ -123,6 +123,11 @@ public class CommentsActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.comments_fenxiang)
+    private void commentsFenxiang(){
+        TatansStartActivity(AppListActivity.class);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
