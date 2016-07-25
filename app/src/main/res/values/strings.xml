@@ -24,5 +24,10 @@
     <string name="comments_null">""</string>
     <string name="login">"登录"</string>
     <string name="register">"注册"</string>
+    <string name="friends">粉丝:</string>
+    <string name="followers">关注:</string>
+    <string name="location">所在地:</string>
+    <string name="company">公司:</string>
+    <string name="verified">微博认证:</string>
 
 </resources>
