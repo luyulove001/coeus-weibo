@@ -72,11 +72,11 @@ public class ContactListActivity extends BaseActivity implements ITatansItemClic
         super.onCreate(savedInstanceState);
         initData();
         initViewEvent();
-        for(int i=0;i<stringName.length;i++){
+        for (int i = 0; i < stringName.length; i++) {
             String name = stringName[i];
             list.add(name);
         }
-        Log.e("list",list.get(0)+list.size());
+        Log.e("list", list.get(0) + list.size());
         setListData(list);
     }
 
@@ -210,9 +210,10 @@ public class ContactListActivity extends BaseActivity implements ITatansItemClic
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, HEIGHT);
         for (int i = 0; i < indexStr.length; i++) {
             final NewTextView tv_label = new NewTextView(this, this);
-            if (i == 0) tv_label.setContentDescription("收藏。单指快速左右滑动来滚动翻页");
-            else if (i == indexStr.length - 1) tv_label.setContentDescription("其他。单指快速左右滑动来滚动翻页");
-            else tv_label.setContentDescription(" " + indexStr[i] + "。单指快速左右滑动来滚动翻页");
+            if
+                    (i == indexStr.length - 1) tv_label.setContentDescription("其他。单指快速左右滑动来滚动翻页");
+            else
+                tv_label.setContentDescription(" " + indexStr[i] + "。单指快速左右滑动来滚动翻页");
             tv_label.setGravity(Gravity.CENTER);
             tv_label.setLayoutParams(params);
             tv_label.setText(indexStr[i]);
