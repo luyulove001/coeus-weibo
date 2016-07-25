@@ -22,7 +22,7 @@ import java.util.List;
  * Created by SiLiPing on 2016/4/1.
  * 有索引的添加替换应用列表适配器
  */
-public class AppListAdapter extends BaseAdapter implements SectionIndexer {
+public class ContactListAdapter extends BaseAdapter implements SectionIndexer {
 
     private Context ctx;
     private ITatansItemClick itemClick;
@@ -34,7 +34,7 @@ public class AppListAdapter extends BaseAdapter implements SectionIndexer {
         private View line;
     }
 
-    public AppListAdapter(Context mContext, List<Person> list, ITatansItemClick itemClick) {
+    public ContactListAdapter(Context mContext, List<Person> list, ITatansItemClick itemClick) {
         this.ctx = mContext;
         this.list = list;
         this.itemClick = itemClick;

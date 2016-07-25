@@ -76,4 +76,5 @@ dependencies {
         exclude group: 'com.iflytek.clound', module: 'Msc'
     }
     compile files('libs/picasso-2.5.2.jar')
+    compile 'com.belerweb:pinyin4j:2.5.0'
 }

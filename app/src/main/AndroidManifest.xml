@@ -26,7 +26,7 @@
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.AppListActivity"
+            android:name=".activity.ContactListActivity"
             android:screenOrientation="portrait"></activity>
         <activity
         android:name=".activity.VoicesActivity"

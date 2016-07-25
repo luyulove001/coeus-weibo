@@ -125,7 +125,7 @@ public class CommentsActivity extends BaseActivity {
 
     @OnClick(R.id.comments_fenxiang)
     private void commentsFenxiang(){
-        TatansStartActivity(AppListActivity.class);
+        TatansStartActivity(ContactListActivity.class);
     }
 
     @Override

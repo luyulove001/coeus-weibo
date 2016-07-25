@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -16,7 +15,7 @@ import android.widget.TextView;
 
 import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.weibo.R;
-import net.tatans.coeus.weibo.adapter.AppListAdapter;
+import net.tatans.coeus.weibo.adapter.ContactListAdapter;
 import net.tatans.coeus.weibo.bean.Person;
 import net.tatans.coeus.weibo.model.imp.ISendChar;
 import net.tatans.coeus.weibo.model.imp.ITatansItemClick;
@@ -38,7 +37,7 @@ import static net.tatans.coeus.weibo.R.id.listView;
  * 联系人列表ui
  */
 @ContentView(R.layout.sort_activity)
-public class AppListActivity extends BaseActivity implements ITatansItemClick, ISendChar {
+public class ContactListActivity extends BaseActivity implements ITatansItemClick, ISendChar {
     //获取视图
     @ViewIoc(R.id.edt_search)
     private EditText mEdtSearch;
@@ -66,7 +65,7 @@ public class AppListActivity extends BaseActivity implements ITatansItemClick, I
             "张伟", "张学友", "李德华", "郑源", "白水水", "白天不亮", "陈龙", "陈丽丽", "哈林", "高进", "高雷",
             "阮今天", "龚琳娜", "苏醒", "苏永康", "陶喆", "沙宝亮", "宋冬野", "宋伟", "袁成杰", "戚薇", "齐大友",
             "齐天大圣", "品冠", "吴克群", "BOBO", "Jobs", "动力火车", "伍佰", "#蔡依林", "$797835344$", "Jack", "~夏先生"};
-    private AppListAdapter adapter;
+    private ContactListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +127,7 @@ public class AppListActivity extends BaseActivity implements ITatansItemClick, I
         // 根据a-z进行排序源数据
         Collections.sort(newPersons, new PinyinComparator());
         Collections.sort(newPersons, new FavoriteComparator());
-        adapter = new AppListAdapter(this, newPersons, this);
+        adapter = new ContactListAdapter(this, newPersons, this);
         mListView.setAdapter(adapter);
     }
 
