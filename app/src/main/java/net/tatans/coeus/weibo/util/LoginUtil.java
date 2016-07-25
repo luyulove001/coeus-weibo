@@ -48,4 +48,15 @@ public class  LoginUtil  {
             Log.e("TAG", "Please setWeiboAuthInfo(...) for first");
         }
     }
+
+    /**
+     * 当 SSO 授权 Activity 退出时，该函数被调用。
+     */
+    public void authorizeCallBack(int requestCode,int resultCode,Intent data){
+        // SSO 授权回调
+        // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
+        if (mSsoHandler != null) {
+            mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
+    }
 }

@@ -36,8 +36,7 @@ public class LoginActivity extends BaseActivity {
     private TextView mRegister;//注册
 
     private AuthInfo mAuthInfo;
-    //SSO 授权认证实例
-    private SsoHandler mSsoHandler;
+
     // 登陆认证对应的listener
     private AuthListener mLoginListener = new AuthListener();
     private LoginUtil mloginUtli;
@@ -82,6 +81,7 @@ public class LoginActivity extends BaseActivity {
             if (accessToken != null && accessToken.isSessionValid()) {
                 String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(
                         new java.util.Date(accessToken.getExpiresTime()));
+                Log.e("TAG","登录成功");
                 AccessTokenKeeper.writeAccessToken(getApplicationContext(), accessToken);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -98,5 +98,14 @@ public class LoginActivity extends BaseActivity {
         public void onCancel() {
             TatansToast.showAndCancel("取消授权");
         }
+    }
+
+    /**
+     * 当 SSO 授权 Activity 退出时，该函数被调用。
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mloginUtli.authorizeCallBack(requestCode,resultCode,data);
     }
 }
