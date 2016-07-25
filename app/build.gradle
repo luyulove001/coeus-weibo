@@ -57,10 +57,10 @@ android {
             }
         }
         debug {
-            manifestPlaceholders = [app_label: AppName+"-debub"]
+            manifestPlaceholders = [app_label: AppName+"-debug"]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.releaseConfig
+            signingConfig signingConfigs.releaseConfig
         }
     }
 }
@@ -75,4 +75,5 @@ dependencies {
     compile('net.tatans.coeus:coeus-speech-lib:1.1.0-SNAPSHOT') {
         exclude group: 'com.iflytek.clound', module: 'Msc'
     }
+    compile files('libs/picasso-2.5.2.jar')
 }
