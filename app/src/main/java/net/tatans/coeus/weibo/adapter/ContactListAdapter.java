@@ -50,7 +50,6 @@ public class ContactListAdapter extends BaseAdapter implements SectionIndexer {
 
     @Override
     public int getCount() {
-        Log.e("list","adapter::"+list.get(0).getName()+"::"+list.size());
         return this.list.size();
     }
 

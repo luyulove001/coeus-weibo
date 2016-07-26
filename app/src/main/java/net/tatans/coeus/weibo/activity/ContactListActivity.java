@@ -3,6 +3,7 @@ package net.tatans.coeus.weibo.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,18 +14,32 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.exception.WeiboException;
+import com.sina.weibo.sdk.net.RequestListener;
+import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
+import com.sina.weibo.sdk.openapi.models.CommentList;
+import com.sina.weibo.sdk.openapi.models.User;
+
 import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.ContactListAdapter;
+import net.tatans.coeus.weibo.bean.ContactList;
 import net.tatans.coeus.weibo.bean.Person;
 import net.tatans.coeus.weibo.model.imp.ISendChar;
 import net.tatans.coeus.weibo.model.imp.ITatansItemClick;
+import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
+import net.tatans.coeus.weibo.util.Constants;
 import net.tatans.coeus.weibo.util.FavoriteComparator;
 import net.tatans.coeus.weibo.util.PinyinComparator;
 import net.tatans.coeus.weibo.util.StringHelper;
 import net.tatans.coeus.weibo.view.NewTextView;
 import net.tatans.rhea.network.view.ContentView;
 import net.tatans.rhea.network.view.ViewIoc;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,19 +82,17 @@ public class ContactListActivity extends BaseActivity implements ITatansItemClic
             "齐天大圣", "品冠", "吴克群", "BOBO", "Jobs", "动力火车", "伍佰", "#蔡依林", "$797835344$", "Jack", "~夏先生"};
     private ContactListAdapter adapter;
 
+    //获取用户
+    private FriendshipsAPI mFriendshipsAPI;
+
+    private Oauth2AccessToken accessToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initData();
         initViewEvent();
-        for (int i = 0; i < stringName.length; i++) {
-            String name = stringName[i];
-            list.add(name);
-        }
-        Log.e("list", list.get(0) + list.size());
-        setListData(list);
+        RequestData();
     }
-
 
     /**
      * 初始化数据
@@ -87,6 +100,10 @@ public class ContactListActivity extends BaseActivity implements ITatansItemClic
     private void initData() {
         newPersons = new ArrayList<Person>();
         mSortList = new ArrayList<Person>();
+        // 获取当前已保存过的 Token
+        accessToken = AccessTokenKeeper.readAccessToken(this);
+        //实例化关系类
+        mFriendshipsAPI = new FriendshipsAPI(this, Constants.APP_KEY,accessToken);
     }
 
     /**
@@ -115,6 +132,15 @@ public class ContactListActivity extends BaseActivity implements ITatansItemClic
 
             }
         });
+    }
+
+    /**
+     * 请求关注人数据
+     */
+    private void RequestData() {
+        long uid = Long.parseLong(accessToken.getUid());
+        mFriendshipsAPI.friends(uid,200,0,true,mListener);
+
     }
 
     /**
@@ -264,4 +290,22 @@ public class ContactListActivity extends BaseActivity implements ITatansItemClic
             }
         }
     }
+
+    /**
+     * 微博 OpenAPI 回调接口。
+     */
+    private RequestListener mListener = new RequestListener() {
+        @Override
+        public void onComplete(String response) {
+            ContactList contactList = ContactList.parse(response);
+            for (int i=0;i<contactList.contactList.size();i++){
+                list.add(contactList.contactList.get(i).screen_name);
+            }
+            setListData(list);
+        }
+
+        @Override
+        public void onWeiboException(WeiboException e) {
+        }
+    };
 }
