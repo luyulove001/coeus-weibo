@@ -29,6 +29,7 @@
     <string name="location">所在地:</string>
     <string name="company">公司:</string>
     <string name="verified">微博认证:</string>
+    <string name="edit_box_hint">请输入您要搜索的内容</string>
     <string name="contact">联系人</string>
 
 </resources>
