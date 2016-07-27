@@ -49,6 +49,8 @@ public class FollowersActivity extends BaseActivity {
     private Oauth2AccessToken  mAccessToken;
 
     private FollowersAdapter adapter;
+
+    private List<String>  screenList = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +84,13 @@ public class FollowersActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                screenList.clear();
+                if(mEdtSearch.getText().toString() != null){
+                    String input_info = mEdtSearch.getText().toString();
+                    screenList = getNewData(input_info);
+                    adapter = new FollowersAdapter(FollowersActivity.this,screenList);
+                    mListView.setAdapter(adapter);
+                }
             }
 
             @Override
@@ -92,6 +100,8 @@ public class FollowersActivity extends BaseActivity {
         });
 
     }
+
+
 
     /**
      * 微博 OpenAPI 回调接口。
@@ -119,5 +129,20 @@ public class FollowersActivity extends BaseActivity {
     public void setListData(List<String> listData) {
         adapter = new FollowersAdapter(this,listData);
         mListView.setAdapter(adapter);
+    }
+
+    /**
+     * 更新数据
+     * @param input_info
+     * @return
+     */
+    private List<String> getNewData(String input_info){
+        for (int i = 0; i < mFollowList.size(); i++) {
+            String screen_name = mFollowList.get(i);
+            if (screen_name.contains(input_info)) {
+                screenList.add(screen_name);
+            }
+        }
+        return screenList;
     }
 }
