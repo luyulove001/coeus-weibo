@@ -38,7 +38,7 @@ import static net.tatans.coeus.weibo.R.id.listView;
  * 联系人列表ui
  */
 @ContentView(R.layout.sort_activity)
-public class ContactListActivity extends BaseActivity  {
+public class ContactListActivity extends BaseActivity {
     //获取视图
     @ViewIoc(R.id.edt_search)
     private EditText mEdtSearch;
@@ -66,6 +66,9 @@ public class ContactListActivity extends BaseActivity  {
     private FriendshipsAPI mFriendshipsAPI;
 
     private Oauth2AccessToken accessToken;
+
+    private List<String> listString = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +84,7 @@ public class ContactListActivity extends BaseActivity  {
         // 获取当前已保存过的 Token
         accessToken = AccessTokenKeeper.readAccessToken(this);
         //实例化关系类
-        mFriendshipsAPI = new FriendshipsAPI(this, Constants.APP_KEY,accessToken);
+        mFriendshipsAPI = new FriendshipsAPI(this, Constants.APP_KEY, accessToken);
     }
 
     /**
@@ -97,14 +100,17 @@ public class ContactListActivity extends BaseActivity  {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String text = s.toString();
-                if (text.length() == 1) {
-                } else if (text.length() > 1) {
+                listString.clear();
+                if (mEdtSearch.getText().toString() != null) {
+                    String input_info = mEdtSearch.getText().toString();
+                    adapter = new ContactListAdapter(ContactListActivity.this,getNewData(input_info));
+                    mListView.setAdapter(adapter);
                 }
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
@@ -114,7 +120,7 @@ public class ContactListActivity extends BaseActivity  {
      */
     private void RequestData() {
         long uid = Long.parseLong(accessToken.getUid());
-        mFriendshipsAPI.friends(uid,200,0,true,mListener);
+        mFriendshipsAPI.friends(uid, 200, 0, true, mListener);
 
     }
 
@@ -129,10 +135,6 @@ public class ContactListActivity extends BaseActivity  {
     }
 
 
-
-
-
-
     /**
      * 微博 OpenAPI 回调接口。
      */
@@ -140,10 +142,10 @@ public class ContactListActivity extends BaseActivity  {
         @Override
         public void onComplete(String response) {
             ContactList contactList = ContactList.parse(response);
-            for (int i=0;i<contactList.contactList.size();i++){
+            for (int i = 0; i < contactList.contactList.size(); i++) {
                 list.add(contactList.contactList.get(i).screen_name);
             }
-            Log.e("mListener","list"+list.size());
+            Log.e("mListener", "list" + list.size());
             setListData(list);
         }
 
@@ -151,4 +153,20 @@ public class ContactListActivity extends BaseActivity  {
         public void onWeiboException(WeiboException e) {
         }
     };
+
+    /**
+     * 根据文本框中关键词 更新adapter
+     *
+     * @param input_info
+     * @return
+     */
+    private List<String> getNewData(String input_info) {
+        for (int i = 0; i < list.size(); i++) {
+            String screen_name = list.get(i);
+            if (screen_name.contains(input_info)) {
+                listString.add(screen_name);
+            }
+        }
+        return listString;
+    }
 }
