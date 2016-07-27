@@ -23,6 +23,7 @@ import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.ContactListAdapter;
 import net.tatans.coeus.weibo.bean.ContactList;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
+import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
 import net.tatans.rhea.network.view.ContentView;
 import net.tatans.rhea.network.view.ViewIoc;
@@ -44,6 +45,8 @@ public class ContactListActivity extends BaseActivity {
     private EditText mEdtSearch;
     @ViewIoc(listView)
     private ListView mListView;
+    @ViewIoc(R.id.con_or_follow)
+    private TextView con_or_follow;
 
     private String[] indexStr = {"A", "B", "C", "D", "E", "F", "G", "H",
             "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
@@ -66,8 +69,11 @@ public class ContactListActivity extends BaseActivity {
     private FriendshipsAPI mFriendshipsAPI;
 
     private Oauth2AccessToken accessToken;
-
+    //搜索框，搜索时udpate的list
     private List<String> listString = new ArrayList<String>();
+
+    //判断是从关注进入联系人还是从@进入
+    private String mConOrFollow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +87,15 @@ public class ContactListActivity extends BaseActivity {
      * 初始化数据
      */
     private void initData() {
+        mConOrFollow = getIntent().getExtras().getString(Const.CONTACT_OR_FOllOW);
         // 获取当前已保存过的 Token
         accessToken = AccessTokenKeeper.readAccessToken(this);
         //实例化关系类
         mFriendshipsAPI = new FriendshipsAPI(this, Constants.APP_KEY, accessToken);
+
+        if(mConOrFollow.equals(Const.FOLLOW)){
+            con_or_follow.setText("关注");
+        }
     }
 
     /**

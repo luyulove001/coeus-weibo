@@ -9,6 +9,7 @@
         android:layout_height="60dp"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/con_or_follow"
             android:layout_width="75dp"
             android:layout_height="32.5dp"
             android:layout_gravity="center_horizontal"

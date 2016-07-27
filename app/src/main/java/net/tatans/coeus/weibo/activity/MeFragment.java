@@ -16,6 +16,7 @@ import com.sina.weibo.sdk.openapi.LogoutAPI;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
+import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
 
 import org.json.JSONException;
@@ -64,16 +65,19 @@ public class MeFragment extends Fragment  implements  View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-
+        Intent intent = new Intent();
         switch (v.getId()){
             case R.id.my_home_page:
                 TatansToast.showAndCancel("我的主页");
                 break;
             case R.id.follow:
-                TatansToast.showAndCancel("关注");
+                intent.setClass(getActivity(),ContactListActivity.class);
+                intent.putExtra(Const.CONTACT_OR_FOllOW,Const.FOLLOW);
+                getActivity().startActivity(intent);
                 break;
             case R.id.my_fans:
-                TatansToast.showAndCancel("粉丝");
+                intent.setClass(getActivity(),FollowersActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.collection:
                 TatansToast.showAndCancel("收藏");
