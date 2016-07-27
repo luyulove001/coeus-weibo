@@ -126,6 +126,7 @@ public class CommentsActivity extends BaseActivity {
     @OnClick(R.id.comments_fenxiang)
     private void commentsFenxiang() {
         Intent intent = new Intent(this, ContactListActivity.class);
+        intent.putExtra(Const.CONTACT_OR_FOllOW,Const.CONTACT);
         this.startActivityForResult(intent, 0);
     }
 
