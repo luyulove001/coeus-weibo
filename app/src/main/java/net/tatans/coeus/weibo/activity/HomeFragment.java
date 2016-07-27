@@ -5,12 +5,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
@@ -27,7 +30,7 @@ import java.util.List;
 
 
 public class HomeFragment extends Fragment {
-    private ListView home_page_listview;
+    private PullToRefreshListView pullToRefreshListView;
 
     private HomeFragmentAdapter adapter;
     private List<StatusList> list;
@@ -42,8 +45,12 @@ public class HomeFragment extends Fragment {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+           int vvv= list.size();
             adapter = new HomeFragmentAdapter(getActivity(),list);
-            home_page_listview.setAdapter(adapter);
+            pullToRefreshListView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+            pullToRefreshListView.onRefreshComplete();
+
         }
     };
 
@@ -68,14 +75,27 @@ public class HomeFragment extends Fragment {
         mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
         // 对statusAPI实例化
         mStatusesAPI = new StatusesAPI(getActivity(), Constants.APP_KEY, mAccessToken);
-        mStatusesAPI.friendsTimeline(0L, 0L,50, 1, false, 0, false, mListener);
+//        mStatusesAPI.friendsTimeline(0L, 0L,5, 1, false, 0, false, mListener);
+
+        pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                list=new ArrayList<StatusList>();
+                mStatusesAPI.friendsTimeline(0L, 0L,200, 1, false, 0, false, mListener);
+//                initData();
+            }
+        });
 
     }
     /**
      * 初始化
      */
     private void initView() {
-        home_page_listview = (ListView) view.findViewById(R.id.home_page_listview);
+        pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.home_page_listview);
+
 
     }
 
