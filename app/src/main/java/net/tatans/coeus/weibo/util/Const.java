@@ -10,4 +10,5 @@ public class Const {
 
         public static String  TYPE = "type";
         public static String  WRITE_WEIBO = "WriteWeibo";
+        public static String  CONTACT = "contact";
 }

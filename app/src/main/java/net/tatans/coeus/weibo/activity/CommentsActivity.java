@@ -124,8 +124,9 @@ public class CommentsActivity extends BaseActivity {
     }
 
     @OnClick(R.id.comments_fenxiang)
-    private void commentsFenxiang(){
-        TatansStartActivity(ContactListActivity.class);
+    private void commentsFenxiang() {
+        Intent intent = new Intent(this, ContactListActivity.class);
+        this.startActivityForResult(intent, 0);
     }
 
     @Override
@@ -153,6 +154,9 @@ public class CommentsActivity extends BaseActivity {
                 Toast.makeText(CommentsActivity.this, "" + voiceData,
                         Toast.LENGTH_LONG).show();
             }
+        } else if (0 == requestCode) {
+            String dataName = data.getExtras().getString(Const.CONTACT);
+            comments_content.setText(comments_content.getText().toString() + "@" + dataName);
         }
     }
 
