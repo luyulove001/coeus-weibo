@@ -1,1 +1,1 @@
-include ':app', ':myweibosdk', ':weibosdk'
+include ':app', ':myweibosdk', ':weibosdk', ':pulltorefresh'

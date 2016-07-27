@@ -21,6 +21,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile files('src/main/libs/android-support-v4.jar')
+    provided files('src/main/libs/android-support-v4.jar')
     compile files('src/main/libs/weibosdkcore_release.jar')
 }
