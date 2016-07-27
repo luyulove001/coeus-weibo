@@ -1,6 +1,9 @@
 package net.tatans.coeus.weibo.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import net.tatans.coeus.weibo.R;
+import net.tatans.coeus.weibo.util.Const;
 
 import java.util.List;
 
@@ -70,6 +74,16 @@ public class ContactListAdapter extends BaseAdapter  {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvTitle.setText(this.list.get(position));
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("OnClick","contact:::"+mContent);
+                Intent intent = new Intent();
+                intent.putExtra(Const.CONTACT,mContent);
+                ((Activity)ctx).setResult(0,intent);
+                ((Activity)ctx).finish();
+            }
+        });
         return convertView;
     }
 
