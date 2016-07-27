@@ -1,13 +1,13 @@
-package net.tatans.coeus.weibo.tools;
+package net.tatans.coeus.weibo.activity;
 
 import net.tatans.coeus.network.tools.TatansApplication;
 
 /**
  * Created by Administrator on 2016/7/21.
  */
-public class VoiceApp extends TatansApplication {
+public class WeiboApp extends TatansApplication {
 
-    private static VoiceApp sInstance;
+    private static WeiboApp sInstance;
 
     @Override
     public void onCreate() {
@@ -15,7 +15,7 @@ public class VoiceApp extends TatansApplication {
         sInstance=this;
         setAppSpeaker();
     }
-    public static VoiceApp getInstance() {
+    public static WeiboApp getInstance() {
         return sInstance;
     }
 }

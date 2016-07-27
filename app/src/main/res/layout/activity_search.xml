@@ -15,7 +15,8 @@
             android:background="@drawable/searchbox"
             android:ems="10"
             android:hint="@string/edit_box_hint"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/white" />
 
         <LinearLayout
             android:layout_width="0dp"

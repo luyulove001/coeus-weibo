@@ -36,7 +36,6 @@ import com.iflytek.sunflower.FlowerCollector;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.speech.parser.JsonParser;
 import net.tatans.coeus.weibo.R;
-import net.tatans.coeus.weibo.tools.VoiceApp;
 import net.tatans.coeus.weibo.util.NetworkConnectionUtil;
 import net.tatans.coeus.weibo.util.SoundUtil;
 import net.tatans.coeus.weibo.view.RippleBackground;
@@ -87,11 +86,11 @@ public class VoicesActivity extends Activity implements OnClickListener, OnHover
     private void initData() {
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
-        mIat = SpeechRecognizer.createRecognizer(VoiceApp.getInstance(),
+        mIat = SpeechRecognizer.createRecognizer(WeiboApp.getInstance(),
                 mInitListener);
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
-        mIatDialog = new RecognizerDialog(VoiceApp.getInstance(), mInitListener);
+        mIatDialog = new RecognizerDialog(WeiboApp.getInstance(), mInitListener);
         mSharedPreferences = getSharedPreferences(VoicesActivity.PREFER_NAME,
                 Activity.MODE_PRIVATE);
         mToast = Toast.makeText(this, "", Toast.LENGTH_LONG);
