@@ -59,7 +59,8 @@ public class MessageFragment extends Fragment  implements View.OnClickListener{
                 TatansToast.showAndCancel("@我的");
                 break;
             case R.id.comment://评论
-                TatansToast.showAndCancel("评论");
+                intent.setClass(getActivity(),CommentsListActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case  R.id.write_weibo://写微博
                 intent.setClass(getActivity(),CommentsActivity.class);

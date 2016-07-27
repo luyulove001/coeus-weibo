@@ -32,6 +32,9 @@
             android:name=".activity.FollowersActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activity.CommentsListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
         android:name=".activity.VoicesActivity"
             android:label="@string/comments_null"
         android:screenOrientation="portrait"/>
