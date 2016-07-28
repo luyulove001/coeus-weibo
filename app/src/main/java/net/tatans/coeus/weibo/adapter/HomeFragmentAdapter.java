@@ -89,8 +89,6 @@ public class HomeFragmentAdapter extends BaseAdapter {
             holder.home_page_pic_text.setVisibility(View.GONE);
         } else {
             pic_urls = status.pic_urls;
-            int nums = pic_urls.size();
-            System.out.println(nums);
             holder.home_page_pic_text.setVisibility(View.VISIBLE);
             holder.home_page_pic.setVisibility(View.VISIBLE);
             Picasso.with(mContext).load(status.original_pic).resize(200, 200).placeholder(R.drawable.icon_image_model).resize(200, 200).error(R.drawable.icon_image_model).resize(200, 200).into(holder.home_page_pic);
@@ -110,9 +108,6 @@ public class HomeFragmentAdapter extends BaseAdapter {
                 holder.home_page_he_pic_text.setVisibility(View.GONE);
                 holder.home_page_usercomments.setText("抱歉，此微博已被作者删除。");
             } else {
-                String vvvvv = status.retweeted_status.user.name;
-                String zzzzz = status.retweeted_status.text;
-                System.out.println(vvvvv + zzzzz);
                 holder.home_page_he_user.setVisibility(View.VISIBLE);
                 holder.home_page_he_user.setText("@" + status.retweeted_status.user.name + ":");
 
@@ -127,8 +122,6 @@ public class HomeFragmentAdapter extends BaseAdapter {
                     if (status.retweeted_status.original_pic.equals("")) {
                         Picasso.with(mContext).load(R.drawable.icon_image_model).resize(200, 200).into(holder.home_page_he_pic);
                     } else {
-                        String vvvvvv = status.retweeted_status.original_pic;
-                        System.out.println(vvvvvv);
                         Picasso.with(mContext).load(status.retweeted_status.original_pic).resize(200, 200).placeholder(R.drawable.icon_image_model).resize(200, 200).error(R.drawable.icon_image_model).resize(200, 200).into(holder.home_page_he_pic);
                         holder.home_page_he_pic_text.setText(status.retweeted_status.pic_urls.size() + "张图片点击查看");
                     }

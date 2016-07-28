@@ -1,5 +1,6 @@
 package net.tatans.coeus.weibo.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +21,7 @@ import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.StatusesAPI;
 import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 import com.sina.weibo.sdk.openapi.models.StatusList;
+
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.HomeFragmentAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
@@ -34,31 +36,53 @@ public class HomeFragment extends Fragment {
 
     private HomeFragmentAdapter adapter;
     private List<StatusList> list;
+    private MainActivity mActivity;
     private View view;
-    /** 当前 Token 信息 */
+
+    /**
+     * 当前 Token 信息
+     */
     private Oauth2AccessToken mAccessToken;
-    /** 用于获取微博信息流等操作的API */
+    /**
+     * 用于获取微博信息流等操作的API
+     */
     private StatusesAPI mStatusesAPI;
 
 
-    private Handler handler=new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-           int vvv= list.size();
-            adapter = new HomeFragmentAdapter(getActivity(),list);
-            pullToRefreshListView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-            pullToRefreshListView.onRefreshComplete();
+            switch (msg.what) {
+                case 1:
+                    int vv=list.size();
+                    adapter = new HomeFragmentAdapter(getActivity(), list);
+                    pullToRefreshListView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                    pullToRefreshListView.onRefreshComplete();
+                    break;
+                case 2:
+                    pullToRefreshListView.setRefreshing();
+                break;
+            }
+
 
         }
     };
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity = (MainActivity) activity;
+        mActivity.setHandler(mHandler);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,14 +92,14 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void initData(){
+    private void initData() {
         //将用户信息放到集合中
-        list=new ArrayList<StatusList>();
+        list = new ArrayList<StatusList>();
         // 获取当前已保存过的 Token
         mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
         // 对statusAPI实例化
         mStatusesAPI = new StatusesAPI(getActivity(), Constants.APP_KEY, mAccessToken);
-//        mStatusesAPI.friendsTimeline(0L, 0L,5, 1, false, 0, false, mListener);
+        mStatusesAPI.friendsTimeline(0L, 0L, 5, 1, false, 0, false, mListener);
 
         pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
@@ -83,13 +107,13 @@ public class HomeFragment extends Fragment {
                 String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
                         DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                list=new ArrayList<StatusList>();
-                mStatusesAPI.friendsTimeline(0L, 0L,200, 1, false, 0, false, mListener);
-//                initData();
+                list = new ArrayList<StatusList>();
+                mStatusesAPI.friendsTimeline(0L, 0L, 200, 1, false, 0, false, mListener);
             }
         });
 
     }
+
     /**
      * 初始化
      */
@@ -121,7 +145,7 @@ public class HomeFragment extends Fragment {
                     // 调用 StatusList#parse 解析字符串成微博列表对象
                     StatusList statuses = StatusList.parse(response);
                     list.add(statuses);
-                    handler.sendEmptyMessage(1);
+                    mHandler.sendEmptyMessage(1);
                 }
             }
         }

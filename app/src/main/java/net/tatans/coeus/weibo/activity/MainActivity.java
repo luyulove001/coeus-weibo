@@ -1,8 +1,8 @@
 package net.tatans.coeus.weibo.activity;
 
 
-import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -10,9 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
-
-import com.sina.weibo.sdk.auth.AuthInfo;
-import com.sina.weibo.sdk.widget.LoginButton;
 
 import net.tatans.coeus.weibo.R;
 
@@ -29,6 +26,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Fragment mMessageFragment;
     private Fragment mFindFragment;
     private Fragment mMeFragment;
+    private Handler mHandler;
+    private int click_judgment=1;
+    public void setHandler(Handler handler) {
+        mHandler = handler;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,15 +129,23 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.id_tab_home:
                 setSelect(0);
+                click_judgment+=1;
+                if (click_judgment>1){
+                    mHandler.sendEmptyMessage(2);
+                }
+
                 break;
             case R.id.id_tab_message:
                 setSelect(1);
+                click_judgment=0;
                 break;
             case R.id.id_tab_search:
                 setSelect(2);
+                click_judgment=0;
                 break;
             case R.id.id_tab_me:
                 setSelect(3);
+                click_judgment=0;
                 break;
 
             default:
@@ -151,5 +161,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         id_tab_message.setBackgroundColor(getResources().getColor(R.color.colorBottomDark));
         id_tab_search.setBackgroundColor(getResources().getColor(R.color.colorBottomDark));
         id_tab_me.setBackgroundColor(getResources().getColor(R.color.colorBottomDark));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        click_judgment=0;
     }
 }
