@@ -78,6 +78,7 @@
         android:id="@+id/home_page_he_rela"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="#FF242424"
         android:focusable="true"
         android:layout_below="@+id/home_page_head">
 
