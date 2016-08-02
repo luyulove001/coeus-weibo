@@ -30,7 +30,6 @@ public class TimeFormat {
         String reg=" +";
         String [] arr=time.split(reg);
         String datetime=arr[5]+sdf.format(dates)+arr[3];
-        System.out.println(datetime);
         SimpleDateFormat format = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss");
         if (datetime == null || "".equals(datetime)) {

@@ -20,6 +20,7 @@ import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.StatusesAPI;
 import com.sina.weibo.sdk.openapi.models.ErrorInfo;
+import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.StatusList;
 
 import net.tatans.coeus.weibo.R;
@@ -29,6 +30,8 @@ import net.tatans.coeus.weibo.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class HomeFragment extends Fragment {
@@ -38,7 +41,8 @@ public class HomeFragment extends Fragment {
     private List<StatusList> list;
     private MainActivity mActivity;
     private View view;
-
+    private int moreLoad=0;
+    private String regex ="http://t.cn/[a-zA-Z0-9]+";
     /**
      * 当前 Token 信息
      */
@@ -55,8 +59,7 @@ public class HomeFragment extends Fragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    int vv=list.size();
-                    adapter = new HomeFragmentAdapter(getActivity(), list);
+                    adapter = new HomeFragmentAdapter(getActivity(), list,mAccessToken);
                     pullToRefreshListView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     pullToRefreshListView.onRefreshComplete();
@@ -64,6 +67,8 @@ public class HomeFragment extends Fragment {
                 case 2:
                     pullToRefreshListView.setRefreshing();
                 break;
+                case 3:
+                    break;
             }
 
 
@@ -99,7 +104,7 @@ public class HomeFragment extends Fragment {
         mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
         // 对statusAPI实例化
         mStatusesAPI = new StatusesAPI(getActivity(), Constants.APP_KEY, mAccessToken);
-        mStatusesAPI.friendsTimeline(0L, 0L, 5, 1, false, 0, false, mListener);
+        mStatusesAPI.friendsTimeline(0L, 0L,200, 1, false,0, false, mListener);
 
         pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
@@ -108,7 +113,14 @@ public class HomeFragment extends Fragment {
                         DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 list = new ArrayList<StatusList>();
-                mStatusesAPI.friendsTimeline(0L, 0L, 200, 1, false, 0, false, mListener);
+                mStatusesAPI.friendsTimeline(0L, 0L, 200, 1, false,0, false, mListener);
+            }
+        });
+        pullToRefreshListView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
+            @Override
+            public void onLastItemVisible() {
+                moreLoad+=1;
+                mHandler.sendEmptyMessage(3);
             }
         });
 
@@ -146,6 +158,33 @@ public class HomeFragment extends Fragment {
                     StatusList statuses = StatusList.parse(response);
                     list.add(statuses);
                     mHandler.sendEmptyMessage(1);
+//                    for (int i=0;i<statuses.statusList.size();i++){
+//
+//
+//                        if (statuses.statusList.get(i).retweeted_status==null){
+//                        }
+//                        else{
+//                            if (statuses.statusList.get(i).retweeted_status.user == null){
+//
+//                            }
+//                            else{
+//                               String vv= statuses.statusList.get(i).retweeted_status.text;
+//                                System.out.println(vv);
+//                                if (statuses.statusList.get(i).retweeted_status.text.equals("")){
+//                                }
+//                                else{
+//                                    Pattern pt_me = Pattern.compile(regex);
+//                                    Matcher mt_me = pt_me.matcher(statuses.statusList.get(i).retweeted_status.text);
+//
+//                                    while (mt_me.find()) {
+//                                        String vvv = mt_me.group(0);
+//                                        System.out.println(vvv);
+//                                    }
+//                                }
+//                            }
+//                        }
+//
+//                    }
                 }
             }
         }
