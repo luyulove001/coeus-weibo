@@ -42,9 +42,6 @@
         <activity
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.LinkShowActivity"
-            android:screenOrientation="portrait" />
         <!-- 必须注册在微博授权，分享微博时候用到 -->
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
