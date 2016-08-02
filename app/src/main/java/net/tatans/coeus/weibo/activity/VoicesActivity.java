@@ -390,6 +390,8 @@ public class VoicesActivity extends Activity implements OnClickListener, OnHover
     protected void onDestroy() {
         super.onDestroy();
         // 退出时释放连接
+        mIat.cancel();
+        mIat.destroy();
         flag = false;
         resultData = "";
 
