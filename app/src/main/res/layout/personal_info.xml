@@ -70,7 +70,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3.5dp"
@@ -80,7 +80,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/company"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3.5dp"
@@ -94,4 +94,11 @@
         android:layout_height="1dp"
         android:layout_marginTop="22dp"
         android:background="@color/white" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/home_page_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        ></com.handmark.pulltorefresh.library.PullToRefreshListView>
+
 </LinearLayout>

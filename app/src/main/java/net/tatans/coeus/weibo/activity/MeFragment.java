@@ -68,7 +68,8 @@ public class MeFragment extends Fragment  implements  View.OnClickListener{
         Intent intent = new Intent();
         switch (v.getId()){
             case R.id.my_home_page:
-                TatansToast.showAndCancel("我的主页");
+                intent.setClass(getActivity(),MyHomePageActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.follow:
                 intent.setClass(getActivity(),ContactListActivity.class);
