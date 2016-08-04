@@ -42,14 +42,17 @@ public class HomeFragmentAdapter extends BaseAdapter {
     private String me_urlhttp = null;
     private String he_urlhttp = null;
     private Oauth2AccessToken mAccessToken;
-    //正则表达式匹配规则
-    private Pattern pattern= Pattern
-            .compile("(http://|ftp://|https://|www){1}([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?");
 
-    public HomeFragmentAdapter(Context context, List<StatusList> list,Oauth2AccessToken AccessToken) {
+    //    private Pattern pattern= Pattern
+//            .compile("(http://|ftp://|https://|www){1}([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?");
+//正则表达式匹配规则
+    private Pattern pattern = Pattern
+            .compile("(http://|ftp://|https://|www){1}([a-zA-Z0-9.]+/|[a-zA-Z0-9.]+)*");
+
+    public HomeFragmentAdapter(Context context, List<StatusList> list, Oauth2AccessToken AccessToken) {
         this.mContext = context;
         this.mlist = list;
-        mAccessToken=AccessToken;
+        mAccessToken = AccessToken;
     }
 
     @Override
@@ -87,13 +90,13 @@ public class HomeFragmentAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-       final Status status = mlist.get(0).statusList.get(position);
+        final Status status = mlist.get(0).statusList.get(position);
         Matcher mt_me = pattern.matcher(status.text);
         holder.home_page_usercontent.setText(status.text);
-        String str=status.text;
+        String str = status.text;
         while (mt_me.find()) {
-            String mgroup=mt_me.group(0);
-            str=str.replace(mgroup,"网页链接");
+            String mgroup = mt_me.group(0);
+            str = str.replace(mgroup, "网页链接");
             SpannableString spannableString = new SpannableString(str);
             spannableString.setSpan(new HomeSpan(mgroup), str.indexOf("网页链接"), str.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.home_page_usercontent.setText(spannableString);
@@ -103,7 +106,7 @@ public class HomeFragmentAdapter extends BaseAdapter {
         holder.home_page_username.setText(status.user.name);
         holder.home_page_usertime.setText(time);
 
-        if (status.original_pic.equals("") || status.original_pic =="") {
+        if (status.original_pic.equals("") || status.original_pic == "") {
             holder.home_page_pic.setVisibility(View.GONE);
             holder.home_page_pic_text.setVisibility(View.GONE);
         } else {
@@ -133,10 +136,10 @@ public class HomeFragmentAdapter extends BaseAdapter {
 
                 holder.home_page_usercomments.setText(status.retweeted_status.text);
                 Matcher mt_he = pattern.matcher(status.retweeted_status.text);
-                String strs=status.retweeted_status.text;
+                String strs = status.retweeted_status.text;
                 while (mt_he.find()) {
-                    String mgroup=mt_he.group(0);
-                    strs=strs.replace(mgroup,"网页链接");
+                    String mgroup = mt_he.group(0);
+                    strs = strs.replace(mgroup, "网页链接");
                     SpannableString spannableString = new SpannableString(strs);
                     spannableString.setSpan(new HomeSpan(mgroup), strs.indexOf("网页链接"), strs.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     holder.home_page_usercomments.setText(spannableString);
@@ -145,7 +148,7 @@ public class HomeFragmentAdapter extends BaseAdapter {
                 if (status.retweeted_status.original_pic == null) {
                     holder.home_page_he_pic.setVisibility(View.GONE);
                     holder.home_page_he_pic_text.setVisibility(View.GONE);
-                }else {
+                } else {
                     holder.home_page_he_pic.setVisibility(View.VISIBLE);
                     holder.home_page_he_pic_text.setVisibility(View.VISIBLE);
                     //该判断为转发后用户信息图片或者是投票或是音乐
@@ -196,12 +199,15 @@ public class HomeFragmentAdapter extends BaseAdapter {
         private ImageView home_page_he_pic;
         private TextView home_page_he_pic_text;
     }
-    class HomeSpan extends ClickableSpan{
+
+    class HomeSpan extends ClickableSpan {
         String mtext;
-        public HomeSpan(String text){
-            this.mtext=text;
+
+        public HomeSpan(String text) {
+            this.mtext = text;
 
         }
+
         @Override
         public void updateDrawState(TextPaint ds) {
             super.updateDrawState(ds);
@@ -211,6 +217,8 @@ public class HomeFragmentAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View widget) {
+            String vvv = mtext;
+            System.out.println(vvv);
             final Uri uri = Uri.parse(mtext);
             final Intent it = new Intent(Intent.ACTION_VIEW, uri);
             mContext.startActivity(it);
