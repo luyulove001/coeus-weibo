@@ -11,22 +11,19 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.UsersAPI;
-import com.sina.weibo.sdk.openapi.models.CommentList;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.weibo.R;
-import net.tatans.coeus.weibo.adapter.CommentAdapter;
-import net.tatans.coeus.weibo.bean.CommentBean;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Constants;
+import net.tatans.coeus.weibo.util.RequestWeiboData;
 import net.tatans.rhea.network.view.ContentView;
 import net.tatans.rhea.network.view.ViewIoc;
 
-import java.util.ArrayList;
-
 /**
  * Created by LCM on 2016/8/4. 13:36
+ * 我的主页
  */
 @ContentView(R.layout.personal_info)
 public class MyHomePageActivity extends BaseActivity {
@@ -55,11 +52,12 @@ public class MyHomePageActivity extends BaseActivity {
      * 获取用户的个人信息
      */
     private UsersAPI mUserApi;
-
+    private  RequestWeiboData weiboData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initData();
+
     }
 
     /**
@@ -68,8 +66,10 @@ public class MyHomePageActivity extends BaseActivity {
     private void initData() {
         mAccessToken = AccessTokenKeeper.readAccessToken(this);
         mUserApi = new UsersAPI(this, Constants.APP_KEY, mAccessToken);
+        weiboData = new RequestWeiboData(this,pullToRefreshListView);
         long uid = Long.parseLong(mAccessToken.getUid());
         mUserApi.show(uid, mListener);
+        weiboData.RequestData();
     }
 
 
@@ -91,6 +91,7 @@ public class MyHomePageActivity extends BaseActivity {
 
         @Override
         public void onWeiboException(WeiboException e) {
+
         }
     };
 
@@ -124,8 +125,8 @@ public class MyHomePageActivity extends BaseActivity {
                 }else{
                     company.setText("简介:无");
                 }
-
             }
         }
     };
+
 }

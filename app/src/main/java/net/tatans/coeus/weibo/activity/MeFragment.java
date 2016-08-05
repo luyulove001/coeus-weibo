@@ -81,7 +81,8 @@ public class MeFragment extends Fragment  implements  View.OnClickListener{
                 getActivity().startActivity(intent);
                 break;
             case R.id.collection:
-                TatansToast.showAndCancel("收藏");
+                intent.setClass(getActivity(),FavoritesActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.cancellation://退出登录
                 new LogoutAPI(getActivity(), Constants.APP_KEY,
