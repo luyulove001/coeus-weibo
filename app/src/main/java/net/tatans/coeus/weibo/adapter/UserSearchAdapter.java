@@ -8,19 +8,18 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import net.tatans.coeus.weibo.R;
-import net.tatans.coeus.weibo.bean.UserSearchBean;
+import net.tatans.coeus.weibo.bean.SearchResultUser;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * 搜索出用户列表的适配器
  * Created by cly on 2016/7/27.
  */
 
-public class UserSearchAdapter extends BaseAdapter{
+public class UserSearchAdapter extends BaseAdapter {
     private Context ctx;
-    private List<UserSearchBean> users;
+    private List<SearchResultUser> users;
 
     private class ViewHolder {
         private TextView tvScreenName;
@@ -28,7 +27,7 @@ public class UserSearchAdapter extends BaseAdapter{
         private TextView tvVerified;
     }
 
-    public UserSearchAdapter(Context mContext, List<UserSearchBean> users) {
+    public UserSearchAdapter(Context mContext, List<SearchResultUser> users) {
         this.ctx = mContext;
         this.users = users;
     }
@@ -62,7 +61,9 @@ public class UserSearchAdapter extends BaseAdapter{
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvScreenName.setText(users.get(position).getScreen_name());
-        viewHolder.tvFollowersCount.setText(users.get(position).getFollowers_count());
+        viewHolder.tvFollowersCount.setText(ctx.getString(R.string.followers) + users.get(position).getFansNum());
+        if (users.get(position).isVerified())
+            viewHolder.tvVerified.setText(users.get(position).getVerified_reason());
         return convertView;
     }
 

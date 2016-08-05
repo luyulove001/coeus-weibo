@@ -21,6 +21,7 @@ import net.tatans.coeus.network.tools.TatansHttp;
 import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
+import net.tatans.coeus.weibo.adapter.UserSearchAdapter;
 import net.tatans.coeus.weibo.bean.PicUrls;
 import net.tatans.coeus.weibo.bean.SearchResultUser;
 import net.tatans.coeus.weibo.bean.StatusContent;
@@ -42,31 +43,37 @@ public class SearchResultActivity extends BaseActivity {
     private static final String REQUEST_USER = "http://m.weibo.cn/page/pageJson";
     private PullToRefreshListView listView;
     /**
-     * 当前 Token 信息
-     */
-    private Oauth2AccessToken mAccessToken;
-    /**
-     * 用于获取微博信息流等操作的API
-     */
-    private StatusesAPI mStatusesAPI;
-    /**
-     * 用于获取查找用户等操作的API
-     */
-    private UsersAPI mUsersAPI;
-    /**
-     * 搜索用户回调，搜索微博回调
-     */
-    private RequestListener userRequest, statuseRequest;
-    /**
      * 判断是否是搜索微博
      */
     private boolean isStatues;
+    /**
+     * 网络请求
+     */
     private TatansHttp http = new TatansHttp();
-    private HttpRequestParams params = new HttpRequestParams();
+    /**
+     * 请求参数
+     */
+    private HttpRequestParams params;
+    /**
+     * 请求返回的user数据
+     */
     private ArrayList<SearchResultUser> resultUsers = new ArrayList<SearchResultUser>();
+    /**
+     * 请求返回的status数据
+     */
     private ArrayList<StatusContent> resultStatus = new ArrayList<StatusContent>();
-    private HttpRequestCallBack searchUserCallBack;
-    private HttpRequestCallBack searchStatusCallBack;
+    /**
+     * 请求user回调,请求status回调
+     */
+    private HttpRequestCallBack searchUserCallBack, searchStatusCallBack;
+    /**
+     * 显示搜索到的user的适配器
+     */
+    private UserSearchAdapter userAdapter;
+    /**
+     * 请求到的最大页数
+     */
+    private int maxPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,34 +83,21 @@ public class SearchResultActivity extends BaseActivity {
         initData();
     }
 
+    /**
+     * 初始化数据
+     */
     private void initData() {
-        // 获取当前已保存过的 Token
-        mAccessToken = AccessTokenKeeper.readAccessToken(this);
-        // 对statusAPI实例化
-        mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, mAccessToken);
-        mUsersAPI = new UsersAPI(this, Constants.APP_KEY, mAccessToken);
-        isStatues = getIntent().getBooleanExtra("isStatues", true);
-        userRequest = new RequestListener() {
-            @Override
-            public void onComplete(String s) {
-                User user = User.parse(s);
-                TatansToast.showAndCancel(s);
-                TatansLog.d(s);
-            }
-
-            @Override
-            public void onWeiboException(WeiboException e) {
-
-            }
-        };
+        isStatues = getIntent().getBooleanExtra("isStatues", false);
         if (isStatues) {
-            // TODO: 2016/7/28 搜索微博
             String statusContent = getIntent().getStringExtra("content");
+            params = new HttpRequestParams();
             params.put("containerid", "100103type%3D2%26q%3D" + statusContent + "&page=1");
             http.get(REQUEST_USER, params, searchStatusCallBack);
         } else {
             String screenName = getIntent().getStringExtra("content");
-            params.put("containerid", "100103type%3D3%26q%3D" + screenName + "&page=1");
+            params = new HttpRequestParams();
+            params.put("containerid", "100103type%3D3%26q%3D" + screenName);
+            params.put("page", 1 + "");
             http.get(REQUEST_USER, params, searchUserCallBack);
         }
     }
@@ -118,6 +112,7 @@ public class SearchResultActivity extends BaseActivity {
                 super.onSuccess(users);
                 JSONObject responseJSON = JSONObject.parseObject(users);
                 int ok = responseJSON.getInteger("ok");
+                maxPage = responseJSON.getInteger("maxPage");
                 if (ok == 1) {
                     JSONArray cardsArray = responseJSON.getJSONArray("cards");
                     if (cardsArray.size() > 0) {
@@ -125,7 +120,6 @@ public class SearchResultActivity extends BaseActivity {
                         JSONArray cardGroupArray = cardGroupsObject.getJSONArray("card_group");
                         for (int i = 0; i < cardGroupArray.size(); i++) {
                             JSONObject cardGroup = cardGroupArray.getJSONObject(i);
-
                             SearchResultUser user = new SearchResultUser();
                             user.setDesc1(cardGroup.getString("desc1"));
                             user.setDesc2(cardGroup.getString("desc2"));
@@ -140,10 +134,14 @@ public class SearchResultActivity extends BaseActivity {
                             user.setStatuses_count(userJSON.getInteger("statuses_count"));
                             user.setGender(userJSON.getString("gender"));
                             user.setRemark(userJSON.getString("remark"));
+                            user.setVerified(userJSON.getBoolean("verified"));
+                            user.setVerified_reason(userJSON.getString("verified_reason"));
                             TatansLog.d(user.toString());
                             resultUsers.add(user);
                         }
                     }
+                    userAdapter = new UserSearchAdapter(SearchResultActivity.this, resultUsers);
+                    listView.setAdapter(userAdapter);
                 }
             }
 
@@ -213,7 +211,6 @@ public class SearchResultActivity extends BaseActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         };
     }

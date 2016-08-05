@@ -98,7 +98,6 @@ public class SearchActivity extends BaseActivity {
                     JSONArray jsonArray = new JSONArray(s);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         UserSearchBean userSearchBean = UserSearchBean.parse((JSONObject) jsonArray.get(i));
-                        System.out.println(userSearchBean.toString());
                         users.add(userSearchBean);
                     }
                     ls_suggestions.setAdapter(new SimpleAdapter(SearchActivity.this, getHashMap(users),
@@ -117,23 +116,16 @@ public class SearchActivity extends BaseActivity {
         textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String q = s.toString();
-                try {
-                    System.out.println(URLEncoder.encode(q, "UTF-8"));
-                    searchAPI.users(q, 10, requestListener);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                searchAPI.users(q, 10, requestListener);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         };
         accessToken = AccessTokenKeeper.readAccessToken(this);
@@ -158,6 +150,12 @@ public class SearchActivity extends BaseActivity {
         });
     }
 
+    /**
+     * 初始化adapter的数据
+     *
+     * @param users 传入搜索建议用户列表
+     * @return
+     */
     private List<Map<String, String>> getHashMap(ArrayList<UserSearchBean> users) {
         List<Map<String, String>> list = new ArrayList<Map<String, String>>();
         Map<String, String> userMap;

@@ -35,6 +35,26 @@ public class SearchResultUser implements Serializable {
 
     private int statuses_count;
 
+    private boolean verified;
+
+    private String verified_reason;
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public String getVerified_reason() {
+        return verified_reason;
+    }
+
+    public void setVerified_reason(String verified_reason) {
+        this.verified_reason = verified_reason;
+    }
+
     public String getId() {
         return id;
     }
