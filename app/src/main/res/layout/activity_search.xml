@@ -19,6 +19,7 @@
             android:textColor="@color/white" />
 
         <LinearLayout
+            android:id="@+id/lyt_search"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="1"

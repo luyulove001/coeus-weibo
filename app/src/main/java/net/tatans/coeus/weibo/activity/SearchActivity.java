@@ -1,5 +1,6 @@
 package net.tatans.coeus.weibo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
@@ -145,6 +145,15 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TatansToast.showAndCancel(users.get(position).getScreen_name());
+            }
+        });
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = getIntent();
+                i.putExtra("content", et_search.getText().toString());
+                i.setClass(SearchActivity.this, SearchResultActivity.class);
+                startActivity(i);
             }
         });
     }
