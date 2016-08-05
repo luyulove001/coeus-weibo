@@ -51,6 +51,9 @@
         <activity
             android:name=".activity.SearchResultActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FavoritesActivity"
+            android:screenOrientation="portrait" />
 
         <!-- 必须注册在微博授权，分享微博时候用到 -->
         <activity
