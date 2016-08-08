@@ -2,6 +2,7 @@ package net.tatans.coeus.weibo.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -18,6 +19,7 @@ import com.sina.weibo.sdk.openapi.models.StatusList;
 import com.squareup.picasso.Picasso;
 
 import net.tatans.coeus.weibo.R;
+import net.tatans.coeus.weibo.activity.ImagesActivity;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.HomeSpan;
 import net.tatans.coeus.weibo.util.TimeFormat;
@@ -70,6 +72,8 @@ public class HomeFragmentAdapter extends BaseAdapter {
             holder.home_page_he_user = (TextView) convertView.findViewById(R.id.home_page_he_user);
             holder.home_page_he_pic = (ImageView) convertView.findViewById(R.id.home_page_he_pic);
             holder.home_page_he_pic_text = (TextView) convertView.findViewById(R.id.home_page_he_pic_text);
+            holder.home_page_me_relaytive = (RelativeLayout) convertView.findViewById(R.id.home_page_me_relaytive);
+            holder.home_page_he_relaytive = (RelativeLayout) convertView.findViewById(R.id.home_page_he_relaytive);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -82,7 +86,7 @@ public class HomeFragmentAdapter extends BaseAdapter {
             String mgroup = mt_me.group(0);
             str = str.replace(mgroup, "网页链接");
             SpannableString spannableString = new SpannableString(str);
-            spannableString.setSpan(HomeSpan.getInstance(mgroup,mContext), str.indexOf("网页链接"), str.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(HomeSpan.getInstance(mgroup, mContext), str.indexOf("网页链接"), str.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.home_page_usercontent.setText(spannableString);
             holder.home_page_usercontent.setMovementMethod(LinkMovementMethod.getInstance());
         }
@@ -125,7 +129,7 @@ public class HomeFragmentAdapter extends BaseAdapter {
                     String mgroup = mt_he.group(0);
                     strs = strs.replace(mgroup, "网页链接");
                     SpannableString spannableString = new SpannableString(strs);
-                    spannableString.setSpan(HomeSpan.getInstance(mgroup,mContext), strs.indexOf("网页链接"), strs.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    spannableString.setSpan(HomeSpan.getInstance(mgroup, mContext), strs.indexOf("网页链接"), strs.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     holder.home_page_usercomments.setText(spannableString);
                     holder.home_page_usercomments.setMovementMethod(LinkMovementMethod.getInstance());
                 }
@@ -145,8 +149,9 @@ public class HomeFragmentAdapter extends BaseAdapter {
                     }
                 }
             }
-
         }
+        holder.home_page_me_relaytive.setOnClickListener(new OnClickListenerIml(position));
+        holder.home_page_he_relaytive.setOnClickListener(new OnClickListenerIml(position));
         return convertView;
     }
 
@@ -169,6 +174,7 @@ public class HomeFragmentAdapter extends BaseAdapter {
         private ImageView home_page_pic;
         private TextView home_page_pic_text;
         private RelativeLayout home_page_me_relaytive;
+        private RelativeLayout home_page_he_relaytive;
         /**
          * 转发用户名
          */
@@ -182,6 +188,45 @@ public class HomeFragmentAdapter extends BaseAdapter {
          */
         private ImageView home_page_he_pic;
         private TextView home_page_he_pic_text;
+    }
+
+
+    private class OnClickListenerIml implements View.OnClickListener {
+        private int mPosition;
+
+        public OnClickListenerIml(int position) {
+            this.mPosition = position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            Status status = statusList.statusList.get(mPosition);
+            switch (v.getId()){
+                case R.id.home_page_he_relaytive://转发微博
+                    ImagesStart("forward",status);
+                    break;
+                case R.id.home_page_me_relaytive://不是转发微博
+                    ImagesStart("original",status);
+                    break;
+                default :
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 点击图片看
+     */
+    private  void ImagesStart(String oglAndFwd,Status status){
+        Intent intent = new Intent();
+        intent.setClass(mContext, ImagesActivity.class);
+        if(oglAndFwd.equals("original")){
+            intent.putStringArrayListExtra(Const.PICURLS,status.pic_urls);
+        }else if(oglAndFwd.equals("forward")){
+            intent.putStringArrayListExtra(Const.PICURLS,status.retweeted_status.pic_urls);
+        }
+        mContext.startActivity(intent);
     }
 
 }

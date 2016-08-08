@@ -47,6 +47,7 @@ public class FavoritesActivity extends BaseActivity {
      * 初始化数据
      */
     private void initData() {
+        favoriteList = new ArrayList<FavoriteList>();
         accessToken = AccessTokenKeeper.readAccessToken(this);
         mFavoritesApi = new FavoritesAPI(this, Constants.APP_KEY, accessToken);
         mFavoritesApi.favorites(50, 1, mListener);
@@ -61,7 +62,6 @@ public class FavoritesActivity extends BaseActivity {
         public void onComplete(String response) {
             FavoriteList favorite = FavoriteList.parse(response);
             Log.e("response", "response::" +  favorite.favoriteList.size());
-            favoriteList = new ArrayList<FavoriteList>();
             favoriteList.add(favorite);
             mFavorites = new FavoritesAdapter(FavoritesActivity.this, favoriteList);
             mPullToRefresh.setAdapter(mFavorites);

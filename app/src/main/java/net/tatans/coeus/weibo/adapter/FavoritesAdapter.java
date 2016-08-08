@@ -39,7 +39,6 @@ public class FavoritesAdapter  extends BaseAdapter {
     public ArrayList<String> pic_urls;
     public FavoritesAdapter(Context context, List<FavoriteList> favorites){
         this.mContext = context ;
-        Log.e("count","count:::"+favorites.size());
         this.favorites = favorites;
     }
     @Override
@@ -90,7 +89,7 @@ public class FavoritesAdapter  extends BaseAdapter {
             holder.home_page_usercontent.setMovementMethod(LinkMovementMethod.getInstance());
         }
         String time = TimeFormat.dTime(favorite.status.created_at);
-        holder.home_page_username.setText(favorite.status.user.name);
+        holder.home_page_username.setText(favorite.status.user.screen_name);
         holder.home_page_usertime.setText(time);
 
         if (favorite.status.original_pic.equals("") || favorite.status.original_pic == "") {
