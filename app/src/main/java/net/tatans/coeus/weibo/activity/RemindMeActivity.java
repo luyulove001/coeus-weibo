@@ -64,8 +64,7 @@ public class RemindMeActivity extends BaseActivity {
         public void onComplete(String response) {
             Log.e("status", response);
             StatusList status = StatusList.parse(response);
-            statuslists.add(status);
-            adapter = new HomeFragmentAdapter(RemindMeActivity.this, statuslists, accessToken);
+            adapter = new HomeFragmentAdapter(RemindMeActivity.this, status);
             pullToRefresh.setAdapter(adapter);
         }
 

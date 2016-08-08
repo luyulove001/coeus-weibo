@@ -2,14 +2,9 @@ package net.tatans.coeus.weibo.adapter;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.StatusList;
 import com.squareup.picasso.Picasso;
@@ -29,9 +23,7 @@ import net.tatans.coeus.weibo.util.HomeSpan;
 import net.tatans.coeus.weibo.util.TimeFormat;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2016/7/19.
@@ -39,26 +31,22 @@ import java.util.regex.Pattern;
 public class HomeFragmentAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<StatusList> mlist;
+    private StatusList statusList;
     public ArrayList<String> pic_urls;
-    private String me_urlhttp = null;
-    private String he_urlhttp = null;
-    private Oauth2AccessToken mAccessToken;
 
-    public HomeFragmentAdapter(Context context, List<StatusList> list, Oauth2AccessToken AccessToken) {
+    public HomeFragmentAdapter(Context context, StatusList list) {
         this.mContext = context;
-        this.mlist = list;
-        mAccessToken = AccessToken;
+        this.statusList = list;
     }
 
     @Override
     public int getCount() {
-        return mlist.get(0).statusList.size();
+        return statusList.statusList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mlist.get(0).statusList.get(position);
+        return statusList.statusList.get(position);
     }
 
     @Override
@@ -86,7 +74,7 @@ public class HomeFragmentAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final Status status = mlist.get(0).statusList.get(position);
+        final Status status = statusList.statusList.get(position);
         Matcher mt_me = Const.pattern.matcher(status.text);
         holder.home_page_usercontent.setText(status.text);
         String str = status.text;

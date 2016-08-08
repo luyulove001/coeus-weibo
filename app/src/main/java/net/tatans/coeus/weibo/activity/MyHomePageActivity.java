@@ -52,7 +52,8 @@ public class MyHomePageActivity extends BaseActivity {
      * 获取用户的个人信息
      */
     private UsersAPI mUserApi;
-    private  RequestWeiboData weiboData;
+    private RequestWeiboData weiboData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +67,7 @@ public class MyHomePageActivity extends BaseActivity {
     private void initData() {
         mAccessToken = AccessTokenKeeper.readAccessToken(this);
         mUserApi = new UsersAPI(this, Constants.APP_KEY, mAccessToken);
-        weiboData = new RequestWeiboData(this,pullToRefreshListView);
+        weiboData = new RequestWeiboData(this, pullToRefreshListView);
         long uid = Long.parseLong(mAccessToken.getUid());
         mUserApi.show(uid, mListener);
         weiboData.RequestData();
@@ -83,7 +84,7 @@ public class MyHomePageActivity extends BaseActivity {
             User user = User.parse(response);
             if (user != null) {
                 Message message = new Message();
-                message.obj = user ;
+                message.obj = user;
                 message.what = 1;
                 mHander.handleMessage(message);
             }
@@ -105,24 +106,24 @@ public class MyHomePageActivity extends BaseActivity {
             if (msg.what == 1) {
                 User user = (User) msg.obj;
                 name.setText(user.screen_name);
-                if(user.gender.equals("m")){
+                if (user.gender.equals("m")) {
                     gender.setText("男");
-                }else if (user.gender.equals("f")){
+                } else if (user.gender.equals("f")) {
                     gender.setText("女");
                 } else {
                     gender.setText("未知");
                 }
-                friends.setText("关注:"+user.friends_count);
-                followers.setText("粉丝:"+user.followers_count);
-                if(user.verified){
+                friends.setText("关注:" + user.friends_count);
+                followers.setText("粉丝:" + user.followers_count);
+                if (user.verified) {
                     verified.setText(user.verified_reason);
-                }else{
+                } else {
                     verified.setText("微博认证:未认证");
                 }
-                address.setText("所在地:"+user.location);
-                if(user.description!=null && !user.description.equals("")){
-                    company.setText("简介:"+user.description);
-                }else{
+                address.setText("所在地:" + user.location);
+                if (user.description != null && !user.description.equals("")) {
+                    company.setText("简介:" + user.description);
+                } else {
                     company.setText("简介:无");
                 }
             }

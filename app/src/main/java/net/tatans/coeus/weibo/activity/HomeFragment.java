@@ -20,9 +20,9 @@ import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.StatusesAPI;
 import com.sina.weibo.sdk.openapi.models.ErrorInfo;
-import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.StatusList;
 
+import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.HomeFragmentAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
@@ -30,8 +30,6 @@ import net.tatans.coeus.weibo.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class HomeFragment extends Fragment {
@@ -39,10 +37,12 @@ public class HomeFragment extends Fragment {
 
     private HomeFragmentAdapter adapter;
     private List<StatusList> list;
+    private StatusList statuses = new StatusList();
+    private boolean isRefresh = false;
     private MainActivity mActivity;
     private View view;
-    private int moreLoad=0;
-    private String regex ="http://t.cn/[a-zA-Z0-9]+";
+    private int moreLoad = 1;
+    private String regex = "http://t.cn/[a-zA-Z0-9]+";
     /**
      * 当前 Token 信息
      */
@@ -59,15 +59,12 @@ public class HomeFragment extends Fragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    adapter = new HomeFragmentAdapter(getActivity(), list,mAccessToken);
-                    pullToRefreshListView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     pullToRefreshListView.onRefreshComplete();
+                    System.out.println(statuses.statusList.size());
                     break;
                 case 2:
                     pullToRefreshListView.setRefreshing();
-                break;
-                case 3:
                     break;
             }
 
@@ -104,25 +101,30 @@ public class HomeFragment extends Fragment {
         mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
         // 对statusAPI实例化
         mStatusesAPI = new StatusesAPI(getActivity(), Constants.APP_KEY, mAccessToken);
-        mStatusesAPI.friendsTimeline(0L, 0L,200, 1, false,0, false, mListener);
+        mStatusesAPI.friendsTimeline(0L, 0L, 20, 1, false, 0, false, mListener);
 
         pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
                 String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
                         DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+                TatansToast.showAndCancel("刷新" + label);
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                list = new ArrayList<StatusList>();
-                mStatusesAPI.friendsTimeline(0L, 0L, 200, 1, false,0, false, mListener);
+                mHandler.sendEmptyMessage(2);
+                mStatusesAPI.friendsTimeline(0L, 0L, 20, 1, false, 0, false, mListener);
+                isRefresh = true;
             }
         });
         pullToRefreshListView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
             @Override
             public void onLastItemVisible() {
-                moreLoad+=1;
-                mHandler.sendEmptyMessage(3);
+                moreLoad += 1;
+                mStatusesAPI.friendsTimeline(0L, 0L, 20, moreLoad, false, 0, false, mListener);
+                TatansToast.showAndCancel("加载第" + moreLoad + "页");
+                isRefresh = false;
             }
         });
+        pullToRefreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
 
     }
 
@@ -131,8 +133,6 @@ public class HomeFragment extends Fragment {
      */
     private void initView() {
         pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.home_page_listview);
-
-
     }
 
     @Override
@@ -155,36 +155,15 @@ public class HomeFragment extends Fragment {
             if (!TextUtils.isEmpty(response)) {
                 if (response.startsWith("{\"statuses\"")) {
                     // 调用 StatusList#parse 解析字符串成微博列表对象
-                    StatusList statuses = StatusList.parse(response);
-                    list.add(statuses);
+                    StatusList statuses1 = StatusList.parse(response);
+                    if (statuses.statusList == null || statuses.statusList.isEmpty() || isRefresh) {
+                        statuses = statuses1;
+                        adapter = new HomeFragmentAdapter(getActivity(), statuses);
+                        pullToRefreshListView.setAdapter(adapter);
+                    } else {
+                        statuses.statusList.addAll(statuses1.statusList);
+                    }
                     mHandler.sendEmptyMessage(1);
-//                    for (int i=0;i<statuses.statusList.size();i++){
-//
-//
-//                        if (statuses.statusList.get(i).retweeted_status==null){
-//                        }
-//                        else{
-//                            if (statuses.statusList.get(i).retweeted_status.user == null){
-//
-//                            }
-//                            else{
-//                               String vv= statuses.statusList.get(i).retweeted_status.text;
-//                                System.out.println(vv);
-//                                if (statuses.statusList.get(i).retweeted_status.text.equals("")){
-//                                }
-//                                else{
-//                                    Pattern pt_me = Pattern.compile(regex);
-//                                    Matcher mt_me = pt_me.matcher(statuses.statusList.get(i).retweeted_status.text);
-//
-//                                    while (mt_me.find()) {
-//                                        String vvv = mt_me.group(0);
-//                                        System.out.println(vvv);
-//                                    }
-//                                }
-//                            }
-//                        }
-//
-//                    }
                 }
             }
         }

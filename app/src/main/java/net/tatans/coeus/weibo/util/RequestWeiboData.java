@@ -57,9 +57,7 @@ public class RequestWeiboData {
         public void onComplete(String response) {
             Log.e("onComplete", response);
             StatusList status = StatusList.parse(response);
-            List<StatusList> statuslists = new ArrayList<StatusList>();
-            statuslists.add(status);
-            adapter = new HomeFragmentAdapter(mContext, statuslists, mAccessToken);
+            adapter = new HomeFragmentAdapter(mContext, status);
             pullToRefresh.setAdapter(adapter);
         }
 
