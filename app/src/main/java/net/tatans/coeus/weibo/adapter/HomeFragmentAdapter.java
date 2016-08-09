@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,14 +203,14 @@ public class HomeFragmentAdapter extends BaseAdapter {
         public void onClick(View v) {
             Intent intent = new Intent();
             Status status = statusList.statusList.get(mPosition);
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.home_page_he_relaytive://转发微博
-                    ImagesStart("forward",status);
+                    ImagesStart("forward", status);
                     break;
                 case R.id.home_page_me_relaytive://不是转发微博
-                    ImagesStart("original",status);
+                    ImagesStart("original", status);
                     break;
-                default :
+                default:
                     break;
             }
         }
@@ -218,13 +219,13 @@ public class HomeFragmentAdapter extends BaseAdapter {
     /**
      * 点击图片看
      */
-    private  void ImagesStart(String oglAndFwd,Status status){
+    private void ImagesStart(String oglAndFwd, Status status) {
         Intent intent = new Intent();
         intent.setClass(mContext, ImagesActivity.class);
-        if(oglAndFwd.equals("original")){
-            intent.putStringArrayListExtra(Const.PICURLS,status.pic_urls);
-        }else if(oglAndFwd.equals("forward")){
-            intent.putStringArrayListExtra(Const.PICURLS,status.retweeted_status.pic_urls);
+        if (oglAndFwd.equals("original")) {
+            intent.putStringArrayListExtra(Const.PICURLS, status.pic_urls);
+        } else if (oglAndFwd.equals("forward")) {
+            intent.putStringArrayListExtra(Const.PICURLS, status.retweeted_status.pic_urls);
         }
         mContext.startActivity(intent);
     }

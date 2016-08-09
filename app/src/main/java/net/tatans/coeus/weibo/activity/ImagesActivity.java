@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.ImageView;
+
+import com.iflytek.cloud.Setting;
 
 import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.weibo.R;
@@ -30,11 +33,11 @@ public class ImagesActivity extends BaseActivity {
     private ViewPager viewPager;
 
     private ViewPagerAdapter adapter;
-
     /**
      * 装ImageView数组
      */
     private ImageView[] mImageViews;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,9 @@ public class ImagesActivity extends BaseActivity {
                 mImageViews = new ImageView[pic_urls.size()];
                 for (int i = 0; i < pic_urls.size(); i++) {
                     ImageView image = new ImageView(ImagesActivity.this);
-                    Bitmap img = ImageUtil.getImages(pic_urls.get(i));
+                    //将url中的thumbnail替换成large，即将缩略图替换成高清图
+                    String url = pic_urls.get(i).replace("thumbnail", "large");
+                    Bitmap img = ImageUtil.getImages(url);
                     image.setImageBitmap(img);
                     mImageViews[i] = image;
                 }

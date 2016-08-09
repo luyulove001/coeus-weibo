@@ -13,7 +13,7 @@ public class StreamTool {
 
     public static byte[] getBytes(InputStream is) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
+        byte[] buffer = new byte[1024*1024];
         int len = 0;
         try {
             while ((len = is.read(buffer)) != -1) {
