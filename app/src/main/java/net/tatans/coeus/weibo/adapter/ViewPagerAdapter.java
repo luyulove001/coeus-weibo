@@ -4,11 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
-import net.tatans.coeus.weibo.R;
 
 import java.util.List;
 
@@ -25,6 +22,7 @@ public class ViewPagerAdapter extends PagerAdapter {
      * 装ImageView数组
      */
     private ImageView[] mImageViews;
+
     public ViewPagerAdapter(Context context, ImageView[] listView) {
         this.mContext = context;
         this.mImageViews = listView;
@@ -40,17 +38,18 @@ public class ViewPagerAdapter extends PagerAdapter {
 
         return view == o;
     }
+
     /**
      * 载入图片进去，用当前的position 除以 图片数组长度取余数是关键
      */
     @Override
     public Object instantiateItem(View view, int position) {
-        ((ViewPager)view).addView(mImageViews[position % mImageViews.length], 0);
+        ((ViewPager) view).addView(mImageViews[position % mImageViews.length], 0);
         return mImageViews[position % mImageViews.length];
     }
 
     @Override
     public void destroyItem(View container, int position, Object object) {
-        ((ViewPager)container).removeView(mImageViews[position % mImageViews.length]);
+        ((ViewPager) container).removeView(mImageViews[position % mImageViews.length]);
     }
 }
