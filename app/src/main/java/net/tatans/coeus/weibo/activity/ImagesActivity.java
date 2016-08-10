@@ -1,7 +1,6 @@
 package net.tatans.coeus.weibo.activity;
 
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,10 +8,10 @@ import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 
 import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansBitmap;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.ViewPagerAdapter;
 import net.tatans.coeus.weibo.util.Const;
-import net.tatans.coeus.weibo.util.ImageUtil;
 import net.tatans.rhea.network.view.ContentView;
 import net.tatans.rhea.network.view.ViewIoc;
 
@@ -39,28 +38,24 @@ public class ImagesActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("图片");
         //得到图片链接的集合
         pic_urls = getIntent().getExtras().getStringArrayList(Const.PICURLS);
         initData();
     }
 
     private void initData() {
-        //不能在主线程中请求网络，因此new一个Thread
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mImageViews = new ImageView[pic_urls.size()];
-                for (int i = 0; i < pic_urls.size(); i++) {
-                    ImageView image = new ImageView(ImagesActivity.this);
-                    //将url中的thumbnail替换成large，即将缩略图替换成高清图
-                    String url = pic_urls.get(i).replace("thumbnail", "large");
-                    Bitmap img = ImageUtil.getImages(url);
-                    image.setImageBitmap(img);
-                    mImageViews[i] = image;
-                }
-                mHandler.sendEmptyMessage(1);
-            }
-        }).start();
+        mImageViews = new ImageView[pic_urls.size()];
+        for (int i = 0; i < pic_urls.size(); i++) {
+            ImageView image = new ImageView(ImagesActivity.this);
+            //将url中的thumbnail替换成large，即将缩略图替换成高清图 large
+            String url = pic_urls.get(i).replace("thumbnail", "large");
+            TatansBitmap tb = null;
+            tb = TatansBitmap.create();
+            tb.display(image, url);
+            mImageViews[i] = image;
+        }
+        mHandler.sendEmptyMessage(1);
 
     }
 
