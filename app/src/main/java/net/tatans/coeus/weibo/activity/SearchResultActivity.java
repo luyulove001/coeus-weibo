@@ -58,7 +58,7 @@ public class SearchResultActivity extends BaseActivity {
     /**
      * 请求返回的status数据
      */
-    private ArrayList<Status> resultStatus = new ArrayList<Status>();
+    private ArrayList<Status> resultStatus;
     private StatusList statusList;
     /**
      * 请求user回调,请求status回调
@@ -211,6 +211,7 @@ public class SearchResultActivity extends BaseActivity {
                     JSONObject responseJSON = JSONObject.parseObject(status);
                     int ok = responseJSON.getInteger("ok");
                     maxPage = responseJSON.getInteger("maxPage");
+                    resultStatus = new ArrayList<Status>();
                     if (ok == 1) {
                         JSONArray cardsArray = responseJSON.getJSONArray("cards");
                         ArrayList<String> picUrls;
