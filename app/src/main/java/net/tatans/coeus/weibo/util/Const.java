@@ -22,4 +22,5 @@ public class Const {
     public static String PICURLS = "pic_urls";
 
     public static String REPLY = "reply";
+    public static String WRITE_COMMENT = "WriteComment";
 }

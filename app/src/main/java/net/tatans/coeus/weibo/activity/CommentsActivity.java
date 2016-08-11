@@ -101,12 +101,16 @@ public class CommentsActivity extends BaseActivity {
             mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, mAccessToken);
             comments_content.setHint("分享新鲜事");
             mForwardComment.setVisibility(View.GONE);
-        } else if (type.equals(Const.REPLY)) {
+        } else if (type.equals(Const.REPLY)|| type.equals(Const.WRITE_COMMENT)) {
             //回复
             mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, mAccessToken);
             commentId = Long.parseLong(getIntent().getExtras().getString("id"));
             weiboId = Long.parseLong(getIntent().getExtras().getString("weiboId"));
-            comments_content.setHint("回复");
+            if(type.equals(Const.REPLY)){
+                comments_content.setHint("回复");
+            }else{
+                comments_content.setHint("写评论");
+            }
             mForwardComment.setVisibility(View.GONE);
         }
     }
@@ -131,7 +135,7 @@ public class CommentsActivity extends BaseActivity {
         if (type.equals(Const.WRITE_WEIBO)) {
             //发送一条纯文字微博
             mStatusesAPI.update(content, null, null, mListener);
-        } else if (type.equals(Const.REPLY)) {
+        } else if (type.equals(Const.REPLY)|| type.equals(Const.WRITE_COMMENT)) {
             //回复评论
             mCommentsAPI.reply(commentId, weiboId, content, false, false, mListener);
         }
@@ -193,7 +197,7 @@ public class CommentsActivity extends BaseActivity {
                     // 调用 Status#parse 解析字符串成微博对象
                     Status status = Status.parse(response);
                     TatansToast.showAndCancel("发送一送微博成功");
-                } else if (response.startsWith("{\"created_at\"") && type.equals(Const.REPLY)) {
+                } else if (response.startsWith("{\"created_at\"") && (type.equals(Const.REPLY)||type.equals(Const.WRITE_COMMENT))) {
                     TatansToast.showAndCancel("回复一条微博成功");
                 }
             }

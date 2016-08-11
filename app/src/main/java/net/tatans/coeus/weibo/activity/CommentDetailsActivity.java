@@ -114,6 +114,16 @@ public class CommentDetailsActivity extends BaseActivity {
     }
 
     /**
+     * 写评论
+     */
+    @OnClick(R.id.write_comment)
+    private void onClickComment(){
+        Intent intent = getIntent();
+        intent.setClass(this, CommentsActivity.class);
+        intent.putExtra(Const.TYPE, Const.WRITE_COMMENT);
+        startActivity(intent);
+    }
+    /**
      * 微博 OpenAPI 回调接口。
      */
     private RequestListener mListener = new RequestListener() {
