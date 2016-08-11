@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="显示"
+            android:textColor="@color/white"
             android:textSize="25sp" />
 
         <TextView
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="17dp"
             android:text="时间"
+            android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -39,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="17dp"
             android:layout_marginTop="7dp"
+            android:textColor="@color/white"
             android:text="内容"
             android:textSize="25sp" />
     </LinearLayout>

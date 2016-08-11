@@ -22,7 +22,6 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="17dp"
                 android:text="wetwet"
-                android:maxEms="9"
                 android:textColor="#ffffff"
                 android:textSize="25sp" />
 

@@ -32,5 +32,8 @@
     <string name="edit_box_hint">请输入您要搜索的内容</string>
     <string name="contact">联系人</string>
     <string name="search">分享</string>
+    <string name="reply">回复</string>
+    <string name="all_comment">查看所有评论</string>
+    <string name="write_comment">写评论</string>
 
 </resources>

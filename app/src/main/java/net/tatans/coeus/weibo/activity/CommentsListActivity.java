@@ -14,15 +14,10 @@ import com.sina.weibo.sdk.openapi.models.CommentList;
 import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.CommentAdapter;
-import net.tatans.coeus.weibo.bean.CommentBean;
-import net.tatans.coeus.weibo.bean.ContactList;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Constants;
 import net.tatans.rhea.network.view.ContentView;
 import net.tatans.rhea.network.view.ViewIoc;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by LCM on 2016/7/27. 13:18
@@ -34,7 +29,6 @@ public class CommentsListActivity extends BaseActivity {
     @ViewIoc(R.id.comments_list)
     private ListView mCommentsList;
 
-    private List<CommentBean>  commentList;
     /**
      * 当前 Token 信息
      */
@@ -77,15 +71,7 @@ public class CommentsListActivity extends BaseActivity {
         public void onComplete(String response) {
             Log.e("response","response::"+response);
             CommentList comment = CommentList.parse(response);
-            commentList = new ArrayList<CommentBean>();
-            for (int i = 0; i < comment.commentList.size(); i++) {
-                CommentBean commentBean = new CommentBean();
-                commentBean.setScreen_name(comment.commentList.get(i).user.screen_name);
-                commentBean.setCreated_at(comment.commentList.get(i).created_at);
-                commentBean.setText(comment.commentList.get(i).text);
-                commentList.add(commentBean);
-            }
-            adapter = new CommentAdapter(CommentsListActivity.this,commentList);
+            adapter = new CommentAdapter(CommentsListActivity.this,comment.commentList);
             mCommentsList.setAdapter(adapter);
         }
 
