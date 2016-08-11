@@ -49,7 +49,7 @@ public class ImagesActivity extends BaseActivity {
         for (int i = 0; i < pic_urls.size(); i++) {
             ImageView image = new ImageView(ImagesActivity.this);
             //将url中的thumbnail替换成large，即将缩略图替换成高清图 large
-            String url = pic_urls.get(i).replace("thumbnail", "large");
+            String url = pic_urls.get(i).replace(pic_urls.get(i).substring(22, pic_urls.get(i).lastIndexOf("/")), "large");
             TatansBitmap tb = null;
             tb = TatansBitmap.create();
             tb.display(image, url);

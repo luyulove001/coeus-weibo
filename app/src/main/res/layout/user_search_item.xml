@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             android:paddingEnd="0dp"
             android:paddingStart="16.5dp"
+            android:textColor="@color/white"
             android:textSize="25sp" />
 
         <TextView
@@ -25,6 +26,7 @@
             android:paddingEnd="16.5dp"
             android:paddingStart="0dp"
             android:text="@string/followers"
+            android:textColor="@color/white"
             android:textSize="16sp" />
     </RelativeLayout>
 
@@ -34,6 +36,7 @@
         android:layout_height="wrap_content"
         android:paddingEnd="0dp"
         android:paddingStart="16.5dp"
+        android:textColor="@color/white"
         android:textSize="16sp" />
 
     <LinearLayout

@@ -30,13 +30,13 @@ import java.util.regex.Matcher;
 /**
  * Created by Administrator on 2016/7/19.
  */
-public class HomeFragmentAdapter extends BaseAdapter {
+public class StatusAdapter extends BaseAdapter {
 
     private Context mContext;
     private StatusList statusList;
     public ArrayList<String> pic_urls;
 
-    public HomeFragmentAdapter(Context context, StatusList list) {
+    public StatusAdapter(Context context, StatusList list) {
         this.mContext = context;
         this.statusList = list;
     }
@@ -91,10 +91,10 @@ public class HomeFragmentAdapter extends BaseAdapter {
             holder.home_page_usercontent.setMovementMethod(LinkMovementMethod.getInstance());
         }
         String time = TimeFormat.dTime(status.created_at);
-        holder.home_page_username.setText(status.user.name);
+        holder.home_page_username.setText(status.user.screen_name);
         holder.home_page_usertime.setText(time);
 
-        if (status.original_pic.equals("") || status.original_pic == "") {
+        if (status.original_pic == null || status.original_pic.equals("") || status.original_pic == "") {
             holder.home_page_pic.setVisibility(View.GONE);
             holder.home_page_pic_text.setVisibility(View.GONE);
         } else {
@@ -120,7 +120,7 @@ public class HomeFragmentAdapter extends BaseAdapter {
                 holder.home_page_usercomments.setText("抱歉，此微博已被作者删除。");
             } else {
                 holder.home_page_he_user.setVisibility(View.VISIBLE);
-                holder.home_page_he_user.setText("@" + status.retweeted_status.user.name + ":");
+                holder.home_page_he_user.setText("@" + status.retweeted_status.user.screen_name + ":");
 
                 holder.home_page_usercomments.setText(status.retweeted_status.text);
                 Matcher mt_he = Const.pattern.matcher(status.retweeted_status.text);
@@ -145,7 +145,8 @@ public class HomeFragmentAdapter extends BaseAdapter {
                         holder.home_page_he_pic_text.setVisibility(View.GONE);
                     } else {
                         Picasso.with(mContext).load(status.retweeted_status.original_pic).resize(100, 100).placeholder(R.drawable.icon_image_model_short).resize(100, 100).error(R.drawable.icon_image_model_short).resize(100, 100).into(holder.home_page_he_pic);
-                        holder.home_page_he_pic_text.setText(status.retweeted_status.pic_urls.size() + "张图片点击查看");
+                        if (!(status.retweeted_status.pic_urls == null))
+                            holder.home_page_he_pic_text.setText(status.retweeted_status.pic_urls.size() + "张图片点击查看");
                     }
                 }
             }

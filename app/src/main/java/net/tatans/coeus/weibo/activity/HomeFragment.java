@@ -24,24 +24,35 @@ import com.sina.weibo.sdk.openapi.models.StatusList;
 
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
-import net.tatans.coeus.weibo.adapter.HomeFragmentAdapter;
+import net.tatans.coeus.weibo.adapter.StatusAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class HomeFragment extends Fragment {
     private PullToRefreshListView pullToRefreshListView;
-
-    private HomeFragmentAdapter adapter;
-    private List<StatusList> list;
-    private StatusList statuses = new StatusList();
+    /**
+     * 微博列表适配器
+     */
+    private StatusAdapter adapter;
+    /**
+     * 微博列表数据
+     */
+    private StatusList statuses;
+    /**
+     * 是否刷新
+     */
     private boolean isRefresh = false;
+    /**
+     * 判断是否加载到最后了
+     */
+    private boolean isEnd = false;
     private MainActivity mActivity;
     private View view;
-    private int moreLoad = 1;
+    /**
+     * 加载的页数
+     */
+    private int index = 1;
     private String regex = "http://t.cn/[a-zA-Z0-9]+";
     /**
      * 当前 Token 信息
@@ -52,7 +63,9 @@ public class HomeFragment extends Fragment {
      */
     private StatusesAPI mStatusesAPI;
 
-
+    /**
+     * 刷新列表数据
+     */
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -67,8 +80,6 @@ public class HomeFragment extends Fragment {
                     pullToRefreshListView.setRefreshing();
                     break;
             }
-
-
         }
     };
 
@@ -82,7 +93,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -95,14 +105,13 @@ public class HomeFragment extends Fragment {
     }
 
     private void initData() {
-        //将用户信息放到集合中
-        list = new ArrayList<StatusList>();
+        statuses = new StatusList();
         // 获取当前已保存过的 Token
         mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
         // 对statusAPI实例化
         mStatusesAPI = new StatusesAPI(getActivity(), Constants.APP_KEY, mAccessToken);
         mStatusesAPI.friendsTimeline(0L, 0L, 20, 1, false, 0, false, mListener);
-
+        //下拉刷新接口
         pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -113,15 +122,22 @@ public class HomeFragment extends Fragment {
                 mHandler.sendEmptyMessage(2);
                 mStatusesAPI.friendsTimeline(0L, 0L, 20, 1, false, 0, false, mListener);
                 isRefresh = true;
+                isEnd = false;
+                index = 1;
             }
         });
+        //到底部加载更多接口
         pullToRefreshListView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
             @Override
             public void onLastItemVisible() {
-                moreLoad += 1;
-                mStatusesAPI.friendsTimeline(0L, 0L, 20, moreLoad, false, 0, false, mListener);
-                TatansToast.showAndCancel("加载第" + moreLoad + "页");
-                isRefresh = false;
+                if (isEnd) {
+                    TatansToast.showAndCancel("没有更多内容了");
+                } else {
+                    index += 1;
+                    mStatusesAPI.friendsTimeline(0L, 0L, 20, index, false, 0, false, mListener);
+                    TatansToast.showAndCancel("加载第" + index + "页");
+                    isRefresh = false;
+                }
             }
         });
         pullToRefreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
@@ -156,9 +172,14 @@ public class HomeFragment extends Fragment {
                 if (response.startsWith("{\"statuses\"")) {
                     // 调用 StatusList#parse 解析字符串成微博列表对象
                     StatusList statuses1 = StatusList.parse(response);
+                    //当返回数据为空时代表没有更多了
+                    if (statuses1.statusList == null || statuses1.statusList.isEmpty()) {
+                        isEnd = true;
+                        return;
+                    }
                     if (statuses.statusList == null || statuses.statusList.isEmpty() || isRefresh) {
                         statuses = statuses1;
-                        adapter = new HomeFragmentAdapter(getActivity(), statuses);
+                        adapter = new StatusAdapter(getActivity(), statuses);
                         pullToRefreshListView.setAdapter(adapter);
                     } else {
                         statuses.statusList.addAll(statuses1.statusList);

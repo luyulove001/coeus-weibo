@@ -62,8 +62,7 @@ public class UserSearchAdapter extends BaseAdapter {
         }
         viewHolder.tvScreenName.setText(users.get(position).getScreen_name());
         viewHolder.tvFollowersCount.setText(ctx.getString(R.string.followers) + users.get(position).getFansNum());
-        if (users.get(position).isVerified())
-            viewHolder.tvVerified.setText(users.get(position).getVerified_reason());
+        viewHolder.tvVerified.setText(users.get(position).getVerified_reason());
         return convertView;
     }
 

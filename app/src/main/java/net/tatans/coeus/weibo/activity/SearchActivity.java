@@ -80,6 +80,10 @@ public class SearchActivity extends BaseActivity {
      * 返回的user数组
      */
     private ArrayList<UserSearchBean> users = new ArrayList<UserSearchBean>();
+    /**
+     * 判断是否是查询微博
+     */
+    private boolean isStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +94,7 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void initData() {
+        isStatus = getIntent().getBooleanExtra("isStatues", true);
         requestListener = new RequestListener() {
             @Override
             public void onComplete(String s) {
@@ -121,7 +126,8 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String q = s.toString();
-                searchAPI.users(q, 10, requestListener);
+                if (!isStatus)
+                    searchAPI.users(q, 10, requestListener);
             }
 
             @Override

@@ -17,6 +17,7 @@ public class FindFragment extends Fragment implements View.OnClickListener{
      */
     private View view;
     private LinearLayout searchUser, searchWeibo;
+    private Intent intent;
 
 
     @Override
@@ -24,6 +25,7 @@ public class FindFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.find_page, container, false);
         initView();
+        intent = new Intent(getActivity(), SearchActivity.class);
         return view;
     }
 
@@ -38,10 +40,12 @@ public class FindFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.search_weibo:
-
+                intent.putExtra("isStatues", true);
+                startActivity(intent);
                 break;
             case R.id.search_user:
-                startActivity(new Intent(getActivity(), SearchActivity.class));
+                intent.putExtra("isStatues", false);
+                startActivity(intent);
                 break;
         }
     }

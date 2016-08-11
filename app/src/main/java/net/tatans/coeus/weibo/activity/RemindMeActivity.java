@@ -12,7 +12,7 @@ import com.sina.weibo.sdk.openapi.models.StatusList;
 
 import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.weibo.R;
-import net.tatans.coeus.weibo.adapter.HomeFragmentAdapter;
+import net.tatans.coeus.weibo.adapter.StatusAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Constants;
 import net.tatans.rhea.network.view.ContentView;
@@ -33,7 +33,7 @@ public class RemindMeActivity extends BaseActivity {
 
     private StatusesAPI mStatusesApi;
 
-    private HomeFragmentAdapter adapter;
+    private StatusAdapter adapter;
     @ViewIoc(R.id.home_page_listview)
     private PullToRefreshListView pullToRefresh;
 
@@ -64,7 +64,7 @@ public class RemindMeActivity extends BaseActivity {
         public void onComplete(String response) {
             Log.e("status", response);
             StatusList status = StatusList.parse(response);
-            adapter = new HomeFragmentAdapter(RemindMeActivity.this, status);
+            adapter = new StatusAdapter(RemindMeActivity.this, status);
             pullToRefresh.setAdapter(adapter);
         }
 
