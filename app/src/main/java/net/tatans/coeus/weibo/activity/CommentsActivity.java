@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
+import com.sina.weibo.sdk.openapi.CommentsAPI;
 import com.sina.weibo.sdk.openapi.StatusesAPI;
 import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 import com.sina.weibo.sdk.openapi.models.Status;
@@ -70,8 +71,14 @@ public class CommentsActivity extends BaseActivity {
      * 用于获取微博信息流等操作的API
      */
     private StatusesAPI mStatusesAPI;
+    //回复评论或者评论
+    private CommentsAPI mCommentsAPI;
     //用于判定是做什么操作，转发，评论 还是发微博
     private String type;
+    //评论的id
+    private Long commentId;
+    //微博的id
+    private Long weiboId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +94,23 @@ public class CommentsActivity extends BaseActivity {
     private void initData() {
         //获取当前已经保存的Token
         mAccessToken = AccessTokenKeeper.readAccessToken(this);
-        //对statusAPI实例化
-        mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, mAccessToken);
-
         type = getIntent().getExtras().getString(Const.TYPE);
-
         if (type.equals(Const.WRITE_WEIBO)) {
             //写微博
+            //对statusAPI实例化
+            mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, mAccessToken);
             comments_content.setHint("分享新鲜事");
+            mForwardComment.setVisibility(View.GONE);
+        } else if (type.equals(Const.REPLY)|| type.equals(Const.WRITE_COMMENT)) {
+            //回复
+            mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, mAccessToken);
+            commentId = Long.parseLong(getIntent().getExtras().getString("id"));
+            weiboId = Long.parseLong(getIntent().getExtras().getString("weiboId"));
+            if(type.equals(Const.REPLY)){
+                comments_content.setHint("回复");
+            }else{
+                comments_content.setHint("写评论");
+            }
             mForwardComment.setVisibility(View.GONE);
         }
     }
@@ -119,6 +135,9 @@ public class CommentsActivity extends BaseActivity {
         if (type.equals(Const.WRITE_WEIBO)) {
             //发送一条纯文字微博
             mStatusesAPI.update(content, null, null, mListener);
+        } else if (type.equals(Const.REPLY)|| type.equals(Const.WRITE_COMMENT)) {
+            //回复评论
+            mCommentsAPI.reply(commentId, weiboId, content, false, false, mListener);
         }
 
     }
@@ -126,7 +145,7 @@ public class CommentsActivity extends BaseActivity {
     @OnClick(R.id.comments_fenxiang)
     private void commentsFenxiang() {
         Intent intent = new Intent(this, ContactListActivity.class);
-        intent.putExtra(Const.CONTACT_OR_FOllOW,Const.CONTACT);
+        intent.putExtra(Const.CONTACT_OR_FOllOW, Const.CONTACT);
         this.startActivityForResult(intent, 0);
     }
 
@@ -174,12 +193,12 @@ public class CommentsActivity extends BaseActivity {
                     if (statuses != null && statuses.total_number > 0) {
                         TatansToast.showAndCancel("获取微博信息流成功, 条数: " + statuses.statusList.size());
                     }
-                } else if (response.startsWith("{\"created_at\"")) {
+                } else if (response.startsWith("{\"created_at\"") && type.equals(Const.WRITE_WEIBO)) {
                     // 调用 Status#parse 解析字符串成微博对象
                     Status status = Status.parse(response);
                     TatansToast.showAndCancel("发送一送微博成功");
-                } else {
-                    TatansToast.showAndCancel(response);
+                } else if (response.startsWith("{\"created_at\"") && (type.equals(Const.REPLY)||type.equals(Const.WRITE_COMMENT))) {
+                    TatansToast.showAndCancel("回复一条微博成功");
                 }
             }
         }

@@ -20,4 +20,7 @@ public class Const {
             .compile("(http://|ftp://|https://|www){1}([a-zA-Z0-9.]+/|[a-zA-Z0-9.]+)*");
 
     public static String PICURLS = "pic_urls";
+
+    public static String REPLY = "reply";
+    public static String WRITE_COMMENT = "WriteComment";
 }
