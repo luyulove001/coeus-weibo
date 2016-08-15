@@ -14,6 +14,7 @@ import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.StatusAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
+import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
 import net.tatans.rhea.network.view.ContentView;
 import net.tatans.rhea.network.view.ViewIoc;
@@ -64,7 +65,7 @@ public class RemindMeActivity extends BaseActivity {
         public void onComplete(String response) {
             Log.e("status", response);
             StatusList status = StatusList.parse(response);
-            adapter = new StatusAdapter(RemindMeActivity.this, status);
+            adapter = new StatusAdapter(RemindMeActivity.this, status, Const.REMIND);
             pullToRefresh.setAdapter(adapter);
         }
 

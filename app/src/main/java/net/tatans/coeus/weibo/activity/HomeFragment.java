@@ -26,6 +26,7 @@ import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.StatusAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
+import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
 
 
@@ -179,7 +180,7 @@ public class HomeFragment extends Fragment {
                     }
                     if (statuses.statusList == null || statuses.statusList.isEmpty() || isRefresh) {
                         statuses = statuses1;
-                        adapter = new StatusAdapter(getActivity(), statuses);
+                        adapter = new StatusAdapter(getActivity(), statuses, Const.HOME);
                         pullToRefreshListView.setAdapter(adapter);
                     } else {
                         statuses.statusList.addAll(statuses1.statusList);
