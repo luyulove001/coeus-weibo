@@ -41,18 +41,19 @@ public class RequestWeiboData {
     private StatusesAPI mStatuses;
 
     private StatusAdapter adapter;
+    private long mUid;
 
-    public RequestWeiboData(Context context, PullToRefreshListView pullToRefreshListView) {
+    public RequestWeiboData(Context context, PullToRefreshListView pullToRefreshListView, long uid) {
         this.mContext = context;
         this.pullToRefresh = pullToRefreshListView;
+        this.mUid = uid;
         mAccessToken = AccessTokenKeeper.readAccessToken(mContext);
         mStatuses = new StatusesAPI(mContext, Constants.APP_KEY, mAccessToken);
-        final Long uid = Long.parseLong(mAccessToken.getUid());
         //下拉刷新接口
         pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                mStatuses.userTimeline(uid, 0L, 0L, 20, 1, false, 0, false, mListener);
+                mStatuses.userTimeline(mUid, 0L, 0L, 20, 1, false, 0, false, mListener);
                 pullToRefresh.setRefreshing();
                 isRefresh = true;
                 isEnd = false;
@@ -67,7 +68,7 @@ public class RequestWeiboData {
                     TatansToast.showAndCancel("没有更多内容了");
                 } else {
                     index += 1;
-                    mStatuses.userTimeline(uid, 0L, 0L, 20, index, false, 0, false, mListener);
+                    mStatuses.userTimeline(mUid, 0L, 0L, 20, index, false, 0, false, mListener);
                     TatansToast.showAndCancel("加载第" + index + "页");
                     isRefresh = false;
                 }
@@ -79,8 +80,8 @@ public class RequestWeiboData {
      * 请求数据
      */
     public void RequestData() {
-        Long uid = Long.parseLong(mAccessToken.getUid());
-        mStatuses.userTimeline(uid, 0, 0, 20, index, false, 0, false, mListener);
+//        Long mUid = Long.parseLong(mAccessToken.getUid());
+        mStatuses.userTimeline(mUid, 0, 0, 20, index, false, 0, false, mListener);
     }
 
     /**
