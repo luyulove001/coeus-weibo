@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.activity.ImagesActivity;
+import net.tatans.coeus.weibo.activity.WeiboMenuDetailsActivity;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.HomeSpan;
 import net.tatans.coeus.weibo.util.TimeFormat;
@@ -35,10 +36,13 @@ public class StatusAdapter extends BaseAdapter {
     private Context mContext;
     private StatusList statusList;
     public ArrayList<String> pic_urls;
+    //用于判断来自哪个界面
+    private String isComefrom;
 
-    public StatusAdapter(Context context, StatusList list) {
+    public StatusAdapter(Context context, StatusList list, String comefrom) {
         this.mContext = context;
         this.statusList = list;
+        this.isComefrom = comefrom;
     }
 
     @Override
@@ -153,6 +157,7 @@ public class StatusAdapter extends BaseAdapter {
         }
         holder.home_page_me_relaytive.setOnClickListener(new OnClickListenerIml(position));
         holder.home_page_he_relaytive.setOnClickListener(new OnClickListenerIml(position));
+        holder.home_page_usercontent.setOnClickListener(new OnClickListenerIml(position));
         return convertView;
     }
 
@@ -209,6 +214,20 @@ public class StatusAdapter extends BaseAdapter {
                     break;
                 case R.id.home_page_me_relaytive://不是转发微博
                     ImagesStart("original", status);
+                    break;
+                case R.id.home_page_usercontent://点击微博进入菜单详情
+                    intent.setClass(mContext, WeiboMenuDetailsActivity.class);
+                    if (isComefrom.equals(Const.REMIND)){
+                        intent.putExtra(Const.TYPE,Const.REMIND);
+                        intent.putExtra("weiboId",status.id);
+                    }else if(isComefrom.equals(Const.MY_HOME_PAGE)){
+                        intent.putExtra(Const.TYPE,Const.MY_HOME_PAGE);
+                    }else if(isComefrom.equals(Const.SEARCH)){
+                        intent.putExtra(Const.TYPE,Const.SEARCH);
+                    }else if(isComefrom.equals(Const.HOME)){
+                        intent.putExtra(Const.TYPE,Const.HOME);
+                    }
+                    mContext.startActivity(intent);
                     break;
                 default:
                     break;

@@ -97,7 +97,7 @@ public class RequestWeiboData {
             }
             if (statuses.statusList == null || statuses.statusList.isEmpty() || isRefresh) {
                 statuses = status1;
-                adapter = new StatusAdapter(mContext, statuses);
+                adapter = new StatusAdapter(mContext, statuses,Const.MY_HOME_PAGE);
                 pullToRefresh.setAdapter(adapter);
                 pullToRefresh.onRefreshComplete();
             } else {

@@ -60,6 +60,9 @@
         <activity
             android:name=".activity.CommentDetailsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WeiboMenuDetailsActivity"
+            android:screenOrientation="portrait" />
 
         <!-- 必须注册在微博授权，分享微博时候用到 -->
         <activity

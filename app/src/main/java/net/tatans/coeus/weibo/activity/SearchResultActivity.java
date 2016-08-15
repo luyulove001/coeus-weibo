@@ -24,6 +24,7 @@ import net.tatans.coeus.weibo.adapter.UserSearchAdapter;
 import net.tatans.coeus.weibo.bean.PicUrls;
 import net.tatans.coeus.weibo.bean.SearchResultUser;
 import net.tatans.coeus.weibo.bean.StatusContent;
+import net.tatans.coeus.weibo.util.Const;
 import net.tatans.rhea.network.view.ContentView;
 
 import java.text.ParseException;
@@ -263,7 +264,7 @@ public class SearchResultActivity extends BaseActivity {
                         }
                         if (statusList.statusList == null || statusList.statusList.isEmpty() || isRefresh) {
                             statusList.statusList = resultStatus;
-                            statusAdapter = new StatusAdapter(SearchResultActivity.this, statusList);
+                            statusAdapter = new StatusAdapter(SearchResultActivity.this, statusList, Const.SEARCH);
                             listView.setAdapter(statusAdapter);
                         } else {
                             statusList.statusList.addAll(resultStatus);
