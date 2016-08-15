@@ -68,7 +68,7 @@ public class MyHomePageActivity extends BaseActivity {
         mAccessToken = AccessTokenKeeper.readAccessToken(this);
         mUserApi = new UsersAPI(this, Constants.APP_KEY, mAccessToken);
         weiboData = new RequestWeiboData(this, pullToRefreshListView);
-        long uid = Long.parseLong(mAccessToken.getUid());
+        long uid = getIntent().getLongExtra("uid", Long.parseLong(mAccessToken.getUid()));
         mUserApi.show(uid, mListener);
         weiboData.RequestData();
     }

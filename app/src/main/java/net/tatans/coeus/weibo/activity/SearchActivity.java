@@ -143,6 +143,9 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TatansToast.showAndCancel(users.get(position).getScreen_name());
+                Intent i = new Intent(SearchActivity.this, MyHomePageActivity.class);
+                i.putExtra("uid", users.get(position).getUid());
+                startActivity(i);
             }
         });
         btn_search.setOnClickListener(new View.OnClickListener() {
