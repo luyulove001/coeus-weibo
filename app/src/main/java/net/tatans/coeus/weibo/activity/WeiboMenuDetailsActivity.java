@@ -158,6 +158,16 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     }
 
     /**
+     * 点击进入博主主页
+     */
+    @OnClick(R.id.my_weibo_home)
+    private void onClickHome(){
+        Intent intent = new Intent(this, MyHomePageActivity.class);
+        intent.putExtra("uid", uid);
+        startActivity(intent);
+    }
+
+    /**
      * 关注某用户
      */
     @OnClick(R.id.cancel_follow)
