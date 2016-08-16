@@ -1,7 +1,6 @@
 package net.tatans.coeus.weibo.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -18,9 +17,6 @@ import net.tatans.coeus.weibo.util.Constants;
 import net.tatans.rhea.network.view.ContentView;
 import net.tatans.rhea.network.view.ViewIoc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by LCM on 2016/8/5. 13:11
  * 收藏界面
@@ -34,7 +30,6 @@ public class FavoritesActivity extends BaseActivity {
 
     private FavoritesAPI mFavoritesApi;
     private FavoritesAdapter mFavorites;
-    List<FavoriteList> favoriteList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +42,6 @@ public class FavoritesActivity extends BaseActivity {
      * 初始化数据
      */
     private void initData() {
-        favoriteList = new ArrayList<FavoriteList>();
         accessToken = AccessTokenKeeper.readAccessToken(this);
         mFavoritesApi = new FavoritesAPI(this, Constants.APP_KEY, accessToken);
         mFavoritesApi.favorites(50, 1, mListener);
@@ -61,9 +55,7 @@ public class FavoritesActivity extends BaseActivity {
         @Override
         public void onComplete(String response) {
             FavoriteList favorite = FavoriteList.parse(response);
-            Log.e("response", "response::" +  favorite.favoriteList.size());
-            favoriteList.add(favorite);
-            mFavorites = new FavoritesAdapter(FavoritesActivity.this, favoriteList);
+            mFavorites = new FavoritesAdapter(FavoritesActivity.this, favorite);
             mPullToRefresh.setAdapter(mFavorites);
         }
 

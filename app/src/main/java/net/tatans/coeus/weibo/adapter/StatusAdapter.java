@@ -219,7 +219,6 @@ public class StatusAdapter extends BaseAdapter {
                     intent.setClass(mContext, WeiboMenuDetailsActivity.class);
                     if (isComefrom.equals(Const.REMIND)){
                         intent.putExtra(Const.TYPE,Const.REMIND);
-                        intent.putExtra("weiboId",status.id);
                     }else if(isComefrom.equals(Const.MY_HOME_PAGE)){
                         intent.putExtra(Const.TYPE,Const.MY_HOME_PAGE);
                     }else if(isComefrom.equals(Const.SEARCH)){
@@ -227,6 +226,9 @@ public class StatusAdapter extends BaseAdapter {
                     }else if(isComefrom.equals(Const.HOME)){
                         intent.putExtra(Const.TYPE,Const.HOME);
                     }
+                    intent.putExtra("uid",status.user.id);
+                    intent.putExtra("screen_name",status.user.screen_name);
+                    intent.putExtra("weiboId",status.id);
                     mContext.startActivity(intent);
                     break;
                 default:

@@ -10,8 +10,10 @@ import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.CommentsAPI;
 import com.sina.weibo.sdk.openapi.models.CommentList;
+import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 
 import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.CommentAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
@@ -77,6 +79,8 @@ public class CommentsListActivity extends BaseActivity {
 
         @Override
         public void onWeiboException(WeiboException e) {
+            ErrorInfo info = ErrorInfo.parse(e.getMessage());
+            TatansToast.showAndCancel(info.toString());
         }
     };
 

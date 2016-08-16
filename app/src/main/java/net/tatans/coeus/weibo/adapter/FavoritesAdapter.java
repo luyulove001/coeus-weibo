@@ -1,10 +1,10 @@
 package net.tatans.coeus.weibo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,40 +15,40 @@ import android.widget.TextView;
 
 import com.sina.weibo.sdk.openapi.models.Favorite;
 import com.sina.weibo.sdk.openapi.models.FavoriteList;
-import com.sina.weibo.sdk.openapi.models.Status;
 import com.squareup.picasso.Picasso;
 
 import net.tatans.coeus.weibo.R;
+import net.tatans.coeus.weibo.activity.ImagesActivity;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.HomeSpan;
 import net.tatans.coeus.weibo.util.TimeFormat;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by LCM on 2016/8/5. 13:31
  * 收藏夹适配器
  */
 
-public class FavoritesAdapter  extends BaseAdapter {
-    private   Context mContext;
-    private   List<FavoriteList>  favorites;
+public class FavoritesAdapter extends BaseAdapter {
+    private Context mContext;
+    private FavoriteList favorites;
     public ArrayList<String> pic_urls;
-    public FavoritesAdapter(Context context, List<FavoriteList> favorites){
-        this.mContext = context ;
+
+    public FavoritesAdapter(Context context, FavoriteList favorites) {
+        this.mContext = context;
         this.favorites = favorites;
     }
+
     @Override
     public int getCount() {
-        return favorites.get(0).favoriteList.size();
+        return favorites.favoriteList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return favorites.get(0).favoriteList.get(position);
+        return favorites.favoriteList.get(position);
     }
 
     @Override
@@ -72,11 +72,12 @@ public class FavoritesAdapter  extends BaseAdapter {
             holder.home_page_he_user = (TextView) convertView.findViewById(R.id.home_page_he_user);
             holder.home_page_he_pic = (ImageView) convertView.findViewById(R.id.home_page_he_pic);
             holder.home_page_he_pic_text = (TextView) convertView.findViewById(R.id.home_page_he_pic_text);
+            holder.home_page_he_relaytive = (RelativeLayout) convertView.findViewById(R.id.home_page_he_relaytive);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final Favorite favorite = favorites.get(0).favoriteList.get(position);
+        final Favorite favorite = favorites.favoriteList.get(position);
         Matcher mt_me = Const.pattern.matcher(favorite.status.text);
         holder.home_page_usercontent.setText(favorite.status.text);
         String str = favorite.status.text;
@@ -84,7 +85,7 @@ public class FavoritesAdapter  extends BaseAdapter {
             String mgroup = mt_me.group(0);
             str = str.replace(mgroup, "网页链接");
             SpannableString spannableString = new SpannableString(str);
-            spannableString.setSpan(HomeSpan.getInstance(mgroup,mContext), str.indexOf("网页链接"), str.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(HomeSpan.getInstance(mgroup, mContext), str.indexOf("网页链接"), str.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.home_page_usercontent.setText(spannableString);
             holder.home_page_usercontent.setMovementMethod(LinkMovementMethod.getInstance());
         }
@@ -127,7 +128,7 @@ public class FavoritesAdapter  extends BaseAdapter {
                     String mgroup = mt_he.group(0);
                     strs = strs.replace(mgroup, "网页链接");
                     SpannableString spannableString = new SpannableString(strs);
-                    spannableString.setSpan(HomeSpan.getInstance(mgroup,mContext), strs.indexOf("网页链接"), strs.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    spannableString.setSpan(HomeSpan.getInstance(mgroup, mContext), strs.indexOf("网页链接"), strs.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     holder.home_page_usercomments.setText(spannableString);
                     holder.home_page_usercomments.setMovementMethod(LinkMovementMethod.getInstance());
                 }
@@ -147,8 +148,9 @@ public class FavoritesAdapter  extends BaseAdapter {
                     }
                 }
             }
-
         }
+        holder.home_page_me_relaytive.setOnClickListener(new OnClickListenerIml(position));
+        holder.home_page_he_relaytive.setOnClickListener(new OnClickListenerIml(position));
         return convertView;
     }
 
@@ -170,6 +172,7 @@ public class FavoritesAdapter  extends BaseAdapter {
          */
         private ImageView home_page_pic;
         private TextView home_page_pic_text;
+        private RelativeLayout home_page_he_relaytive;
         private RelativeLayout home_page_me_relaytive;
         /**
          * 转发用户名
@@ -184,5 +187,50 @@ public class FavoritesAdapter  extends BaseAdapter {
          */
         private ImageView home_page_he_pic;
         private TextView home_page_he_pic_text;
+    }
+
+    
+    /**
+     * 点击事件
+     */
+    private class OnClickListenerIml implements View.OnClickListener {
+        private int mPosition;
+
+        public OnClickListenerIml(int position) {
+            this.mPosition = position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            Favorite favorite = favorites.favoriteList.get(mPosition);
+            switch (v.getId()) {
+                case R.id.home_page_he_relaytive://转发微博
+                    ImagesStart("forward", favorite);
+                    break;
+                case R.id.home_page_me_relaytive://不是转发微博
+                    ImagesStart("original", favorite);
+                    break;
+//                case R.id.home_page_usercontent://点击微博进入菜单详情
+//                    mContext.startActivity(intent);
+//                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 点击图片看
+     */
+    private void ImagesStart(String oglAndFwd, Favorite favorite) {
+        Intent intent = new Intent();
+        intent.setClass(mContext, ImagesActivity.class);
+        if (oglAndFwd.equals("original")) {
+            intent.putStringArrayListExtra(Const.PICURLS, favorite.status.pic_urls);
+        } else if (oglAndFwd.equals("forward")) {
+            intent.putStringArrayListExtra(Const.PICURLS, favorite.status.retweeted_status.pic_urls);
+        }
+        mContext.startActivity(intent);
     }
 }
