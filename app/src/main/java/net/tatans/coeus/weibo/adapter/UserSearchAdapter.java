@@ -1,6 +1,7 @@
 package net.tatans.coeus.weibo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import net.tatans.coeus.weibo.R;
+import net.tatans.coeus.weibo.activity.MyHomePageActivity;
+import net.tatans.coeus.weibo.activity.SearchActivity;
 import net.tatans.coeus.weibo.bean.SearchResultUser;
 
 import java.util.List;
@@ -57,6 +60,7 @@ public class UserSearchAdapter extends BaseAdapter {
             viewHolder.tvFollowersCount = (TextView) convertView.findViewById(R.id.followers_count);
             viewHolder.tvVerified = (TextView) convertView.findViewById(R.id.verified);
             convertView.setTag(viewHolder);
+            convertView.setOnClickListener(new MyClickListener(position));
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
@@ -66,4 +70,18 @@ public class UserSearchAdapter extends BaseAdapter {
         return convertView;
     }
 
+    private class MyClickListener implements View.OnClickListener {
+        private int mPosition;
+
+        public MyClickListener(int position) {
+            this.mPosition = position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(ctx, MyHomePageActivity.class);
+            i.putExtra("uid", Long.valueOf(users.get(mPosition).getId()));
+            ctx.startActivity(i);
+        }
+    }
 }

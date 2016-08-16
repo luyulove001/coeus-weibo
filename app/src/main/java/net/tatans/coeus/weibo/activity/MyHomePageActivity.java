@@ -14,6 +14,7 @@ import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Constants;
@@ -67,8 +68,8 @@ public class MyHomePageActivity extends BaseActivity {
     private void initData() {
         mAccessToken = AccessTokenKeeper.readAccessToken(this);
         mUserApi = new UsersAPI(this, Constants.APP_KEY, mAccessToken);
-        weiboData = new RequestWeiboData(this, pullToRefreshListView);
-        long uid = Long.parseLong(mAccessToken.getUid());
+        long uid = getIntent().getLongExtra("uid", Long.parseLong(mAccessToken.getUid()));
+        weiboData = new RequestWeiboData(this, pullToRefreshListView, uid);
         mUserApi.show(uid, mListener);
         weiboData.RequestData();
     }
@@ -86,7 +87,7 @@ public class MyHomePageActivity extends BaseActivity {
                 Message message = new Message();
                 message.obj = user;
                 message.what = 1;
-                mHander.handleMessage(message);
+                mHandler.handleMessage(message);
             }
         }
 
@@ -99,7 +100,7 @@ public class MyHomePageActivity extends BaseActivity {
     /**
      * 更新界面ui
      */
-    private Handler mHander = new Handler() {
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
