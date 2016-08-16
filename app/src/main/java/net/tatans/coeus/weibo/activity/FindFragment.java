@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import net.tatans.coeus.network.tools.StartActivity;
 import net.tatans.coeus.weibo.R;
 
-public class FindFragment extends Fragment implements View.OnClickListener{
+public class FindFragment extends Fragment implements View.OnClickListener {
     /**
      * 界面的view
      */

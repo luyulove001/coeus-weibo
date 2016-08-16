@@ -79,7 +79,7 @@ public class LoginActivity extends BaseActivity {
             if (accessToken != null && accessToken.isSessionValid()) {
                 String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(
                         new java.util.Date(accessToken.getExpiresTime()));
-                Log.e("TAG","登录成功");
+                Log.e("TAG", "登录成功");
                 AccessTokenKeeper.writeAccessToken(getApplicationContext(), accessToken);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -104,6 +104,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mloginUtli.authorizeCallBack(requestCode,resultCode,data);
+        mloginUtli.authorizeCallBack(requestCode, resultCode, data);
     }
 }

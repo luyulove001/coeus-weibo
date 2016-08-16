@@ -82,6 +82,7 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     private String screen_name;
     //是否关注某用户
     private boolean isFollow = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +162,7 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
      * 点击进入博主主页
      */
     @OnClick(R.id.my_weibo_home)
-    private void onClickHome(){
+    private void onClickHome() {
         Intent intent = new Intent(this, MyHomePageActivity.class);
         intent.putExtra("uid", uid);
         startActivity(intent);
@@ -172,11 +173,11 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
      */
     @OnClick(R.id.cancel_follow)
     private void onClickFriendships() {
-        if(isFollow){
+        if (isFollow) {
             cancel_follow.setText("关注该博主");
-            Log.e("cancel",uid+""+screen_name+"==="+accessToken.getToken());
-            mFriendshipsAPI.destroy(uid,screen_name,mListener);
-        }else{
+            Log.e("cancel", uid + "" + screen_name + "===" + accessToken.getToken());
+            mFriendshipsAPI.destroy(uid, screen_name, mListener);
+        } else {
             cancel_follow.setText("取消关注");
             mFriendshipsAPI.create(uid, screen_name, mListener);
         }
@@ -206,15 +207,15 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
                     TatansToast.showAndCancel("收藏成功");
                 } else if (response.startsWith("{\"id\"")) {
                     User user = User.parse(response);
-                    if(isFollow){
+                    if (isFollow) {
                         TatansToast.showAndCancel("取消成功");
-                    }else{
+                    } else {
                         TatansToast.showAndCancel("关注成功");
                     }
                 } else {
                     //解析是否关注该用户
                     FollowBean followBean = FollowBean.parse(response);
-                    isFollow  = followBean.following;
+                    isFollow = followBean.following;
                 }
 
             }

@@ -22,7 +22,7 @@ import net.tatans.coeus.weibo.util.Constants;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MeFragment extends Fragment  implements  View.OnClickListener{
+public class MeFragment extends Fragment implements View.OnClickListener {
     //获取视图
     private TextView myHomePage;
 
@@ -34,13 +34,16 @@ public class MeFragment extends Fragment  implements  View.OnClickListener{
 
     private TextView mCancellation;
 
-    private  View view ;
-    /** 登出操作对应的listener */
+    private View view;
+    /**
+     * 登出操作对应的listener
+     */
     private LogOutRequestListener mLogoutListener = new LogOutRequestListener();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view =  inflater.inflate(R.layout.me_page, container, false);
+        view = inflater.inflate(R.layout.me_page, container, false);
         initView();
         return view;
     }
@@ -49,11 +52,11 @@ public class MeFragment extends Fragment  implements  View.OnClickListener{
      * 初始化视图
      */
     private void initView() {
-        myHomePage  = (TextView) view.findViewById(R.id.my_home_page);
-        mFollow  = (TextView) view.findViewById(R.id.follow);
-        myFans  = (TextView) view.findViewById(R.id.my_fans);
-        mCollection  = (TextView) view.findViewById(R.id.collection);
-        mCancellation  = (TextView) view.findViewById(R.id.cancellation);
+        myHomePage = (TextView) view.findViewById(R.id.my_home_page);
+        mFollow = (TextView) view.findViewById(R.id.follow);
+        myFans = (TextView) view.findViewById(R.id.my_fans);
+        mCollection = (TextView) view.findViewById(R.id.collection);
+        mCancellation = (TextView) view.findViewById(R.id.cancellation);
 
         // 设置监听事件
         myHomePage.setOnClickListener(this);
@@ -66,22 +69,22 @@ public class MeFragment extends Fragment  implements  View.OnClickListener{
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.my_home_page:
-                intent.setClass(getActivity(),MyHomePageActivity.class);
+                intent.setClass(getActivity(), MyHomePageActivity.class);
                 getActivity().startActivity(intent);
                 break;
             case R.id.follow:
-                intent.setClass(getActivity(),ContactListActivity.class);
-                intent.putExtra(Const.CONTACT_OR_FOllOW,Const.FOLLOW);
+                intent.setClass(getActivity(), ContactListActivity.class);
+                intent.putExtra(Const.CONTACT_OR_FOllOW, Const.FOLLOW);
                 getActivity().startActivity(intent);
                 break;
             case R.id.my_fans:
-                intent.setClass(getActivity(),FollowersActivity.class);
+                intent.setClass(getActivity(), FollowersActivity.class);
                 getActivity().startActivity(intent);
                 break;
             case R.id.collection:
-                intent.setClass(getActivity(),FavoritesActivity.class);
+                intent.setClass(getActivity(), FavoritesActivity.class);
                 getActivity().startActivity(intent);
                 break;
             case R.id.cancellation://退出登录
@@ -104,7 +107,7 @@ public class MeFragment extends Fragment  implements  View.OnClickListener{
 
                     if ("true".equalsIgnoreCase(value)) {
                         AccessTokenKeeper.clear(getActivity());
-                        Intent intent = new Intent(getActivity(),LoginActivity.class);
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
                         getActivity().startActivity(intent);
                         getActivity().finish();
                         TatansToast.showAndCancel("已注销");

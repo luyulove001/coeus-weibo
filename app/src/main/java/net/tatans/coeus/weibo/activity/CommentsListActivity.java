@@ -71,9 +71,13 @@ public class CommentsListActivity extends BaseActivity {
     private RequestListener mListener = new RequestListener() {
         @Override
         public void onComplete(String response) {
-            Log.e("response","response::"+response);
+            Log.e("response", "response::" + response);
             CommentList comment = CommentList.parse(response);
-            adapter = new CommentAdapter(CommentsListActivity.this,comment.commentList);
+            if (comment.commentList == null) {
+                TatansToast.showAndCancel("未请求到数据");
+                return;
+            }
+            adapter = new CommentAdapter(CommentsListActivity.this, comment.commentList);
             mCommentsList.setAdapter(adapter);
         }
 

@@ -51,7 +51,7 @@ import java.util.LinkedHashMap;
  * @author: LMB
  * Created time : 2016/5/11 14:28.
  */
-public class VoicesActivity extends Activity implements OnClickListener, OnHoverListener{
+public class VoicesActivity extends Activity implements OnClickListener, OnHoverListener {
     private static String TAG = VoicesActivity.class.getSimpleName();
     public static final String PREFER_NAME = "com.iflytek.setting";
     private AssetFileDescriptor fileDescriptor;
@@ -252,9 +252,9 @@ public class VoicesActivity extends Activity implements OnClickListener, OnHover
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             rippleBackground.stopRippleAnimation();// 关闭动画
-                intent.setClass(VoicesActivity.this,
-                        CommentsActivity.class);
-                intent.putExtra("sm", resultData);
+            intent.setClass(VoicesActivity.this,
+                    CommentsActivity.class);
+            intent.putExtra("sm", resultData);
             setResult(1, intent);
             resultData = "";
             flag = false;
@@ -301,9 +301,9 @@ public class VoicesActivity extends Activity implements OnClickListener, OnHover
 
             rippleBackground.stopRippleAnimation();// 关闭动画
 
-                intent.setClass(VoicesActivity.this,
-                        CommentsActivity.class);
-                intent.putExtra("sm", resultData);
+            intent.setClass(VoicesActivity.this,
+                    CommentsActivity.class);
+            intent.putExtra("sm", resultData);
             setResult(1, intent);
             VoicesActivity.this.finish();
         }

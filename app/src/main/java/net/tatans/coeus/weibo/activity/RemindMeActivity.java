@@ -11,6 +11,7 @@ import com.sina.weibo.sdk.openapi.legacy.StatusesAPI;
 import com.sina.weibo.sdk.openapi.models.StatusList;
 
 import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.StatusAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
@@ -38,7 +39,6 @@ public class RemindMeActivity extends BaseActivity {
     @ViewIoc(R.id.home_page_listview)
     private PullToRefreshListView pullToRefresh;
 
-    private  List<StatusList> statuslists;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,11 +49,9 @@ public class RemindMeActivity extends BaseActivity {
      * 初始化
      */
     private void initData() {
-        statuslists = new ArrayList<StatusList>();
         accessToken = AccessTokenKeeper.readAccessToken(this);
         mStatusesApi = new StatusesAPI(this, Constants.APP_KEY, accessToken);
-        Long uid = Long.parseLong(accessToken.getUid());
-        mStatusesApi.mentions(0L, 0L, 50, 1,0, 0, 0, false, mListener);
+        mStatusesApi.mentions(0L, 0L, 50, 1, 0, 0, 0, false, mListener);
     }
 
 
@@ -65,6 +63,10 @@ public class RemindMeActivity extends BaseActivity {
         public void onComplete(String response) {
             Log.e("status", response);
             StatusList status = StatusList.parse(response);
+            if (status.statusList == null) {
+                TatansToast.showAndCancel("未请求到数据");
+                return;
+            }
             adapter = new StatusAdapter(RemindMeActivity.this, status, Const.REMIND);
             pullToRefresh.setAdapter(adapter);
         }

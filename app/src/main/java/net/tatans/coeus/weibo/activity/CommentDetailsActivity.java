@@ -61,6 +61,7 @@ public class CommentDetailsActivity extends BaseActivity {
     private AllCommentAdapter mAdapter;
 
     private boolean isFlag = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,12 +118,13 @@ public class CommentDetailsActivity extends BaseActivity {
      * 写评论
      */
     @OnClick(R.id.write_comment)
-    private void onClickComment(){
+    private void onClickComment() {
         Intent intent = getIntent();
         intent.setClass(this, CommentsActivity.class);
         intent.putExtra(Const.TYPE, Const.WRITE_COMMENT);
         startActivity(intent);
     }
+
     /**
      * 微博 OpenAPI 回调接口。
      */
@@ -144,7 +146,7 @@ public class CommentDetailsActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && !isFlag ) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && !isFlag) {
             moveTaskToBack(false);//true对任何Activity都适用
             mWriteComment.setVisibility(View.GONE);
             line2.setVisibility(View.GONE);
@@ -155,7 +157,7 @@ public class CommentDetailsActivity extends BaseActivity {
             mPullToRefresh.setVisibility(View.GONE);
             isFlag = true;
             return true;
-        }else{
+        } else {
             finish();
         }
         return super.onKeyDown(keyCode, event);

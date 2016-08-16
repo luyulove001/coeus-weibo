@@ -258,7 +258,7 @@ public class SearchResultActivity extends BaseActivity {
                                 if (content.getRetweeted_status() != null) {
                                     content.getRetweeted_status().setText(Html.fromHtml(content.getRetweeted_status().getText()).toString());
                                 }
-                                TatansLog.d("antony", content.user.toString() + "---" );
+                                TatansLog.d("antony", content.user.toString() + "---");
                                 resultStatus.add(content);
                             }
                         }

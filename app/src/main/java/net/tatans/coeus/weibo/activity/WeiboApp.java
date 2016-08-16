@@ -12,9 +12,10 @@ public class WeiboApp extends TatansApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        sInstance=this;
+        sInstance = this;
         setAppSpeaker();
     }
+
     public static WeiboApp getInstance() {
         return sInstance;
     }

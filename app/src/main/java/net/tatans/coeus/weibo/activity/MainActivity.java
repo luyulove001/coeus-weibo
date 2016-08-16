@@ -27,10 +27,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Fragment mFindFragment;
     private Fragment mMeFragment;
     private Handler mHandler;
-    private int click_judgment=1;
+    private int click_judgment = 1;
+
     public void setHandler(Handler handler) {
         mHandler = handler;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,23 +131,23 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.id_tab_home:
                 setSelect(0);
-                click_judgment+=1;
-                if (click_judgment>1){
+                click_judgment += 1;
+                if (click_judgment > 1) {
                     mHandler.sendEmptyMessage(2);
                 }
 
                 break;
             case R.id.id_tab_message:
                 setSelect(1);
-                click_judgment=0;
+                click_judgment = 0;
                 break;
             case R.id.id_tab_search:
                 setSelect(2);
-                click_judgment=0;
+                click_judgment = 0;
                 break;
             case R.id.id_tab_me:
                 setSelect(3);
-                click_judgment=0;
+                click_judgment = 0;
                 break;
 
             default:
@@ -166,6 +168,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        click_judgment=0;
+        click_judgment = 0;
     }
 }

@@ -42,15 +42,16 @@ public class FollowersActivity extends BaseActivity {
     @ViewIoc(R.id.edt_search)
     private EditText mEdtSearch;
 
-    private List<String>  mFollowList;
+    private List<String> mFollowList;
 
     //获取用户
     private FriendshipsAPI mFriendships;
-    private Oauth2AccessToken  mAccessToken;
+    private Oauth2AccessToken mAccessToken;
 
     private FollowersAdapter adapter;
 
-    private List<String>  screenList = new ArrayList<String>();
+    private List<String> screenList = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +75,7 @@ public class FollowersActivity extends BaseActivity {
         //获取用户保存的 Token
         mAccessToken = AccessTokenKeeper.readAccessToken(this);
         //实例化关系类
-        mFriendships = new FriendshipsAPI(this,Constants.APP_KEY,mAccessToken);
+        mFriendships = new FriendshipsAPI(this, Constants.APP_KEY, mAccessToken);
 
         mEdtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -85,10 +86,10 @@ public class FollowersActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 screenList.clear();
-                if(mEdtSearch.getText().toString() != null){
+                if (mEdtSearch.getText().toString() != null) {
                     String input_info = mEdtSearch.getText().toString();
                     screenList = getNewData(input_info);
-                    adapter = new FollowersAdapter(FollowersActivity.this,screenList);
+                    adapter = new FollowersAdapter(FollowersActivity.this, screenList);
                     mListView.setAdapter(adapter);
                 }
             }
@@ -100,7 +101,6 @@ public class FollowersActivity extends BaseActivity {
         });
 
     }
-
 
 
     /**
@@ -127,16 +127,17 @@ public class FollowersActivity extends BaseActivity {
      * @param listData
      */
     public void setListData(List<String> listData) {
-        adapter = new FollowersAdapter(this,listData);
+        adapter = new FollowersAdapter(this, listData);
         mListView.setAdapter(adapter);
     }
 
     /**
      * 更新数据
+     *
      * @param input_info
      * @return
      */
-    private List<String> getNewData(String input_info){
+    private List<String> getNewData(String input_info) {
         for (int i = 0; i < mFollowList.size(); i++) {
             String screen_name = mFollowList.get(i);
             if (screen_name.contains(input_info)) {

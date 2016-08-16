@@ -228,12 +228,16 @@ public class CommentsActivity extends BaseActivity {
                     }
                 } else if (response.startsWith("{\"created_at\"") && type.equals(Const.WRITE_WEIBO)) {
                     TatansToast.showAndCancel("发送一送微博成功");
+                    finish();
                 } else if (response.startsWith("{\"created_at\"") && (type.equals(Const.REPLY) || type.equals(Const.WRITE_COMMENT))) {
                     TatansToast.showAndCancel("回复一条微博成功");
+                    finish();
                 } else if (response.startsWith("{\"created_at\"") && type.equals(Const.WEIBO_COMMENT)) {
                     TatansToast.showAndCancel("评论一条微博成功");
+                    finish();
                 } else if (response.startsWith("{\"created_at\"") && type.equals(Const.WEIBO_FORWARD)) {
                     TatansToast.showAndCancel("转发成功");
+                    finish();
                 }
             }
         }

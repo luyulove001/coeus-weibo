@@ -1,15 +1,10 @@
 package net.tatans.coeus.weibo.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,7 +24,6 @@ import net.tatans.rhea.network.view.ContentView;
 import net.tatans.rhea.network.view.ViewIoc;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static net.tatans.coeus.weibo.R.id.listView;
@@ -48,21 +42,10 @@ public class ContactListActivity extends BaseActivity {
     @ViewIoc(R.id.con_or_follow)
     private TextView con_or_follow;
 
-    private String[] indexStr = {"A", "B", "C", "D", "E", "F", "G", "H",
-            "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
-            "V", "W", "X", "Y", "Z", "#"};
-
-    private static int HEIGHT;
     /**
      * 字体高度
      */
-    private boolean flag;
     List<String> list = new ArrayList<String>();
-    //测试使用的bean
-    String[] stringName = {"阿妹", "阿郎", "陈奕迅", "周杰伦", "曾一鸣", "成龙", "王力宏", "汪峰", "王菲", "那英",
-            "张伟", "张学友", "李德华", "郑源", "白水水", "白天不亮", "陈龙", "陈丽丽", "哈林", "高进", "高雷",
-            "阮今天", "龚琳娜", "苏醒", "苏永康", "陶喆", "沙宝亮", "宋冬野", "宋伟", "袁成杰", "戚薇", "齐大友",
-            "齐天大圣", "品冠", "吴克群", "BOBO", "Jobs", "动力火车", "伍佰", "#蔡依林", "$797835344$", "Jack", "~夏先生"};
     private ContactListAdapter adapter;
 
     //获取用户
@@ -93,7 +76,7 @@ public class ContactListActivity extends BaseActivity {
         //实例化关系类
         mFriendshipsAPI = new FriendshipsAPI(this, Constants.APP_KEY, accessToken);
 
-        if(mConOrFollow.equals(Const.FOLLOW)){
+        if (mConOrFollow.equals(Const.FOLLOW)) {
             con_or_follow.setText("关注");
         }
     }
@@ -114,7 +97,7 @@ public class ContactListActivity extends BaseActivity {
                 listString.clear();
                 if (mEdtSearch.getText().toString() != null) {
                     String input_info = mEdtSearch.getText().toString();
-                    adapter = new ContactListAdapter(ContactListActivity.this,getNewData(input_info));
+                    adapter = new ContactListAdapter(ContactListActivity.this, getNewData(input_info));
                     mListView.setAdapter(adapter);
                 }
 
