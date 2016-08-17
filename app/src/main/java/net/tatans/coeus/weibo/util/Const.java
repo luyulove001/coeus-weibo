@@ -29,5 +29,13 @@ public class Const {
     public static String HOME= "HOME";
     public static String WEIBO_COMMENT = "WEIBO_COMMENT";
     public static String WEIBO_FORWARD = "WEIBO_FORWARD";
+    public static String WEIBO_FAVORITE = "WEIBO_FAVORITE";
+    public static String UID = "uid";
+    public static String SCREEN_NAME = "screen_name";
+    public static String WEIBO_ID = "weiboId";
+    public static String REPOSTS_COUNT = "reposts_count";
+    public static String COMMENTS_COUNT = "comments_count";
+    public static String FAVORITES = "favorites";
+
 
 }

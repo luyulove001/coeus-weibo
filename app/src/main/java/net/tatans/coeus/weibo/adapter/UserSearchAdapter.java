@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.activity.MyHomePageActivity;
-import net.tatans.coeus.weibo.activity.SearchActivity;
 import net.tatans.coeus.weibo.bean.SearchResultUser;
 
 import java.util.List;

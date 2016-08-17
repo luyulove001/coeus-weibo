@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.activity.ImagesActivity;
+import net.tatans.coeus.weibo.activity.WeiboMenuDetailsActivity;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.HomeSpan;
 import net.tatans.coeus.weibo.util.TimeFormat;
@@ -151,6 +152,7 @@ public class FavoritesAdapter extends BaseAdapter {
         }
         holder.home_page_me_relaytive.setOnClickListener(new OnClickListenerIml(position));
         holder.home_page_he_relaytive.setOnClickListener(new OnClickListenerIml(position));
+        holder.home_page_usercontent.setOnClickListener(new OnClickListenerIml(position));
         return convertView;
     }
 
@@ -189,7 +191,7 @@ public class FavoritesAdapter extends BaseAdapter {
         private TextView home_page_he_pic_text;
     }
 
-    
+
     /**
      * 点击事件
      */
@@ -211,9 +213,24 @@ public class FavoritesAdapter extends BaseAdapter {
                 case R.id.home_page_me_relaytive://不是转发微博
                     ImagesStart("original", favorite);
                     break;
-//                case R.id.home_page_usercontent://点击微博进入菜单详情
-//                    mContext.startActivity(intent);
-//                    break;
+                case R.id.home_page_usercontent://点击微博进入菜单详情
+                    intent.setClass(mContext, WeiboMenuDetailsActivity.class);
+                    intent.putExtra(Const.TYPE, Const.WEIBO_FAVORITE);
+                    intent.putExtra(Const.UID, favorite.status.user.id);
+                    intent.putExtra(Const.SCREEN_NAME, favorite.status.user.screen_name);
+                    intent.putExtra(Const.WEIBO_ID, favorite.status.id);
+                    intent.putExtra(Const.FAVORITES,favorite.status.favorited);
+                    if (favorite.status != null) {
+                        if (favorite.status.retweeted_status != null) {
+                            intent.putExtra(Const.REPOSTS_COUNT, favorite.status.retweeted_status.reposts_count);
+                            intent.putExtra(Const.COMMENTS_COUNT, favorite.status.retweeted_status.comments_count);
+                        } else {
+                            intent.putExtra(Const.REPOSTS_COUNT, favorite.status.reposts_count);
+                            intent.putExtra(Const.COMMENTS_COUNT, favorite.status.comments_count);
+                        }
+                    }
+                    mContext.startActivity(intent);
+                    break;
                 default:
                     break;
             }

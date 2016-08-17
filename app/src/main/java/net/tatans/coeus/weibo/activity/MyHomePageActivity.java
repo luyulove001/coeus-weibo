@@ -3,7 +3,6 @@ package net.tatans.coeus.weibo.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -14,9 +13,9 @@ import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import net.tatans.coeus.network.tools.BaseActivity;
-import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
+import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
 import net.tatans.coeus.weibo.util.RequestWeiboData;
 import net.tatans.rhea.network.view.ContentView;
@@ -68,7 +67,7 @@ public class MyHomePageActivity extends BaseActivity {
     private void initData() {
         mAccessToken = AccessTokenKeeper.readAccessToken(this);
         mUserApi = new UsersAPI(this, Constants.APP_KEY, mAccessToken);
-        long uid = getIntent().getLongExtra("uid", Long.parseLong(mAccessToken.getUid()));
+        long uid = getIntent().getLongExtra(Const.UID, Long.parseLong(mAccessToken.getUid()));
         weiboData = new RequestWeiboData(this, pullToRefreshListView, uid);
         mUserApi.show(uid, mListener);
         weiboData.RequestData();
@@ -81,7 +80,6 @@ public class MyHomePageActivity extends BaseActivity {
     private RequestListener mListener = new RequestListener() {
         @Override
         public void onComplete(String response) {
-            Log.e("onComplete", "response::" + response);
             User user = User.parse(response);
             if (user != null) {
                 Message message = new Message();

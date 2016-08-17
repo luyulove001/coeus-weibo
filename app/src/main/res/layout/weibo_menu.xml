@@ -6,6 +6,24 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/follow_blogger"
+        android:layout_width="fill_parent"
+        android:layout_height="59dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="17dp"
+        android:text="@string/follow_blogger"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="17dp"
+        android:background="@color/white" />
+
+    <TextView
         android:id="@+id/reply"
         android:layout_width="fill_parent"
         android:layout_height="59dp"

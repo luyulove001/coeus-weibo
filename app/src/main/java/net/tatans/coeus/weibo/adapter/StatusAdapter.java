@@ -217,18 +217,28 @@ public class StatusAdapter extends BaseAdapter {
                     break;
                 case R.id.home_page_usercontent://点击微博进入菜单详情
                     intent.setClass(mContext, WeiboMenuDetailsActivity.class);
-                    if (isComefrom.equals(Const.REMIND)){
-                        intent.putExtra(Const.TYPE,Const.REMIND);
-                    }else if(isComefrom.equals(Const.MY_HOME_PAGE)){
-                        intent.putExtra(Const.TYPE,Const.MY_HOME_PAGE);
-                    }else if(isComefrom.equals(Const.SEARCH)){
-                        intent.putExtra(Const.TYPE,Const.SEARCH);
-                    }else if(isComefrom.equals(Const.HOME)){
-                        intent.putExtra(Const.TYPE,Const.HOME);
+                    if (isComefrom.equals(Const.REMIND)) {
+                        intent.putExtra(Const.TYPE, Const.REMIND);
+                    } else if (isComefrom.equals(Const.MY_HOME_PAGE)) {
+                        intent.putExtra(Const.TYPE, Const.MY_HOME_PAGE);
+                    } else if (isComefrom.equals(Const.SEARCH)) {
+                        intent.putExtra(Const.TYPE, Const.SEARCH);
+                    } else if (isComefrom.equals(Const.HOME)) {
+                        intent.putExtra(Const.TYPE, Const.HOME);
                     }
-                    intent.putExtra("uid",status.user.id);
-                    intent.putExtra("screen_name",status.user.screen_name);
-                    intent.putExtra("weiboId",status.id);
+                    if (status != null) {
+                        if (status.retweeted_status != null) {
+                            intent.putExtra(Const.REPOSTS_COUNT, status.retweeted_status.reposts_count);
+                            intent.putExtra(Const.COMMENTS_COUNT, status.retweeted_status.comments_count);
+                        } else {
+                            intent.putExtra(Const.REPOSTS_COUNT, status.reposts_count);
+                            intent.putExtra(Const.COMMENTS_COUNT, status.comments_count);
+                        }
+                        intent.putExtra(Const.UID, status.user.id);
+                        intent.putExtra(Const.SCREEN_NAME, status.user.screen_name);
+                        intent.putExtra(Const.WEIBO_ID, status.id);
+                        intent.putExtra(Const.FAVORITES,status.favorited);
+                    }
                     mContext.startActivity(intent);
                     break;
                 default:
