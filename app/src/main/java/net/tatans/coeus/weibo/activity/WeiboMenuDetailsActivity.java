@@ -159,7 +159,8 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     private void onClickReply() {
         Intent intent = getIntent();
         intent.setClass(this, CommentsActivity.class);
-        intent.putExtra(Const.TYPE, Const.WEIBO_COMMENT);
+        intent.putExtra(Const.TYPE, Const.WRITE_COMMENT);
+        intent.putExtra("isReply", true);
         startActivity(intent);
     }
 
@@ -180,6 +181,17 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     @OnClick(R.id.layout_comment)
     private void onClickComment() {
         Intent intent = new Intent(this, CommentsListActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 点击写评论
+     */
+    @OnClick(R.id.write_comment)
+    private void onClickWriteComment() {
+        Intent intent = new Intent(this, CommentsActivity.class);
+        intent.putExtra(Const.TYPE, Const.WRITE_COMMENT);
+        intent.putExtra("weiboId", weiboId + "");
         startActivity(intent);
     }
 

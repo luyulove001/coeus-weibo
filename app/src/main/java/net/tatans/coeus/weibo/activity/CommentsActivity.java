@@ -25,6 +25,7 @@ import com.sina.weibo.sdk.openapi.models.StatusList;
 
 import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.network.tools.TatansApplication;
+import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
@@ -108,18 +109,15 @@ public class CommentsActivity extends BaseActivity {
         } else if (type.equals(Const.REPLY) || type.equals(Const.WRITE_COMMENT)) {
             //回复
             mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, mAccessToken);
-            commentId = Long.parseLong(getIntent().getExtras().getString("id"));
             weiboId = Long.parseLong(getIntent().getExtras().getString("weiboId"));
             if (type.equals(Const.REPLY)) {
+                commentId = Long.parseLong(getIntent().getExtras().getString("id"));
                 comments_content.setHint("回复");
             } else {
-                comments_content.setHint("写评论");
+                if (!getIntent().getBooleanExtra("isReply", false))
+                    comments_content.setHint("写评论");
+                else comments_content.setHint("回复");
             }
-            mForwardComment.setVisibility(View.GONE);
-        } else if (type.equals(Const.WEIBO_COMMENT)) {
-            mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, mAccessToken);
-            weiboId = Long.parseLong(getIntent().getExtras().getString("weiboId"));
-            comments_content.setHint("回复");
             mForwardComment.setVisibility(View.GONE);
         } else {
             mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, mAccessToken);
@@ -163,10 +161,10 @@ public class CommentsActivity extends BaseActivity {
         if (type.equals(Const.WRITE_WEIBO)) {
             //发送一条纯文字微博
             mStatusesAPI.update(content, null, null, mListener);
-        } else if (type.equals(Const.REPLY) || type.equals(Const.WRITE_COMMENT)) {
+        } else if (type.equals(Const.REPLY)) {
             //回复评论
             mCommentsAPI.reply(commentId, weiboId, content, false, false, mListener);
-        } else if (type.equals(Const.WEIBO_COMMENT)) {
+        } else if (type.equals(Const.WEIBO_COMMENT) || type.equals(Const.WRITE_COMMENT)) {
             mCommentsAPI.create(content, weiboId, false, mListener);
         } else if (type.equals(Const.WEIBO_FORWARD)) {
             mStatusesAPI.repost(weiboId, content, commentType, mListener);
@@ -219,6 +217,7 @@ public class CommentsActivity extends BaseActivity {
     private RequestListener mListener = new RequestListener() {
         @Override
         public void onComplete(String response) {
+            TatansLog.d("antony", response);
             if (!TextUtils.isEmpty(response)) {
                 if (response.startsWith("{\"statuses\"")) {
                     // 调用 StatusList#parse 解析字符串成微博列表对象
@@ -229,10 +228,10 @@ public class CommentsActivity extends BaseActivity {
                 } else if (response.startsWith("{\"created_at\"") && type.equals(Const.WRITE_WEIBO)) {
                     TatansToast.showAndCancel("发送一送微博成功");
                     finish();
-                } else if (response.startsWith("{\"created_at\"") && (type.equals(Const.REPLY) || type.equals(Const.WRITE_COMMENT))) {
+                } else if (response.startsWith("{\"created_at\"") && (type.equals(Const.REPLY))) {
                     TatansToast.showAndCancel("回复一条微博成功");
                     finish();
-                } else if (response.startsWith("{\"created_at\"") && type.equals(Const.WEIBO_COMMENT)) {
+                } else if (response.startsWith("{\"created_at\"") && type.equals(Const.WEIBO_COMMENT) || type.equals(Const.WRITE_COMMENT)) {
                     TatansToast.showAndCancel("评论一条微博成功");
                     finish();
                 } else if (response.startsWith("{\"created_at\"") && type.equals(Const.WEIBO_FORWARD)) {

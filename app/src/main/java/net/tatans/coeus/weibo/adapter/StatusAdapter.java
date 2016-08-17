@@ -227,13 +227,8 @@ public class StatusAdapter extends BaseAdapter {
                         intent.putExtra(Const.TYPE, Const.HOME);
                     }
                     if (status != null) {
-                        if (status.retweeted_status != null) {
-                            intent.putExtra(Const.REPOSTS_COUNT, status.retweeted_status.reposts_count);
-                            intent.putExtra(Const.COMMENTS_COUNT, status.retweeted_status.comments_count);
-                        } else {
-                            intent.putExtra(Const.REPOSTS_COUNT, status.reposts_count);
-                            intent.putExtra(Const.COMMENTS_COUNT, status.comments_count);
-                        }
+                        intent.putExtra(Const.REPOSTS_COUNT, status.reposts_count);
+                        intent.putExtra(Const.COMMENTS_COUNT, status.comments_count);
                         intent.putExtra(Const.UID, status.user.id);
                         intent.putExtra(Const.SCREEN_NAME, status.user.screen_name);
                         intent.putExtra(Const.WEIBO_ID, status.id);
