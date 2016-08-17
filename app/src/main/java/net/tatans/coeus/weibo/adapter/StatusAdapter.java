@@ -237,7 +237,7 @@ public class StatusAdapter extends BaseAdapter {
                         intent.putExtra(Const.UID, status.user.id);
                         intent.putExtra(Const.SCREEN_NAME, status.user.screen_name);
                         intent.putExtra(Const.WEIBO_ID, status.id);
-                        intent.putExtra(Const.FAVORITES,status.favorited);
+                        intent.putExtra(Const.FAVORITES, status.favorited);
                     }
                     mContext.startActivity(intent);
                     break;

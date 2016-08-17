@@ -219,7 +219,7 @@ public class FavoritesAdapter extends BaseAdapter {
                     intent.putExtra(Const.UID, favorite.status.user.id);
                     intent.putExtra(Const.SCREEN_NAME, favorite.status.user.screen_name);
                     intent.putExtra(Const.WEIBO_ID, favorite.status.id);
-                    intent.putExtra(Const.FAVORITES,favorite.status.favorited);
+                    intent.putExtra(Const.FAVORITES, favorite.status.favorited);
                     if (favorite.status != null) {
                         if (favorite.status.retweeted_status != null) {
                             intent.putExtra(Const.REPOSTS_COUNT, favorite.status.retweeted_status.reposts_count);
