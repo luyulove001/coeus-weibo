@@ -9,6 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:focusable="true">
+
         <LinearLayout
             android:id="@+id/linear_usert"
             android:layout_width="fill_parent"
@@ -21,7 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="17dp"
-                android:text="wetwet"
+                android:text="用户名"
+                android:maxEms="10"
                 android:textColor="#ffffff"
                 android:textSize="25sp" />
 
@@ -29,21 +31,22 @@
                 android:id="@+id/home_page_usertime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="17dp"
                 android:gravity="center_vertical"
-                android:layout_gravity="center_vertical"
-                android:text="sdg"
+                android:text="时间"
                 android:textColor="#ffffff"
                 android:textSize="18dp" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/home_page_usercontent"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_usert"
             android:paddingLeft="17dp"
             android:paddingRight="17dp"
-            android:layout_below="@+id/linear_usert"
-            android:text="sdgg"
+            android:text="内容"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -78,9 +81,9 @@
         android:id="@+id/home_page_he_rela"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/home_page_head"
         android:background="#FF242424"
-        android:focusable="true"
-        android:layout_below="@+id/home_page_head">
+        android:focusable="true">
 
         <TextView
             android:id="@+id/home_page_he_user"
@@ -104,13 +107,13 @@
             android:textSize="25sp"
             android:visibility="gone" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/home_page_he_relaytive"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBottomDark"
         android:layout_below="@+id/home_page_he_rela"
-        >
+        android:background="@color/colorBottomDark">
 
         <ImageView
             android:id="@+id/home_page_he_pic"
@@ -118,17 +121,19 @@
             android:layout_height="wrap_content"
             android:paddingLeft="17dp"
             android:visibility="gone" />
+
         <TextView
             android:id="@+id/home_page_he_pic_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/home_page_he_pic"
+            android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:textColor="@color/white"
-            android:textSize="25sp"
-            android:layout_toRightOf="@+id/home_page_he_pic"/>
+            android:textSize="25sp" />
     </RelativeLayout>
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"

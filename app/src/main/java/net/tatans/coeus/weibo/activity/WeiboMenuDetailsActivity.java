@@ -219,6 +219,16 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
         intent.putExtra(Const.COMMENT_OR_REMIND, Const.REMIND);
         startActivity(intent);
     }
+    /**
+     * 点击查看所有评论
+     */
+    @OnClick(R.id.layout_all_comment)
+    private void onClickAllComment() {
+        Intent intent = new Intent(this, CommentDetailsActivity.class);
+        intent.putExtra(Const.WEIBO_ID, weiboId);
+        intent.putExtra(Const.COMMENT_OR_REMIND, Const.REMIND);
+        startActivity(intent);
+    }
 
     /**
      * 点击写评论

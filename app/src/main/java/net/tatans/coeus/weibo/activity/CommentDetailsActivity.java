@@ -3,10 +3,13 @@ package net.tatans.coeus.weibo.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
@@ -19,6 +22,7 @@ import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.AllCommentAdapter;
+import net.tatans.coeus.weibo.adapter.StatusAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
@@ -54,6 +58,8 @@ public class CommentDetailsActivity extends BaseActivity {
     private boolean isFlag = true;
 
     private String type;
+    private boolean isRefresh = false, isEnd = false;
+    private int index = 1;//当前页数
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +72,39 @@ public class CommentDetailsActivity extends BaseActivity {
      */
     private void initData() {
         Bundle bundle = getIntent().getExtras();
+        comments = new CommentList();
         type = bundle.getString(Const.COMMENT_OR_REMIND);
         weiboId = bundle.getLong(Const.WEIBO_ID);
         accessToken = AccessTokenKeeper.readAccessToken(this);
         mCommentAPI = new CommentsAPI(this, Constants.APP_KEY, accessToken);
-        mCommentAPI.show(weiboId, 0, 0, 50, 1, 0, mListener);
+        mCommentAPI.show(weiboId, 0, 0, 50, index, 0, mListener);
+        mPullToRefresh.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
+            @Override
+            public void onLastItemVisible() {
+                if (isEnd) {
+                    TatansToast.showAndCancel("没有更多内容了");
+                    return;
+                }
+                isRefresh = false;
+                index += 1;
+                mCommentAPI.show(weiboId, 0, 0, 50, index, 0, mListener);
+            }
+        });
+        mPullToRefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                String label = DateUtils.formatDateTime(CommentDetailsActivity.this, System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+                mPullToRefresh.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                index = 1;
+                isRefresh = true;
+                isEnd = false;
+                comments.commentList.clear();
+                mPullToRefresh.setRefreshing();
+                mCommentAPI.show(weiboId, 0, 0, 50, index, 0, mListener);
+            }
+        });
     }
-
 
 
     /**
@@ -93,10 +125,25 @@ public class CommentDetailsActivity extends BaseActivity {
         @Override
         public void onComplete(String response) {
             if (!TextUtils.isEmpty(response)) {
-                Log.e("allcomment",response);
-                comments = CommentList.parse(response);
-                mAdapter = new AllCommentAdapter(CommentDetailsActivity.this, comments);
-                mPullToRefresh.setAdapter(mAdapter);
+                Log.e("allcomment", response);
+                mPullToRefresh.onRefreshComplete();
+                CommentList comments1 = CommentList.parse(response);
+                if (comments1.commentList == null || comments1.commentList.isEmpty()) {
+                    isEnd = true;
+                    TatansToast.showAndCancel("未请求到数据");
+                    return;
+                }
+                if (comments1.commentList.size() < 50)
+                    isEnd = true;
+                if (comments.commentList == null || comments.commentList.isEmpty() || isRefresh) {//刷新
+                    comments = comments1;
+                    mAdapter = new AllCommentAdapter(CommentDetailsActivity.this, comments);
+                    mPullToRefresh.setAdapter(mAdapter);
+                } else {//加载
+                    comments.commentList.addAll(comments1.commentList);
+                    mAdapter.notifyDataSetChanged();
+                    TatansToast.showAndCancel("加载第" + index + "页");
+                }
             }
         }
 
