@@ -191,7 +191,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     private void onClickReply() {
         Intent intent = getIntent();
         intent.setClass(this, CommentsActivity.class);
-        intent.putExtra(Const.TYPE, Const.WRITE_COMMENT);
         intent.putExtra("isReply", true);
         if(Const.TYPE.equals(Const.COMMENT)){
             intent.putExtra(Const.TYPE, Const.REPLY);
