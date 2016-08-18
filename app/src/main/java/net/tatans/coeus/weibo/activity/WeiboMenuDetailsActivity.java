@@ -3,6 +3,7 @@ package net.tatans.coeus.weibo.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,14 +11,17 @@ import android.widget.TextView;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
+import com.sina.weibo.sdk.openapi.CommentsAPI;
 import com.sina.weibo.sdk.openapi.legacy.FavoritesAPI;
 import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
+import com.sina.weibo.sdk.openapi.models.CommentList;
 import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 import com.sina.weibo.sdk.openapi.models.Favorite;
 
 import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
+import net.tatans.coeus.weibo.bean.ContactList;
 import net.tatans.coeus.weibo.bean.FollowBean;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Const;
@@ -65,6 +69,14 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     private View line;
     @ViewIoc(R.id.line1)
     private View line1;
+    @ViewIoc(R.id.line6)
+    private View line6;
+    @ViewIoc(R.id.line5)
+    private View line5;
+    @ViewIoc(R.id.line4)
+    private View line4;
+    @ViewIoc(R.id.line3)
+    private View line3;
     @ViewIoc(R.id.follow_blogger)
     private TextView follow_blogger;
 
@@ -78,6 +90,7 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     //关系接口
     private FriendshipsAPI mFriendshipsAPI;
 
+    private CommentsAPI mCommentAPI;
     private Long weiboId;
     private Long uid;
     private String screen_name;
@@ -93,13 +106,14 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        type = getIntent().getExtras().getString(Const.TYPE);
-        weiboId = Long.valueOf(getIntent().getExtras().getString(Const.WEIBO_ID));
-        uid = Long.valueOf(getIntent().getExtras().getString(Const.UID));
-        screen_name = getIntent().getExtras().getString(Const.SCREEN_NAME);
-        comments_count = getIntent().getExtras().getInt(Const.COMMENTS_COUNT);
-        reposts_count = getIntent().getExtras().getInt(Const.REPOSTS_COUNT);
-        isFavorites = getIntent().getExtras().getBoolean(Const.FAVORITES);
+        Bundle bundle = getIntent().getExtras();
+        type = bundle.getString(Const.TYPE);
+        weiboId = Long.valueOf(bundle.getString(Const.WEIBO_ID));
+        uid = Long.valueOf(bundle.getString(Const.UID));
+        screen_name = bundle.getString(Const.SCREEN_NAME);
+        comments_count = bundle.getInt(Const.COMMENTS_COUNT);
+        reposts_count = bundle.getInt(Const.REPOSTS_COUNT);
+        isFavorites = bundle.getBoolean(Const.FAVORITES);
         initData();
     }
 
@@ -110,6 +124,11 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
         accessToken = AccessTokenKeeper.readAccessToken(this);
         mFavoritesAPI = new FavoritesAPI(this, Constants.APP_KEY, accessToken);
         mFriendshipsAPI = new FriendshipsAPI(this, Constants.APP_KEY, accessToken);
+        if(type.equals(Const.COMMENT)){
+            Log.e("TAG",")))COMMENT"+Const.COMMENT);
+            mCommentAPI = new CommentsAPI(this, Constants.APP_KEY, accessToken);
+            mCommentAPI.show(weiboId, 0, 0, 50, 1, 0, mListener);
+        }
         //用于判断当前用户是否关注了某用户
         mFriendshipsAPI.show(Long.parseLong(accessToken.getUid()), uid, mListener);
         ViweDisplay();
@@ -141,10 +160,25 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
             mReply.setVisibility(View.GONE);
             layout_comment.setVisibility(View.GONE);
             cancel_follow.setVisibility(View.GONE);
+        }else if(type.equals(Const.COMMENT)){
+            follow_blogger.setVisibility(View.GONE);
+            line1.setVisibility(View.GONE);
+            layout_forward.setVisibility(View.GONE);
+            write_comment.setVisibility(View.GONE);
+            layout_comment.setVisibility(View.GONE);
+            collection.setVisibility(View.GONE);
+            my_weibo_home.setVisibility(View.GONE);
+            cancel_follow.setVisibility(View.GONE);
+            line6.setVisibility(View.GONE);
+            line3.setVisibility(View.GONE);
+            line4.setVisibility(View.GONE);
+            line5.setVisibility(View.GONE);
         }
         comment_num.setText(comments_count + "");
         forward_num.setText(reposts_count + "");
-        all_comment_num.setText(comments_count + "");
+        if (!type.equals(Const.COMMENT)) {
+            all_comment_num.setText(comments_count + "");
+        }
         if (isFavorites) {
             collection.setText("取消收藏");
         } else {
@@ -159,7 +193,11 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     private void onClickReply() {
         Intent intent = getIntent();
         intent.setClass(this, CommentsActivity.class);
-        intent.putExtra(Const.TYPE, Const.WEIBO_COMMENT);
+        if(Const.TYPE.equals(Const.COMMENT)){
+            intent.putExtra(Const.TYPE, Const.REPLY);
+        }else{
+            intent.putExtra(Const.TYPE, Const.WEIBO_COMMENT);
+        }
         startActivity(intent);
     }
 
@@ -179,7 +217,9 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
      */
     @OnClick(R.id.layout_comment)
     private void onClickComment() {
-        Intent intent = new Intent(this, CommentsListActivity.class);
+        Intent intent = new Intent(this, CommentDetailsActivity.class);
+        intent.putExtra(Const.WEIBO_ID, weiboId);
+        intent.putExtra(Const.COMMENT_OR_REMIND, Const.REMIND);
         startActivity(intent);
     }
 
@@ -243,7 +283,12 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
                     } else {
                         TatansToast.showAndCancel("关注成功");
                     }
-                } else {
+                } else if(response.startsWith("{\"comments\"")){
+                    CommentList commentList = CommentList.parse(response);
+                    if(commentList!=null){
+                        all_comment_num.setText(commentList.commentList.size()+"");
+                    }
+                }else{
                     //解析是否关注该用户
                     FollowBean followBean = FollowBean.parse(response);
                     isFollow = followBean.following;

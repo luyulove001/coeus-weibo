@@ -109,7 +109,7 @@ public class CommentsActivity extends BaseActivity {
             //回复
             mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, mAccessToken);
             commentId = Long.parseLong(getIntent().getExtras().getString("id"));
-            weiboId = Long.parseLong(getIntent().getExtras().getString("weiboId"));
+            weiboId = getIntent().getExtras().getLong("weiboId");
             if (type.equals(Const.REPLY)) {
                 comments_content.setHint("回复");
             } else {

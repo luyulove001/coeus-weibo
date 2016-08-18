@@ -73,6 +73,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/line6"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="17dp"
@@ -90,6 +91,7 @@
         android:textStyle="bold" />
 
     <View
+        android:id="@+id/lin5"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="17dp"
@@ -126,6 +128,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/line5"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="17dp"
@@ -179,6 +182,7 @@
         android:textStyle="bold" />
 
     <View
+        android:id="@+id/line4"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="17dp"
@@ -219,6 +223,7 @@
         android:textStyle="bold" />
 
     <View
+        android:id="@+id/line3"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="17dp"

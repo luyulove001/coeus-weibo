@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -34,13 +32,6 @@ import net.tatans.rhea.network.view.ViewIoc;
  */
 @ContentView(R.layout.comment_details)
 public class CommentDetailsActivity extends BaseActivity {
-    //获取视图
-    @ViewIoc(R.id.tv_reply)
-    private TextView mReply;
-    @ViewIoc(R.id.layout_all_comment)
-    private LinearLayout mAllComment;
-    @ViewIoc(R.id.comment_num)
-    private TextView mCommentNum;
     @ViewIoc(R.id.all_comment_list)
     private PullToRefreshListView mPullToRefresh;
     @ViewIoc(R.id.line)
@@ -62,6 +53,8 @@ public class CommentDetailsActivity extends BaseActivity {
 
     private boolean isFlag = true;
 
+    private String type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,47 +65,16 @@ public class CommentDetailsActivity extends BaseActivity {
      * 初始化数据
      */
     private void initData() {
-        weiboId = Long.valueOf(getIntent().getExtras().getString("weiboId"));
+        Bundle bundle = getIntent().getExtras();
+        type = bundle.getString(Const.COMMENT_OR_REMIND);
+        weiboId = bundle.getLong(Const.WEIBO_ID);
+        Log.e("weiboId",weiboId+"");
         accessToken = AccessTokenKeeper.readAccessToken(this);
         mCommentAPI = new CommentsAPI(this, Constants.APP_KEY, accessToken);
         mCommentAPI.show(weiboId, 0, 0, 50, 1, 0, mListener);
-        mWriteComment.setVisibility(View.GONE);
-        line2.setVisibility(View.GONE);
     }
 
-    /**
-     * 回复评论
-     */
-    @OnClick(R.id.tv_reply)
-    private void onClickReply() {
-        Intent intent = getIntent();
-        intent.setClass(this, CommentsActivity.class);
-        intent.putExtra(Const.TYPE, Const.REPLY);
-        startActivity(intent);
-    }
 
-    /**
-     * 点击查看所有微博的评论
-     */
-    @OnClick(R.id.layout_all_comment)
-    private void onClickAllComment() {
-        if (comments != null) {
-            isFlag = false;
-            mWriteComment.setVisibility(View.VISIBLE);
-            line2.setVisibility(View.VISIBLE);
-            line.setVisibility(View.GONE);
-            line1.setVisibility(View.GONE);
-            mReply.setVisibility(View.GONE);
-            mAllComment.setVisibility(View.GONE);
-            mPullToRefresh.setVisibility(View.VISIBLE);
-            mAdapter = new AllCommentAdapter(this, comments);
-            mPullToRefresh.setAdapter(mAdapter);
-        } else {
-            TatansToast.showAndCancel("正在加载数据");
-        }
-
-
-    }
 
     /**
      * 写评论
@@ -132,8 +94,10 @@ public class CommentDetailsActivity extends BaseActivity {
         @Override
         public void onComplete(String response) {
             if (!TextUtils.isEmpty(response)) {
+                Log.e("allcomment",response);
                 comments = CommentList.parse(response);
-                mCommentNum.setText(comments.commentList.size() + "");
+                mAdapter = new AllCommentAdapter(CommentDetailsActivity.this, comments);
+                mPullToRefresh.setAdapter(mAdapter);
             }
         }
 
@@ -144,22 +108,4 @@ public class CommentDetailsActivity extends BaseActivity {
         }
     };
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && !isFlag) {
-            moveTaskToBack(false);//true对任何Activity都适用
-            mWriteComment.setVisibility(View.GONE);
-            line2.setVisibility(View.GONE);
-            line.setVisibility(View.VISIBLE);
-            line1.setVisibility(View.VISIBLE);
-            mReply.setVisibility(View.VISIBLE);
-            mAllComment.setVisibility(View.VISIBLE);
-            mPullToRefresh.setVisibility(View.GONE);
-            isFlag = true;
-            return true;
-        } else {
-            finish();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 }

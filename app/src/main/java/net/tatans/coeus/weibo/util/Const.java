@@ -36,6 +36,8 @@ public class Const {
     public static String REPOSTS_COUNT = "reposts_count";
     public static String COMMENTS_COUNT = "comments_count";
     public static String FAVORITES = "favorites";
+    public static String COMMENT_OR_REMIND = "comment_or_remind";
+    public static String COMMENT = "comment";
 
 
 }
