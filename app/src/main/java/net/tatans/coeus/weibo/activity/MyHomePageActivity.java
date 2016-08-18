@@ -114,8 +114,12 @@ public class MyHomePageActivity extends BaseActivity {
                 }
                 friends.setText("关注:" + user.friends_count);
                 followers.setText("粉丝:" + user.followers_count);
+                if (getIntent().getStringExtra("fansNum") != null)
+                    followers.setText("粉丝:" + getIntent().getStringExtra("fansNum"));//上级页面传下来，现在是搜索结果页面
                 if (user.verified) {
-                    verified.setText(user.verified_reason);
+                    verified.setText("微博认证:" + user.verified_reason);
+                    if (getIntent().getStringExtra("desc1") != null)
+                        verified.setText("微博认证:" + getIntent().getStringExtra("desc1").trim());//上级页面传下来，现在是搜索结果页面
                 } else {
                     verified.setText("微博认证:未认证");
                 }
@@ -125,6 +129,8 @@ public class MyHomePageActivity extends BaseActivity {
                 } else {
                     company.setText("简介:无");
                 }
+                if (getIntent().getStringExtra("description") != null)
+                    company.setText("简介:" + getIntent().getStringExtra("description"));//上级页面传下来，现在是搜索结果页面
             }
         }
     };

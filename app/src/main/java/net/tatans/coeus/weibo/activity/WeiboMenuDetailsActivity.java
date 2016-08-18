@@ -21,7 +21,6 @@ import com.sina.weibo.sdk.openapi.models.Favorite;
 import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
-import net.tatans.coeus.weibo.bean.ContactList;
 import net.tatans.coeus.weibo.bean.FollowBean;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Const;
@@ -106,14 +105,13 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getIntent().getExtras();
-        type = bundle.getString(Const.TYPE);
-        weiboId = Long.valueOf(bundle.getString(Const.WEIBO_ID));
-        uid = Long.valueOf(bundle.getString(Const.UID));
-        screen_name = bundle.getString(Const.SCREEN_NAME);
-        comments_count = bundle.getInt(Const.COMMENTS_COUNT);
-        reposts_count = bundle.getInt(Const.REPOSTS_COUNT);
-        isFavorites = bundle.getBoolean(Const.FAVORITES);
+        type = getIntent().getExtras().getString(Const.TYPE);
+        weiboId = Long.valueOf(getIntent().getExtras().getString(Const.WEIBO_ID));
+        uid = Long.valueOf(getIntent().getExtras().getString(Const.UID));
+        screen_name = getIntent().getExtras().getString(Const.SCREEN_NAME);
+        comments_count = getIntent().getExtras().getInt(Const.COMMENTS_COUNT);
+        reposts_count = getIntent().getExtras().getInt(Const.REPOSTS_COUNT);
+        isFavorites = getIntent().getExtras().getBoolean(Const.FAVORITES);
         initData();
     }
 
@@ -193,6 +191,8 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     private void onClickReply() {
         Intent intent = getIntent();
         intent.setClass(this, CommentsActivity.class);
+        intent.putExtra(Const.TYPE, Const.WRITE_COMMENT);
+        intent.putExtra("isReply", true);
         if(Const.TYPE.equals(Const.COMMENT)){
             intent.putExtra(Const.TYPE, Const.REPLY);
         }else{
@@ -220,6 +220,17 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
         Intent intent = new Intent(this, CommentDetailsActivity.class);
         intent.putExtra(Const.WEIBO_ID, weiboId);
         intent.putExtra(Const.COMMENT_OR_REMIND, Const.REMIND);
+        startActivity(intent);
+    }
+
+    /**
+     * 点击写评论
+     */
+    @OnClick(R.id.write_comment)
+    private void onClickWriteComment() {
+        Intent intent = new Intent(this, CommentsActivity.class);
+        intent.putExtra(Const.TYPE, Const.WRITE_COMMENT);
+        intent.putExtra("weiboId", weiboId + "");
         startActivity(intent);
     }
 

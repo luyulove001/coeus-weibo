@@ -221,13 +221,8 @@ public class FavoritesAdapter extends BaseAdapter {
                     intent.putExtra(Const.WEIBO_ID, favorite.status.id);
                     intent.putExtra(Const.FAVORITES, favorite.status.favorited);
                     if (favorite.status != null) {
-                        if (favorite.status.retweeted_status != null) {
-                            intent.putExtra(Const.REPOSTS_COUNT, favorite.status.retweeted_status.reposts_count);
-                            intent.putExtra(Const.COMMENTS_COUNT, favorite.status.retweeted_status.comments_count);
-                        } else {
-                            intent.putExtra(Const.REPOSTS_COUNT, favorite.status.reposts_count);
-                            intent.putExtra(Const.COMMENTS_COUNT, favorite.status.comments_count);
-                        }
+                        intent.putExtra(Const.REPOSTS_COUNT, favorite.status.reposts_count);
+                        intent.putExtra(Const.COMMENTS_COUNT, favorite.status.comments_count);
                     }
                     mContext.startActivity(intent);
                     break;

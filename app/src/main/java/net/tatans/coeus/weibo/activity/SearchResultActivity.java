@@ -178,7 +178,7 @@ public class SearchResultActivity extends BaseActivity {
                             user.setGender(userJSON.getString("gender"));
                             user.setRemark(userJSON.getString("remark"));
                             user.setVerified(userJSON.getBoolean("verified"));
-                            user.setVerified_reason(userJSON.getString("verified_reason"));
+                            user.setVerified_reason(userJSON.getString("verified_reason").trim());
                             TatansLog.d(user.toString());
                             resultUsers.add(user);
                         }

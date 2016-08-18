@@ -16,7 +16,6 @@
             android:gravity="end"
             android:paddingEnd="20dp"
             android:paddingStart="112dp"
-            android:text="思想聚焦"
             android:textSize="25sp"
             android:textColor="#fff"/>
 
