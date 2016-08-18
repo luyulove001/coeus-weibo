@@ -2,7 +2,6 @@ package net.tatans.coeus.weibo.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +12,9 @@ import com.sina.weibo.sdk.openapi.models.Comment;
 import com.sina.weibo.sdk.openapi.models.CommentList;
 
 import net.tatans.coeus.weibo.R;
-import net.tatans.coeus.weibo.activity.CommentDetailsActivity;
 import net.tatans.coeus.weibo.activity.WeiboMenuDetailsActivity;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.TimeFormat;
-
-import java.util.List;
 
 /**
  * Created by LCM on 2016/7/27. 13:44

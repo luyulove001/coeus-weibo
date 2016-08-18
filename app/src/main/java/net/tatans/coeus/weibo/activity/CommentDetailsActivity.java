@@ -68,7 +68,6 @@ public class CommentDetailsActivity extends BaseActivity {
         Bundle bundle = getIntent().getExtras();
         type = bundle.getString(Const.COMMENT_OR_REMIND);
         weiboId = bundle.getLong(Const.WEIBO_ID);
-        Log.e("weiboId",weiboId+"");
         accessToken = AccessTokenKeeper.readAccessToken(this);
         mCommentAPI = new CommentsAPI(this, Constants.APP_KEY, accessToken);
         mCommentAPI.show(weiboId, 0, 0, 50, 1, 0, mListener);

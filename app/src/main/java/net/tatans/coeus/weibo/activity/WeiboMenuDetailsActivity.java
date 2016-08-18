@@ -3,7 +3,6 @@ package net.tatans.coeus.weibo.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -123,7 +122,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
         mFavoritesAPI = new FavoritesAPI(this, Constants.APP_KEY, accessToken);
         mFriendshipsAPI = new FriendshipsAPI(this, Constants.APP_KEY, accessToken);
         if(type.equals(Const.COMMENT)){
-            Log.e("TAG",")))COMMENT"+Const.COMMENT);
             mCommentAPI = new CommentsAPI(this, Constants.APP_KEY, accessToken);
             mCommentAPI.show(weiboId, 0, 0, 50, 1, 0, mListener);
         }
@@ -192,10 +190,10 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
         Intent intent = getIntent();
         intent.setClass(this, CommentsActivity.class);
         intent.putExtra("isReply", true);
-        if(Const.TYPE.equals(Const.COMMENT)){
+        if(type.equals(Const.COMMENT)){
             intent.putExtra(Const.TYPE, Const.REPLY);
         }else{
-            intent.putExtra(Const.TYPE, Const.WEIBO_COMMENT);
+            intent.putExtra(Const.TYPE, Const.WRITE_COMMENT);
         }
         startActivity(intent);
     }
