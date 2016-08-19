@@ -113,6 +113,7 @@ public class ContactListActivity extends BaseActivity {
                     refresh_listview.setAdapter(adapter);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
 
