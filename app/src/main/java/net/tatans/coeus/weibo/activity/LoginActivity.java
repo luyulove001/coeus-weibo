@@ -1,8 +1,10 @@
 package net.tatans.coeus.weibo.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.sina.weibo.sdk.auth.AuthInfo;
@@ -66,7 +68,14 @@ public class LoginActivity extends BaseActivity {
      */
     @OnClick(R.id.register)
     public void Register() {
-        TatansToast.showAndCancel("注册");
+        if (isPkgInstalled("com.sina.weibo")) {
+            Intent intent = new Intent();
+            ComponentName componentName = new ComponentName("com.sina.weibo", "com.sina.weibo.SplashActivity");
+            intent.setComponent(componentName);
+            startActivity(intent);
+        } else {
+            TatansToast.showAndCancel("请下载新浪微博客户端或新浪微博官网进行注册");
+        }
     }
 
     /**
@@ -79,7 +88,6 @@ public class LoginActivity extends BaseActivity {
             if (accessToken != null && accessToken.isSessionValid()) {
                 String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(
                         new java.util.Date(accessToken.getExpiresTime()));
-                Log.e("TAG", "登录成功");
                 AccessTokenKeeper.writeAccessToken(getApplicationContext(), accessToken);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -105,5 +113,26 @@ public class LoginActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mloginUtli.authorizeCallBack(requestCode, resultCode, data);
+    }
+
+
+    /**
+     * 判断某应用是否存在
+     * @param pkgName 应用的包名
+     * @return
+     */
+    private boolean isPkgInstalled(String pkgName) {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = this.getPackageManager().getPackageInfo(pkgName, 0);
+        } catch (NameNotFoundException e) {
+            packageInfo = null;
+            e.printStackTrace();
+        }
+        if (packageInfo == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
