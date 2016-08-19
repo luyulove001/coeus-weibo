@@ -3,11 +3,10 @@ package net.tatans.coeus.weibo.activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
@@ -27,8 +26,6 @@ import net.tatans.rhea.network.view.ViewIoc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.tatans.coeus.weibo.R.id.listView;
-
 /**
  * Created by LCM on 2016/7/25. 13:17
  * 联系人,粉丝列表
@@ -38,8 +35,8 @@ public class ContactListActivity extends BaseActivity {
     //获取视图
     @ViewIoc(R.id.edt_search)
     private EditText mEdtSearch;
-    @ViewIoc(listView)
-    private ListView mListView;
+    @ViewIoc(R.id.refresh_listview)
+    private PullToRefreshListView refresh_listview;
     @ViewIoc(R.id.con_or_follow)
     private TextView con_or_follow;
 
@@ -59,6 +56,18 @@ public class ContactListActivity extends BaseActivity {
     //判断是从关注进入联系人还是从@进入
     private int mConOrFollow;
 
+    private boolean isRefresh = false;
+    private boolean isEnd = false;
+
+    /**
+     * 加载页数控制
+     */
+    private int next_cursor = 0;
+    private int previous_cursor;
+    private long uid;
+
+    private ContactList contact = new ContactList();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,12 +83,14 @@ public class ContactListActivity extends BaseActivity {
         mConOrFollow = getIntent().getExtras().getInt(Const.CONTACT_OR_FOllOW);
         // 获取当前已保存过的 Token
         accessToken = AccessTokenKeeper.readAccessToken(this);
+        uid = Long.parseLong(accessToken.getUid());
         //实例化关系类
         mFriendshipsAPI = new FriendshipsAPI(this, Constants.APP_KEY, accessToken);
 
         if (mConOrFollow == 0) {
             con_or_follow.setText("关注");
         }
+
     }
 
     /**
@@ -99,13 +110,12 @@ public class ContactListActivity extends BaseActivity {
                     String input_info = mEdtSearch.getText().toString();
                     adapter = new ContactListAdapter(ContactListActivity.this, getNewData(input_info));
                     adapter.setmType(mConOrFollow);
-                    mListView.setAdapter(adapter);
+                    refresh_listview.setAdapter(adapter);
                 }
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -114,7 +124,6 @@ public class ContactListActivity extends BaseActivity {
      * 请求关注人数据
      */
     private void RequestData() {
-        long uid = Long.parseLong(accessToken.getUid());
         switch (mConOrFollow) {
             case 0:
                 mFriendshipsAPI.friends(uid, 200, 0, true, mListener);
@@ -138,7 +147,7 @@ public class ContactListActivity extends BaseActivity {
     public void setListData(List<User> listData) {
         adapter = new ContactListAdapter(this, listData);
         adapter.setmType(mConOrFollow);
-        mListView.setAdapter(adapter);
+        refresh_listview.setAdapter(adapter);
     }
 
 
@@ -149,6 +158,8 @@ public class ContactListActivity extends BaseActivity {
         @Override
         public void onComplete(String response) {
             ContactList contactList = ContactList.parse(response);
+            previous_cursor = Integer.parseInt(contactList.previous_cursor);
+            next_cursor = Integer.parseInt(contactList.next_cursor);
             list = contactList.contactList;
             setListData(list);
         }
