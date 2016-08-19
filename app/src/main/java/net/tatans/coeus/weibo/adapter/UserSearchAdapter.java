@@ -81,8 +81,8 @@ public class UserSearchAdapter extends BaseAdapter {
             Intent i = new Intent(ctx, MyHomePageActivity.class);
             i.putExtra("uid", Long.valueOf(users.get(mPosition).getId()));
             i.putExtra("description", users.get(mPosition).getDescription());
-            i.putExtra("desc1", users.get(mPosition).getDesc1());
-            i.putExtra("fansNum", users.get(mPosition).getFansNum());
+            i.putExtra("verified_reason", users.get(mPosition).getDesc1());
+            i.putExtra("followers_count", users.get(mPosition).getFansNum());
             ctx.startActivity(i);
         }
     }

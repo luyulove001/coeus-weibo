@@ -16,8 +16,10 @@ import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
 import com.sina.weibo.sdk.openapi.models.CommentList;
 import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 import com.sina.weibo.sdk.openapi.models.Favorite;
+import com.sina.weibo.sdk.openapi.models.User;
 
 import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.bean.FollowBean;
@@ -263,7 +265,13 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
      */
     @OnClick(R.id.my_weibo_home)
     private void onClickHome() {
-        Intent intent = new Intent(this, MyHomePageActivity.class);
+        Intent intent = getIntent();
+        intent.setClass(this, MyHomePageActivity.class);
+        User userInfo = (User)intent.getSerializableExtra("userInfo");
+        intent.putExtra("description", userInfo.description);
+        intent.putExtra("followers_count", userInfo.followers_count + "");
+        intent.putExtra("friends_count", userInfo.friends_count + "");
+        intent.putExtra("verified_reason", userInfo.verified_reason);
         intent.putExtra(Const.UID, uid);
         startActivity(intent);
     }

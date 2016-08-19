@@ -114,17 +114,16 @@ public class MyHomePageActivity extends BaseActivity {
                     gender.setText("未知");
                 }
                 friends.setText("关注:" + user.friends_count);
-                if (getIntent().getStringExtra("friends") != null) {
-                    friends.setText("关注:" + getIntent().getStringExtra("friends"));
+                if (getIntent().getStringExtra("friends_count") != null) {
+                    friends.setText("关注:" + getIntent().getStringExtra("friends_count"));
                 }
                 followers.setText("粉丝:" + user.followers_count);
-                if (getIntent().getStringExtra("fansNum") != null)
-
-                    followers.setText("粉丝:" + getIntent().getStringExtra("fansNum"));//上级页面传下来，现在是搜索结果页面
+                if (getIntent().getStringExtra("followers_count") != null)
+                    followers.setText("粉丝:" + getIntent().getStringExtra("followers_count"));//上级页面传下来，现在是搜索结果页面
                 if (user.verified) {
                     verified.setText("微博认证:" + user.verified_reason);
-                    if (getIntent().getStringExtra("desc1") != null)
-                        verified.setText("微博认证:" + getIntent().getStringExtra("desc1").trim());//上级页面传下来，现在是搜索结果页面
+                    if (getIntent().getStringExtra("verified_reason") != null)
+                        verified.setText("微博认证:" + getIntent().getStringExtra("verified_reason").trim());//上级页面传下来，现在是搜索结果页面
                 } else {
                     verified.setText("微博认证:未认证");
                 }
@@ -134,7 +133,7 @@ public class MyHomePageActivity extends BaseActivity {
                 } else {
                     company.setText("简介:无");
                 }
-                if (getIntent().getStringExtra("description") != null)
+                if (getIntent().getStringExtra("description") != null && !getIntent().getStringExtra("description").equals(""))
                     company.setText("简介:" + getIntent().getStringExtra("description"));//上级页面传下来，现在是搜索结果页面
             }
         }

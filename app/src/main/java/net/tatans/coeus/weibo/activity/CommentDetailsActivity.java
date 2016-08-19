@@ -115,6 +115,7 @@ public class CommentDetailsActivity extends BaseActivity {
         Intent intent = getIntent();
         intent.setClass(this, CommentsActivity.class);
         intent.putExtra(Const.TYPE, Const.WRITE_COMMENT);
+        intent.putExtra("weiboId", String.valueOf(weiboId));
         startActivity(intent);
     }
 

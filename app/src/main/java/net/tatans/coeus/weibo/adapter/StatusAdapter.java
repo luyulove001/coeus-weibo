@@ -25,6 +25,7 @@ import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.HomeSpan;
 import net.tatans.coeus.weibo.util.TimeFormat;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
@@ -217,6 +218,7 @@ public class StatusAdapter extends BaseAdapter {
                     break;
                 case R.id.home_page_usercontent://点击微博进入菜单详情
                     intent.setClass(mContext, WeiboMenuDetailsActivity.class);
+                    intent.putExtra("userInfo", (Serializable) status.user);
                     if (isComefrom.equals(Const.REMIND)) {
                         intent.putExtra(Const.TYPE, Const.REMIND);
                     } else if (isComefrom.equals(Const.MY_HOME_PAGE)) {

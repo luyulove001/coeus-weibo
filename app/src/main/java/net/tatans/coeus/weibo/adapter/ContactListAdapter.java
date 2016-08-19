@@ -114,9 +114,10 @@ public class ContactListAdapter extends BaseAdapter {
         Long uid = Long.parseLong(user.id);
         intent.setClass(ctx, MyHomePageActivity.class);
         intent.putExtra(Const.UID, uid);
-        intent.putExtra("fansNum", String.valueOf(user.followers_count));
-        intent.putExtra("friends", String.valueOf(user.friends_count));
-        intent.putExtra("desc1", user.verified_reason);
+        intent.putExtra("followers_count", String.valueOf(user.followers_count));
+        intent.putExtra("friends_count", String.valueOf(user.friends_count));
+        intent.putExtra("verified_reason", user.verified_reason);
+        intent.putExtra("description", user.description);
         ctx.startActivity(intent);
     }
 
