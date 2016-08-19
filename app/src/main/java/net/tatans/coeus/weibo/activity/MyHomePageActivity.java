@@ -3,6 +3,7 @@ package net.tatans.coeus.weibo.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -113,8 +114,12 @@ public class MyHomePageActivity extends BaseActivity {
                     gender.setText("未知");
                 }
                 friends.setText("关注:" + user.friends_count);
+                if (getIntent().getStringExtra("friends") != null) {
+                    friends.setText("关注:" + getIntent().getStringExtra("friends"));
+                }
                 followers.setText("粉丝:" + user.followers_count);
                 if (getIntent().getStringExtra("fansNum") != null)
+
                     followers.setText("粉丝:" + getIntent().getStringExtra("fansNum"));//上级页面传下来，现在是搜索结果页面
                 if (user.verified) {
                     verified.setText("微博认证:" + user.verified_reason);

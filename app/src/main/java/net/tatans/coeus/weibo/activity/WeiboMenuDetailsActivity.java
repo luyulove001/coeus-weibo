@@ -121,7 +121,7 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
         accessToken = AccessTokenKeeper.readAccessToken(this);
         mFavoritesAPI = new FavoritesAPI(this, Constants.APP_KEY, accessToken);
         mFriendshipsAPI = new FriendshipsAPI(this, Constants.APP_KEY, accessToken);
-        if(type.equals(Const.COMMENT)){
+        if (type.equals(Const.COMMENT)) {
             mCommentAPI = new CommentsAPI(this, Constants.APP_KEY, accessToken);
             mCommentAPI.show(weiboId, 0, 0, 50, 1, 0, mListener);
         }
@@ -156,7 +156,7 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
             mReply.setVisibility(View.GONE);
             layout_comment.setVisibility(View.GONE);
             cancel_follow.setVisibility(View.GONE);
-        }else if(type.equals(Const.COMMENT)){
+        } else if (type.equals(Const.COMMENT)) {
             follow_blogger.setVisibility(View.GONE);
             line1.setVisibility(View.GONE);
             layout_forward.setVisibility(View.GONE);
@@ -190,9 +190,9 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
         Intent intent = getIntent();
         intent.setClass(this, CommentsActivity.class);
         intent.putExtra("isReply", true);
-        if(type.equals(Const.COMMENT)){
+        if (type.equals(Const.COMMENT)) {
             intent.putExtra(Const.TYPE, Const.REPLY);
-        }else{
+        } else {
             intent.putExtra(Const.TYPE, Const.WRITE_COMMENT);
         }
         startActivity(intent);
@@ -219,6 +219,7 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
         intent.putExtra(Const.COMMENT_OR_REMIND, Const.REMIND);
         startActivity(intent);
     }
+
     /**
      * 点击查看所有评论
      */
@@ -255,6 +256,7 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
 
         }
     }
+
 
     /**
      * 点击进入博主主页
@@ -301,12 +303,12 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
                     } else {
                         TatansToast.showAndCancel("关注成功");
                     }
-                } else if(response.startsWith("{\"comments\"")){
+                } else if (response.startsWith("{\"comments\"")) {
                     CommentList commentList = CommentList.parse(response);
-                    if(commentList!=null){
-                        all_comment_num.setText(commentList.commentList.size()+"");
+                    if (commentList != null) {
+                        all_comment_num.setText(commentList.commentList.size() + "");
                     }
-                }else{
+                } else {
                     //解析是否关注该用户
                     FollowBean followBean = FollowBean.parse(response);
                     isFollow = followBean.following;

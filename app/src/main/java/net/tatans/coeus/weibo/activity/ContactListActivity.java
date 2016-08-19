@@ -12,6 +12,7 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
+import com.sina.weibo.sdk.openapi.models.User;
 
 import net.tatans.coeus.network.tools.BaseActivity;
 import net.tatans.coeus.weibo.R;
@@ -30,7 +31,7 @@ import static net.tatans.coeus.weibo.R.id.listView;
 
 /**
  * Created by LCM on 2016/7/25. 13:17
- * 联系人列表ui
+ * 联系人,粉丝列表
  */
 @ContentView(R.layout.sort_activity)
 public class ContactListActivity extends BaseActivity {
@@ -45,7 +46,7 @@ public class ContactListActivity extends BaseActivity {
     /**
      * 字体高度
      */
-    List<String> list = new ArrayList<String>();
+    List<User> list = new ArrayList<User>();
     private ContactListAdapter adapter;
 
     //获取用户
@@ -53,10 +54,10 @@ public class ContactListActivity extends BaseActivity {
 
     private Oauth2AccessToken accessToken;
     //搜索框，搜索时udpate的list
-    private List<String> listString = new ArrayList<String>();
+    private List<User> listString = new ArrayList<User>();
 
     //判断是从关注进入联系人还是从@进入
-    private String mConOrFollow;
+    private int mConOrFollow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +71,13 @@ public class ContactListActivity extends BaseActivity {
      * 初始化数据
      */
     private void initData() {
-        mConOrFollow = getIntent().getExtras().getString(Const.CONTACT_OR_FOllOW);
+        mConOrFollow = getIntent().getExtras().getInt(Const.CONTACT_OR_FOllOW);
         // 获取当前已保存过的 Token
         accessToken = AccessTokenKeeper.readAccessToken(this);
         //实例化关系类
         mFriendshipsAPI = new FriendshipsAPI(this, Constants.APP_KEY, accessToken);
 
-        if (mConOrFollow.equals(Const.FOLLOW)) {
+        if (mConOrFollow == 0) {
             con_or_follow.setText("关注");
         }
     }
@@ -93,11 +94,11 @@ public class ContactListActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String text = s.toString();
                 listString.clear();
                 if (mEdtSearch.getText().toString() != null) {
                     String input_info = mEdtSearch.getText().toString();
                     adapter = new ContactListAdapter(ContactListActivity.this, getNewData(input_info));
+                    adapter.setmType(mConOrFollow);
                     mListView.setAdapter(adapter);
                 }
 
@@ -114,8 +115,19 @@ public class ContactListActivity extends BaseActivity {
      */
     private void RequestData() {
         long uid = Long.parseLong(accessToken.getUid());
-        mFriendshipsAPI.friends(uid, 200, 0, true, mListener);
-
+        switch (mConOrFollow) {
+            case 0:
+                mFriendshipsAPI.friends(uid, 200, 0, true, mListener);
+                break;
+            case 1:
+                mFriendshipsAPI.friends(uid, 200, 0, true, mListener);
+                break;
+            case 2:
+                mFriendshipsAPI.followers(uid, 200, 0, true, mListener);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -123,8 +135,9 @@ public class ContactListActivity extends BaseActivity {
      *
      * @param listData
      */
-    public void setListData(List<String> listData) {
+    public void setListData(List<User> listData) {
         adapter = new ContactListAdapter(this, listData);
+        adapter.setmType(mConOrFollow);
         mListView.setAdapter(adapter);
     }
 
@@ -136,10 +149,7 @@ public class ContactListActivity extends BaseActivity {
         @Override
         public void onComplete(String response) {
             ContactList contactList = ContactList.parse(response);
-            for (int i = 0; i < contactList.contactList.size(); i++) {
-                list.add(contactList.contactList.get(i).screen_name);
-            }
-            Log.e("mListener", "list" + list.size());
+            list = contactList.contactList;
             setListData(list);
         }
 
@@ -154,11 +164,11 @@ public class ContactListActivity extends BaseActivity {
      * @param input_info
      * @return
      */
-    private List<String> getNewData(String input_info) {
+    private List<User> getNewData(String input_info) {
         for (int i = 0; i < list.size(); i++) {
-            String screen_name = list.get(i);
+            String screen_name = list.get(i).screen_name;
             if (screen_name.contains(input_info)) {
-                listString.add(screen_name);
+                listString.add(list.get(i));
             }
         }
         return listString;

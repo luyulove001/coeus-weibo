@@ -23,10 +23,10 @@ public class Const {
 
     public static String REPLY = "reply";
     public static String WRITE_COMMENT = "WriteComment";
-    public static String REMIND= "REMIND";
-    public static String MY_HOME_PAGE= "myHomePage";
-    public static String SEARCH= "SEARCH";
-    public static String HOME= "HOME";
+    public static String REMIND = "REMIND";
+    public static String MY_HOME_PAGE = "myHomePage";
+    public static String SEARCH = "SEARCH";
+    public static String HOME = "HOME";
     public static String WEIBO_COMMENT = "WEIBO_COMMENT";
     public static String WEIBO_FORWARD = "WEIBO_FORWARD";
     public static String WEIBO_FAVORITE = "WEIBO_FAVORITE";
@@ -38,6 +38,4 @@ public class Const {
     public static String FAVORITES = "favorites";
     public static String COMMENT_OR_REMIND = "comment_or_remind";
     public static String COMMENT = "comment";
-
-
 }

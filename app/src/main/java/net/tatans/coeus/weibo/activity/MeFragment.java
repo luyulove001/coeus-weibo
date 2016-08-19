@@ -76,11 +76,12 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.follow:
                 intent.setClass(getActivity(), ContactListActivity.class);
-                intent.putExtra(Const.CONTACT_OR_FOllOW, Const.FOLLOW);
+                intent.putExtra(Const.CONTACT_OR_FOllOW, 0);
                 getActivity().startActivity(intent);
                 break;
             case R.id.my_fans:
-                intent.setClass(getActivity(), FollowersActivity.class);
+                intent.setClass(getActivity(), ContactListActivity.class);
+                intent.putExtra(Const.CONTACT_OR_FOllOW, 2);
                 getActivity().startActivity(intent);
                 break;
             case R.id.collection:
