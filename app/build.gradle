@@ -79,4 +79,5 @@ dependencies {
     compile 'com.belerweb:pinyin4j:2.5.0'
     compile project(':pulltorefresh')
     compile 'com.alibaba:fastjson:1.2.6'
+    compile 'com.android.support:support-v4:19.0.0'
 }

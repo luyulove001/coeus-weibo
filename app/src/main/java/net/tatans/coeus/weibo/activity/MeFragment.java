@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
+
 import com.sina.weibo.sdk.openapi.LogoutAPI;
 
 import net.tatans.coeus.network.tools.TatansToast;
