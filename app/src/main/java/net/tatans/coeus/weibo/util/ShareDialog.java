@@ -26,9 +26,9 @@ public class ShareDialog {
 	private GridView gridView;
 	private RelativeLayout cancelButton;
 	private SimpleAdapter saImageItems;
-	private int[] image={R.mipmap.sns_wechat, R.mipmap.sns_wechat_moments, R.mipmap.sns_sina,
+	private int[] image={R.mipmap.sns_wechat, R.mipmap.sns_wechat_moments,
 			R.mipmap.sns_qq, R.mipmap.sns_qzone };
-	private String[] name={"到微信","到微信朋友圈","到新浪微博","到QQ","到QQ空间"};
+	private String[] name={"到微信","到微信朋友圈","到QQ","到QQ空间"};
 
 	public ShareDialog(Context context){
 		dialog=new AlertDialog.Builder(context).create();
