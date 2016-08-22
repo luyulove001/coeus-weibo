@@ -1,0 +1,38 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion '22.0.1'
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    provided fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('src/main/libs/MobCommons-2016.0816.1507.jar')
+    compile files('src/main/libs/MobTools-2016.0816.1507.jar')
+    compile files('src/main/libs/ShareSDK-Core-2.7.6.jar')
+    provided files('src/main/libs/ShareSDK-Email-2.7.6.jar')
+    provided files('src/main/libs/ShareSDK-Facebook-2.7.6.jar')
+    compile files('src/main/libs/ShareSDK-QQ-2.7.6.jar')
+    compile files('src/main/libs/ShareSDK-QZone-2.7.6.jar')
+    provided files('src/main/libs/ShareSDK-ShortMessage-2.7.6.jar')
+    provided files('src/main/libs/ShareSDK-SinaWeibo-2.7.6.jar')
+    provided files('src/main/libs/ShareSDK-TencentWeibo-2.7.6.jar')
+    provided files('src/main/libs/ShareSDK-Twitter-2.7.6.jar')
+    compile files('src/main/libs/ShareSDK-Wechat-2.7.6.jar')
+    compile files('src/main/libs/ShareSDK-Wechat-Core-2.7.6.jar')
+    compile files('src/main/libs/ShareSDK-Wechat-Favorite-2.7.6.jar')
+    compile files('src/main/libs/ShareSDK-Wechat-Moments-2.7.6.jar')
+}

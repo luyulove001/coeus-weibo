@@ -13,6 +13,56 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/OneKeyShare/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/OneKeyShare/src/androidTest/java/cn/sharesdk/shareonekey/ExampleInstrumentationTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/OneKeyShare/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/ShareOneKey/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/ShareOneKey/src/androidTest/java/cn/sharesdk/shareonekey/ExampleInstrumentationTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/ShareOneKey/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/ShareOneKey/src/main/java/cn/sharesdk/onekeyshare/CustomerLogo.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/ShareOneKey/src/main/java/cn/sharesdk/onekeyshare/OnekeyShare.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/ShareOneKey/src/main/java/cn/sharesdk/onekeyshare/OnekeySharePage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/ShareOneKey/src/test/java/cn/sharesdk/shareonekey/ExampleUnitTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/build.gradle">
           <value>
             <set />
@@ -28,12 +78,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/assets/ShareSDK.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/MainActivity.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/FindFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/ImagesActivity.java">
           <value>
             <set />
           </value>
@@ -48,7 +108,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/util/ShareDialog.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/rhea/weibo/MainActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/share_dialog.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/share_item.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values/colors.xml">
           <value>
             <set />
           </value>
@@ -74,6 +154,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/myweibosdk/src/test/java/com/sina/myweibo/sdk/ExampleUnitTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/pulltorefresh/build.gradle">
           <value>
             <set />
           </value>

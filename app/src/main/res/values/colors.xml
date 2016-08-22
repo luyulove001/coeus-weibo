@@ -8,4 +8,5 @@
     <color name="colorBottomDark">#000</color>
     <color name="green_title">#3cb034</color>
     <color name="rippelColor">#0099CC</color>
+    <color name="share_item">#FFC0C0C0</color>
 </resources>
