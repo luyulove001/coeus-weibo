@@ -114,9 +114,9 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
                 HashMap<String, Object> item = (HashMap<String, Object>) arg0.getItemAtPosition(arg2);
                 //得到当前显示图片的url
                 String url = pic_urls.get(iCurrentPage).replace(pic_urls.get(iCurrentPage).substring(22, pic_urls.get(iCurrentPage).lastIndexOf("/")), "large");
+                Platform.ShareParams sp = new Platform.ShareParams();
                 if (item.get("ItemText").equals("到微信")) {
                     //设置分享内容
-                    Platform.ShareParams sp = new Platform.ShareParams();
                     sp.setShareType(Platform.SHARE_IMAGE);//非常重要：一定要设置分享属性
                     sp.setImageUrl(url);
                     //非常重要：获取平台对象
@@ -127,7 +127,6 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
 
                 } else if (item.get("ItemText").equals("到微信朋友圈")) {
                     //设置分享内容
-                    Platform.ShareParams sp = new Platform.ShareParams();
                     sp.setShareType(Platform.SHARE_IMAGE); //非常重要：一定要设置分享属性
                     sp.setImageUrl(url);
                     //非常重要：获取平台对象
@@ -137,7 +136,6 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
                     wechatMoments.share(sp);
                 } else if (item.get("ItemText").equals("到QQ")) {
                     //设置分享内容
-                    Platform.ShareParams sp = new Platform.ShareParams();
                     sp.setImageUrl(url);
 
                     //非常重要：获取平台对象
@@ -147,7 +145,6 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
                     qq.share(sp);
                 } else if (item.get("ItemText").equals("到QQ空间")) {
                     //设置分享内容
-                    Platform.ShareParams sp = new Platform.ShareParams();
                     sp.setImageUrl(url);
                     Platform qzone = ShareSDK.getPlatform(QZone.NAME);
                     qzone.setPlatformActionListener(ImagesActivity.this); // 设置分享事件回调
