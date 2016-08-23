@@ -183,31 +183,38 @@ public class CommentsActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (1 == requestCode) {
-            setTitle("");
-            String voiceData = data.getStringExtra("sm");
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(comments_content, InputMethodManager.RESULT_SHOWN);
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
-                    InputMethodManager.HIDE_IMPLICIT_ONLY);
-            try {
-                AccessibilityManager accessibilityManagers = (AccessibilityManager) TatansApplication
-                        .getContext().getSystemService(ACCESSIBILITY_SERVICE);
-                accessibilityManagers.interrupt();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (voiceData.equals("")) {
-                Toast.makeText(CommentsActivity.this, "语音识别失败" + voiceData,
-                        Toast.LENGTH_LONG).show();
-            } else {
-                comments_content.append(voiceData);
-                Toast.makeText(CommentsActivity.this, "" + voiceData,
-                        Toast.LENGTH_LONG).show();
-            }
-        } else if (0 == requestCode) {
-            String dataName = data.getExtras().getString(Const.CONTACT);
-            comments_content.setText(comments_content.getText().toString() + "@" + dataName);
+        switch (requestCode) {
+            case 0:
+                if (data != null) {
+                    String dataName = data.getExtras().getString(Const.CONTACT);
+                    comments_content.setText(comments_content.getText().toString() + "@" + dataName);
+                }
+                break;
+            case 1:
+                setTitle("");
+                String voiceData = data.getStringExtra("sm");
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(comments_content, InputMethodManager.RESULT_SHOWN);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                        InputMethodManager.HIDE_IMPLICIT_ONLY);
+                try {
+                    AccessibilityManager accessibilityManagers = (AccessibilityManager) TatansApplication
+                            .getContext().getSystemService(ACCESSIBILITY_SERVICE);
+                    accessibilityManagers.interrupt();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (voiceData.equals("")) {
+                    Toast.makeText(CommentsActivity.this, "语音识别失败" + voiceData,
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    comments_content.append(voiceData);
+                    Toast.makeText(CommentsActivity.this, "" + voiceData,
+                            Toast.LENGTH_LONG).show();
+                }
+                break;
+            default:
+                break;
         }
     }
 
