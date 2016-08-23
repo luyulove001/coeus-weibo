@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -51,6 +53,12 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
     private ImageView[] mImageViews;
 
 
+    private GestureDetector mGD;
+
+    private int PageCount;//共几张图片
+
+    private int iCurrentPage;//当前第几页
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +70,7 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
 
     private void initData() {
         ShareSDK.initSDK(this);
+        mGD = new GestureDetector(this, new myOnGestureListener());
         mImageViews = new ImageView[pic_urls.size()];
         for (int i = 0; i < pic_urls.size(); i++) {
             ImageView image = new ImageView(ImagesActivity.this);
@@ -73,7 +82,6 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
             mImageViews[i] = image;
         }
         mHandler.sendEmptyMessage(1);
-
     }
 
     /**
@@ -104,11 +112,13 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 HashMap<String, Object> item = (HashMap<String, Object>) arg0.getItemAtPosition(arg2);
+                //得到当前显示图片的url
+                String url = pic_urls.get(iCurrentPage).replace(pic_urls.get(iCurrentPage).substring(22, pic_urls.get(iCurrentPage).lastIndexOf("/")), "large");
                 if (item.get("ItemText").equals("到微信")) {
                     //设置分享内容
                     Platform.ShareParams sp = new Platform.ShareParams();
                     sp.setShareType(Platform.SHARE_IMAGE);//非常重要：一定要设置分享属性
-                    sp.setImageUrl( pic_urls.get(0).replace(pic_urls.get(0).substring(22, pic_urls.get(0).lastIndexOf("/")), "large"));
+                    sp.setImageUrl(url);
                     //非常重要：获取平台对象
                     Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
                     wechat.setPlatformActionListener(ImagesActivity.this); // 设置分享事件回调
@@ -119,7 +129,7 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
                     //设置分享内容
                     Platform.ShareParams sp = new Platform.ShareParams();
                     sp.setShareType(Platform.SHARE_IMAGE); //非常重要：一定要设置分享属性
-                    sp.setImageUrl( pic_urls.get(0).replace(pic_urls.get(0).substring(22, pic_urls.get(0).lastIndexOf("/")), "large"));
+                    sp.setImageUrl(url);
                     //非常重要：获取平台对象
                     Platform wechatMoments = ShareSDK.getPlatform(WechatMoments.NAME);
                     wechatMoments.setPlatformActionListener(ImagesActivity.this); // 设置分享事件回调
@@ -128,7 +138,7 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
                 } else if (item.get("ItemText").equals("到QQ")) {
                     //设置分享内容
                     Platform.ShareParams sp = new Platform.ShareParams();
-                    sp.setImageUrl( pic_urls.get(0).replace(pic_urls.get(0).substring(22, pic_urls.get(0).lastIndexOf("/")), "large"));
+                    sp.setImageUrl(url);
 
                     //非常重要：获取平台对象
                     Platform qq = ShareSDK.getPlatform(QQ.NAME);
@@ -138,7 +148,7 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
                 } else if (item.get("ItemText").equals("到QQ空间")) {
                     //设置分享内容
                     Platform.ShareParams sp = new Platform.ShareParams();
-                    sp.setImageUrl( pic_urls.get(0).replace(pic_urls.get(0).substring(22, pic_urls.get(0).lastIndexOf("/")), "large"));
+                    sp.setImageUrl(url);
                     Platform qzone = ShareSDK.getPlatform(QZone.NAME);
                     qzone.setPlatformActionListener(ImagesActivity.this); // 设置分享事件回调
                     // 执行分享
@@ -192,9 +202,6 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 1:
-                    TatansToast.showAndCancel("新浪微博分享成功");
-                    break;
                 case 2:
                     TatansToast.showAndCancel("微信分享成功");
                     break;
@@ -235,6 +242,7 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
             super.handleMessage(msg);
             adapter = new ViewPagerAdapter(ImagesActivity.this, mImageViews);
             viewPager.setAdapter(adapter);
+            viewPager.setOnPageChangeListener(new MyListener());
         }
     };
 
@@ -242,5 +250,70 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
     protected void onDestroy() {
         super.onDestroy();
         ShareSDK.stopSDK(this);
+    }
+
+    /**
+     * 当第一张图片切换到最后一张图片时，可以实现快速播报，以及获取当前页的内容
+     */
+    private class myOnGestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (e1.getX() - e2.getX() < -120 && (iCurrentPage + 1) == 1) {
+                TatansToast.showAndCancel("当前第" + (iCurrentPage + 1) + "张");
+            } else if (e1.getX() - e2.getX() > 60 && iCurrentPage != PageCount - 1) {
+                viewPager.setCurrentItem(iCurrentPage + 1);
+            } else if (e1.getX() - e2.getX() < -60 && iCurrentPage != 0) {
+                viewPager.setCurrentItem(iCurrentPage - 1);
+            }
+            return false;
+        }
+    }
+
+    /**
+     * 手势分发
+     *
+     * @param ev
+     * @return
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (mGD != null) {
+            if (mGD.onTouchEvent(ev)) {
+                return true;
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private class MyListener implements ViewPager.OnPageChangeListener {
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            iCurrentPage = position;
+            if (position == 0 || position == PageCount - 1) {
+                viewPager.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        return mGD.onTouchEvent(event);
+                    }
+                });
+            }
+            TatansToast.cancel();
+            if (position < PageCount - 1) {
+                TatansToast.showAndCancel("当前第" + (position + 1) + "张");
+            } else {
+                TatansToast.showAndCancel("当前第" + (position + 1) + "张");
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
     }
 }
