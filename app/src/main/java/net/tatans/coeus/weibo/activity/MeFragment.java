@@ -90,8 +90,15 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 getActivity().startActivity(intent);
                 break;
             case R.id.cancellation://退出登录
-                new LogoutAPI(getActivity(), Constants.APP_KEY,
-                        AccessTokenKeeper.readAccessToken(getActivity())).logout(mLogoutListener);
+                if (AccessTokenKeeper.readAccessToken(getActivity()).isSessionValid()){
+                    new LogoutAPI(getActivity(), Constants.APP_KEY,
+                            AccessTokenKeeper.readAccessToken(getActivity())).logout(mLogoutListener);
+                } else {
+                    AccessTokenKeeper.clear(getActivity());
+                    intent.setClass(getActivity(), LoginActivity.class);
+                    getActivity().startActivity(intent);
+                    getActivity().finish();
+                }
                 break;
         }
     }

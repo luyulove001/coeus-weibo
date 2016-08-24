@@ -45,7 +45,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!AccessTokenKeeper.readAccessToken(this).getToken().equals("")) {
+        if (!AccessTokenKeeper.readAccessToken(this).getToken().equals("") && AccessTokenKeeper.readAccessToken(this).isSessionValid()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             LoginActivity.this.finish();//登录成功后finish掉登录页面
