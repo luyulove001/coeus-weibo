@@ -171,6 +171,13 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
             line3.setVisibility(View.GONE);
             line4.setVisibility(View.GONE);
             line5.setVisibility(View.GONE);
+        } else  if(type.equals(Const.SEARCH)){
+            mReply.setVisibility(View.GONE);
+            layout_comment.setVisibility(View.GONE);
+            cancel_follow.setVisibility(View.GONE);
+            line3.setVisibility(View.GONE);
+            line5.setVisibility(View.GONE);
+            line.setVisibility(View.GONE);
         }
         comment_num.setText(comments_count + "");
         forward_num.setText(reposts_count + "");
