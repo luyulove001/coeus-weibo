@@ -42,29 +42,20 @@ public class ContactListActivity extends BaseActivity {
     private PullToRefreshListView refresh_listview;
     @ViewIoc(R.id.con_or_follow)
     private TextView con_or_follow;
-
     /**
      * 字体高度
      */
     List<User> list = new ArrayList<User>();
     private ContactListAdapter adapter;
-
     //获取用户
     private FriendshipsAPI mFriendshipsAPI;
-
     private Oauth2AccessToken accessToken;
     //搜索框，搜索时udpate的list
     private List<User> listString = new ArrayList<User>();
-
     //判断是从关注进入联系人还是从@进入
     private int mConOrFollow;
-
-    private boolean isRefresh = false;
     private boolean isEnd = false;
-
     private long uid;
-
-    private ContactList contact = new ContactList();
     private int index = 1;
 
     @Override
