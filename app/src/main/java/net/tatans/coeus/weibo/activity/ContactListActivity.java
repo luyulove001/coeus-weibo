@@ -73,6 +73,14 @@ public class ContactListActivity extends BaseActivity {
         initData();
         initViewEvent();
         RequestData();
+        Refresh();
+
+    }
+
+    /**
+     * 上拉加载，下拉刷新
+     */
+    private void Refresh() {
         refresh_listview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
