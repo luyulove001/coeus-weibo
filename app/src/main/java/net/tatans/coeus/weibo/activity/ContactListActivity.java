@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
@@ -14,6 +16,7 @@ import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.ContactListAdapter;
 import net.tatans.coeus.weibo.bean.ContactList;
@@ -59,14 +62,10 @@ public class ContactListActivity extends BaseActivity {
     private boolean isRefresh = false;
     private boolean isEnd = false;
 
-    /**
-     * 加载页数控制
-     */
-    private int next_cursor = 0;
-    private int previous_cursor;
     private long uid;
 
     private ContactList contact = new ContactList();
+    private int index = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +73,40 @@ public class ContactListActivity extends BaseActivity {
         initData();
         initViewEvent();
         RequestData();
+        refresh_listview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
+                if (mConOrFollow == 1 || mConOrFollow == 0) {
+                    mFriendshipsAPI.friends(uid, 200, 0, true, mListener);
+                } else {
+                    mFriendshipsAPI.followers(uid, 200, 0, true, mListener);
+                }
+                refresh_listview.setRefreshing();
+                isEnd = false;
+                index = 1;
+            }
+        });
+        refresh_listview.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
+            @Override
+            public void onLastItemVisible() {
+                if (mConOrFollow == 1 || mConOrFollow == 0) {
+                    if (!isEnd) {
+                        mFriendshipsAPI.friends(uid, 200, index, true, mListener);
+                        index += 1;
+                    } else {
+                        TatansToast.showAndCancel("没有更多内容了");
+                    }
+                } else {
+                    if (!isEnd) {
+                        mFriendshipsAPI.followers(uid, 200, index, true, mListener);
+                        index += 1;
+                    } else {
+                        TatansToast.showAndCancel("没有更多内容了");
+                    }
+
+                }
+            }
+        });
     }
 
     /**
@@ -140,17 +173,6 @@ public class ContactListActivity extends BaseActivity {
         }
     }
 
-    /**
-     * 填充数据并加载adapter
-     *
-     * @param listData
-     */
-    public void setListData(List<User> listData) {
-        adapter = new ContactListAdapter(this, listData);
-        adapter.setmType(mConOrFollow);
-        refresh_listview.setAdapter(adapter);
-    }
-
 
     /**
      * 微博 OpenAPI 回调接口。
@@ -159,10 +181,25 @@ public class ContactListActivity extends BaseActivity {
         @Override
         public void onComplete(String response) {
             ContactList contactList = ContactList.parse(response);
-            previous_cursor = Integer.parseInt(contactList.previous_cursor);
-            next_cursor = Integer.parseInt(contactList.next_cursor);
-            list = contactList.contactList;
-            setListData(list);
+            if (contactList.contactList == null || contactList.contactList.isEmpty()) {
+                isEnd = true;
+                return;
+            }
+            if (list.size() == 0 || list.isEmpty()) {
+                list = contactList.contactList;
+                adapter = new ContactListAdapter(ContactListActivity.this, list);
+                adapter.setmType(mConOrFollow);
+                refresh_listview.setAdapter(adapter);
+            } else {
+                User userEnd = contactList.contactList.get(contactList.contactList.size() - 1);
+                User user = list.get(list.size() - 1);
+                if (!user.screen_name.equals(userEnd.screen_name)) {
+                    list.add(userEnd);
+                }
+                adapter.notifyDataSetChanged();
+            }
+            refresh_listview.onRefreshComplete();
+
         }
 
         @Override
