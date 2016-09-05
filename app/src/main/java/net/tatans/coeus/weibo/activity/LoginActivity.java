@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity {
 
     // 登陆认证对应的listener
     private AuthListener mLoginListener = new AuthListener();
-    private LoginUtil mloginUtli;
+    private LoginUtil mLoginUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class LoginActivity extends BaseActivity {
         }
         //创建授权认证信息
         mAuthInfo = new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
-        mloginUtli = new LoginUtil(this);
+        mLoginUtil = new LoginUtil(this);
     }
 
     /**
@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity {
      */
     @OnClick(R.id.login)
     public void Login() {
-        mloginUtli.setWeiboAuthInfo(mAuthInfo, mLoginListener);
+        mLoginUtil.setWeiboAuthInfo(mAuthInfo, mLoginListener);
     }
 
     /**
@@ -112,7 +112,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mloginUtli.authorizeCallBack(requestCode, resultCode, data);
+        mLoginUtil.authorizeCallBack(requestCode, resultCode, data);
     }
 
 

@@ -25,7 +25,7 @@ public class HomeSpan extends ClickableSpan {
     }
 
     public static HomeSpan getInstance(String text, Context context) {
-            homeSpan = new HomeSpan(text, context);
+        homeSpan = new HomeSpan(text, context);
         return homeSpan;
     }
 
