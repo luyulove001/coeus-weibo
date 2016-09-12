@@ -67,7 +67,8 @@ public class RemindMeActivity extends BaseActivity {
                 index = 1;
                 isRefresh = true;
                 isEnd = false;
-                status.statusList.clear();
+                if (status.statusList != null)
+                    status.statusList.clear();
                 pullToRefresh.setRefreshing();
                 mStatusesApi.mentions(0L, 0L, 50, index, 0, 0, 0, false, mListener);
             }
