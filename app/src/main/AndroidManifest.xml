@@ -106,7 +106,7 @@
 
         <meta-data
             android:name="WEIBO_APPKEY"
-            android:value="4926617" />
+            android:value="2659529590" />
         <meta-data
             android:name="WEIBO_CHANNEL"
             android:value="tatans_development" />
