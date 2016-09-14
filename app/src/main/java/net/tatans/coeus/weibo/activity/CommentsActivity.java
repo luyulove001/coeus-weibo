@@ -229,7 +229,7 @@ public class CommentsActivity extends BaseActivity {
                         TatansToast.showAndCancel("获取微博信息流成功, 条数: " + statuses.statusList.size());
                     }
                 } else if (response.startsWith("{\"created_at\"") && type.equals(Const.WRITE_WEIBO)) {
-                    TatansToast.showAndCancel("发送一送微博成功");
+                    TatansToast.showAndCancel("微博发送成功");
                     finish();
                 } else if (response.startsWith("{\"created_at\"") && (type.equals(Const.REPLY))) {
                     TatansToast.showAndCancel("回复一条微博成功");

@@ -62,7 +62,7 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("图片");
+        setTitle("第一张");
         //得到图片链接的集合
         pic_urls = getIntent().getExtras().getStringArrayList(Const.PICURLS);
         initData();
@@ -256,7 +256,7 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (e1.getX() - e2.getX() < -120 && (iCurrentPage + 1) == 1) {
-                TatansToast.showAndCancel("当前第" + (iCurrentPage + 1) + "张");
+                TatansToast.showAndCancel("第" + (iCurrentPage + 1) + "张");
             } else if (e1.getX() - e2.getX() > 60 && iCurrentPage != PageCount - 1) {
                 viewPager.setCurrentItem(iCurrentPage + 1);
             } else if (e1.getX() - e2.getX() < -60 && iCurrentPage != 0) {
@@ -302,9 +302,9 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
             }
             TatansToast.cancel();
             if (position < PageCount - 1) {
-                TatansToast.showAndCancel("当前第" + (position + 1) + "张");
+                TatansToast.showAndCancel("第" + (position + 1) + "张");
             } else {
-                TatansToast.showAndCancel("当前第" + (position + 1) + "张");
+                TatansToast.showAndCancel("第" + (position + 1) + "张");
             }
         }
 
