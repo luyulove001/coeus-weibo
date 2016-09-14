@@ -220,7 +220,6 @@ public class StatusAdapter extends BaseAdapter {
                     ImagesStart("original", status);
                     break;
                 case R.id.home_page_head://点击微博进入菜单详情
-                    Log.e("hhhhh","点击事件:"+status.reposts_count+"screen_name:"+status.user.screen_name);
                     intent.setClass(mContext, WeiboMenuDetailsActivity.class);
                     intent.putExtra("userInfo", (Serializable) status.user);
                     if (isComefrom.equals(Const.REMIND)) {
