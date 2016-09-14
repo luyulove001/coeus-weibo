@@ -10,9 +10,7 @@
         android:id="@+id/home_page_head"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:focusable="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -20,6 +18,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:clickable="false"
+            android:focusable="false"
             android:orientation="horizontal">
 
             <TextView
@@ -38,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="17dp"
-                android:gravity="center_vertical"
                 android:text="时间"
                 android:textColor="#ffffff"
                 android:textSize="18dp" />
@@ -48,12 +47,13 @@
             android:id="@+id/home_page_usercontent"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
             android:paddingLeft="17dp"
             android:paddingRight="17dp"
             android:text="内容"
             android:textColor="@color/white"
             android:textSize="25sp" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -73,8 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/home_page_pic"
-            android:gravity="center_vertical"
+            android:layout_gravity="center"
             android:paddingLeft="10dp"
             android:textColor="@color/white"
             android:textSize="25sp" />
@@ -92,6 +91,7 @@
             android:id="@+id/home_page_he_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:focusable="false"
             android:paddingLeft="17dp"
             android:textColor="#ffffff"
             android:textSize="25sp" />
@@ -100,6 +100,7 @@
             android:id="@+id/home_page_usercomments"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:focusable="false"
             android:paddingLeft="17dp"
             android:paddingRight="17dp"
             android:textColor="#ffffff"
@@ -124,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:gravity="center_vertical"
+            android:layout_gravity="center"
             android:paddingLeft="10dp"
             android:textColor="@color/white"
             android:textSize="25sp" />

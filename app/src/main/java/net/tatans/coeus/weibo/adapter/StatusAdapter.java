@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sina.weibo.sdk.openapi.models.Status;
@@ -128,7 +128,6 @@ public class StatusAdapter extends BaseAdapter {
             } else {
                 holder.home_page_he_user.setVisibility(View.VISIBLE);
                 holder.home_page_he_user.setText("@" + status.retweeted_status.user.screen_name + ":");
-
                 holder.home_page_usercomments.setText(status.retweeted_status.text);
                 Matcher mt_he = Const.pattern.matcher(status.retweeted_status.text);
                 String strs = status.retweeted_status.text;
@@ -221,6 +220,7 @@ public class StatusAdapter extends BaseAdapter {
                     ImagesStart("original", status);
                     break;
                 case R.id.home_page_head://点击微博进入菜单详情
+                    Log.e("hhhhh","点击事件:"+status.reposts_count+"screen_name:"+status.user.screen_name);
                     intent.setClass(mContext, WeiboMenuDetailsActivity.class);
                     intent.putExtra("userInfo", (Serializable) status.user);
                     if (isComefrom.equals(Const.REMIND)) {
