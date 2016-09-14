@@ -131,7 +131,7 @@ public class CommentDetailsActivity extends BaseActivity {
                 CommentList comments1 = CommentList.parse(response);
                 if (comments1.commentList == null || comments1.commentList.isEmpty()) {
                     isEnd = true;
-                    TatansToast.showAndCancel("未请求到数据");
+                    TatansToast.showAndCancel("暂无评论");
                     return;
                 }
                 if (comments1.commentList.size() < 50)

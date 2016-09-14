@@ -187,16 +187,12 @@ public class CommentsActivity extends BaseActivity {
             case 0:
                 if (data != null) {
                     String dataName = data.getExtras().getString(Const.CONTACT);
-                    comments_content.setText(comments_content.getText().toString() + "@" + dataName);
+                    comments_content.setText(comments_content.getText().toString() + "@"+ dataName+"  ");//" " 不能去掉提供@我时的一个空白字符串
                 }
                 break;
             case 1:
                 setTitle("");
                 String voiceData = data.getStringExtra("sm");
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(comments_content, InputMethodManager.RESULT_SHOWN);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
-                        InputMethodManager.HIDE_IMPLICIT_ONLY);
                 try {
                     AccessibilityManager accessibilityManagers = (AccessibilityManager) TatansApplication
                             .getContext().getSystemService(ACCESSIBILITY_SERVICE);

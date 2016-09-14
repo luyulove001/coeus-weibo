@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="false">
+    android:focusable="false"
+    android:orientation="vertical">
 
-    <RelativeLayout
+
+    <LinearLayout
         android:id="@+id/home_page_head"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:focusable="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:focusable="true"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/linear_usert"
@@ -21,9 +26,9 @@
                 android:id="@+id/home_page_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxEms="10"
                 android:paddingLeft="17dp"
                 android:text="用户名"
-                android:maxEms="10"
                 android:textColor="#ffffff"
                 android:textSize="25sp" />
 
@@ -43,101 +48,91 @@
             android:id="@+id/home_page_usercontent"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linear_usert"
             android:paddingLeft="17dp"
             android:paddingRight="17dp"
             android:text="内容"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
-        <RelativeLayout
-            android:id="@+id/home_page_me_relaytive"
-            android:layout_width="fill_parent"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/home_page_me_relaytive"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/home_page_pic"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/home_page_usercontent">
+            android:paddingLeft="17dp" />
 
-            <ImageView
-                android:id="@+id/home_page_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="17dp"
-                android:visibility="gone" />
+        <TextView
+            android:id="@+id/home_page_pic_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/home_page_pic"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/home_page_pic_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/home_page_pic"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:textColor="@color/white"
-                android:textSize="25sp" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/home_page_he_rela"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/home_page_head"
         android:background="#FF242424"
-        android:focusable="true">
+        android:focusable="true"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/home_page_he_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="17dp"
-            android:text="dsgdg"
             android:textColor="#ffffff"
-            android:textSize="25sp"
-            android:visibility="gone" />
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/home_page_usercomments"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/home_page_he_user"
             android:paddingLeft="17dp"
             android:paddingRight="17dp"
-            android:text="dsgdg"
             android:textColor="#ffffff"
-            android:textSize="25sp"
-            android:visibility="gone" />
-    </RelativeLayout>
+            android:textSize="25sp" />
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/home_page_he_relaytive"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/home_page_he_rela"
-        android:background="@color/colorBottomDark">
+        android:background="@color/colorBottomDark"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/home_page_he_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="17dp"
-            android:visibility="gone" />
+            android:paddingLeft="17dp" />
 
         <TextView
             android:id="@+id/home_page_he_pic_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/home_page_he_pic"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:textColor="@color/white"
             android:textSize="25sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/home_page_he_relaytive"
         android:layout_marginTop="8dp"
         android:background="@color/white"></View>
-</RelativeLayout>
+</LinearLayout>

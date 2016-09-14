@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -72,13 +73,14 @@ public class StatusAdapter extends BaseAdapter {
             holder.home_page_usercontent = (TextView) convertView.findViewById(R.id.home_page_usercontent);
             holder.home_page_pic = (ImageView) convertView.findViewById(R.id.home_page_pic);
             holder.home_page_pic_text = (TextView) convertView.findViewById(R.id.home_page_pic_text);
-            holder.home_page_me_relaytive = (RelativeLayout) convertView.findViewById(R.id.home_page_me_relaytive);
+            holder.home_page_me_relaytive = (LinearLayout) convertView.findViewById(R.id.home_page_me_relaytive);
             holder.home_page_usercomments = (TextView) convertView.findViewById(R.id.home_page_usercomments);
             holder.home_page_he_user = (TextView) convertView.findViewById(R.id.home_page_he_user);
             holder.home_page_he_pic = (ImageView) convertView.findViewById(R.id.home_page_he_pic);
             holder.home_page_he_pic_text = (TextView) convertView.findViewById(R.id.home_page_he_pic_text);
-            holder.home_page_me_relaytive = (RelativeLayout) convertView.findViewById(R.id.home_page_me_relaytive);
-            holder.home_page_he_relaytive = (RelativeLayout) convertView.findViewById(R.id.home_page_he_relaytive);
+            holder.home_page_me_relaytive = (LinearLayout) convertView.findViewById(R.id.home_page_me_relaytive);
+            holder.home_page_he_relaytive = (LinearLayout) convertView.findViewById(R.id.home_page_he_relaytive);
+            holder.home_page_head = (LinearLayout) convertView.findViewById(R.id.home_page_head);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -158,11 +160,13 @@ public class StatusAdapter extends BaseAdapter {
         }
         holder.home_page_me_relaytive.setOnClickListener(new OnClickListenerIml(position));
         holder.home_page_he_relaytive.setOnClickListener(new OnClickListenerIml(position));
-        holder.home_page_usercontent.setOnClickListener(new OnClickListenerIml(position));
+        holder.home_page_head.setOnClickListener(new OnClickListenerIml(position));
         return convertView;
     }
 
     class ViewHolder {
+
+        private LinearLayout home_page_head;
         /**
          * 用户名
          */
@@ -180,8 +184,8 @@ public class StatusAdapter extends BaseAdapter {
          */
         private ImageView home_page_pic;
         private TextView home_page_pic_text;
-        private RelativeLayout home_page_me_relaytive;
-        private RelativeLayout home_page_he_relaytive;
+        private LinearLayout home_page_me_relaytive;
+        private LinearLayout home_page_he_relaytive;
         /**
          * 转发用户名
          */
@@ -216,7 +220,7 @@ public class StatusAdapter extends BaseAdapter {
                 case R.id.home_page_me_relaytive://不是转发微博
                     ImagesStart("original", status);
                     break;
-                case R.id.home_page_usercontent://点击微博进入菜单详情
+                case R.id.home_page_head://点击微博进入菜单详情
                     intent.setClass(mContext, WeiboMenuDetailsActivity.class);
                     intent.putExtra("userInfo", (Serializable) status.user);
                     if (isComefrom.equals(Const.REMIND)) {
