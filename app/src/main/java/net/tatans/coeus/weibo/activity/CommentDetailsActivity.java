@@ -38,12 +38,6 @@ import net.tatans.rhea.network.view.ViewIoc;
 public class CommentDetailsActivity extends BaseActivity {
     @ViewIoc(R.id.all_comment_list)
     private PullToRefreshListView mPullToRefresh;
-    @ViewIoc(R.id.line)
-    private View line;
-    @ViewIoc(R.id.line1)
-    private View line1;
-    @ViewIoc(R.id.line2)
-    private View line2;
     @ViewIoc(R.id.write_comment)
     private LinearLayout mWriteComment;
     private Oauth2AccessToken accessToken;

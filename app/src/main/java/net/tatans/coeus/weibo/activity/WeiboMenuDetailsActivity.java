@@ -63,12 +63,8 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     private TextView collection;
     @ViewIoc(R.id.my_weibo_home)
     private TextView my_weibo_home;
-    @ViewIoc(R.id.cancel_follow)
-    private TextView cancel_follow;
     @ViewIoc(R.id.line)
     private View line;
-    @ViewIoc(R.id.line1)
-    private View line1;
     @ViewIoc(R.id.line6)
     private View line6;
     @ViewIoc(R.id.line5)
@@ -77,8 +73,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     private View line4;
     @ViewIoc(R.id.line3)
     private View line3;
-    @ViewIoc(R.id.follow_blogger)
-    private TextView follow_blogger;
 
     private String type;
     /**
@@ -139,34 +133,24 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
         if (type.equals(Const.REMIND)) {
             write_comment.setVisibility(View.GONE);
             layout_all_comment.setVisibility(View.GONE);
-            follow_blogger.setVisibility(View.GONE);
-            line1.setVisibility(View.GONE);
         } else if (type.equals(Const.MY_HOME_PAGE)) {
             mReply.setVisibility(View.GONE);
             layout_comment.setVisibility(View.GONE);
             my_weibo_home.setVisibility(View.GONE);
             line.setVisibility(View.GONE);
-            follow_blogger.setVisibility(View.GONE);
-            line1.setVisibility(View.GONE);
         } else if (type.equals(Const.HOME)) {
             mReply.setVisibility(View.GONE);
             layout_comment.setVisibility(View.GONE);
             line.setVisibility(View.GONE);
-            follow_blogger.setVisibility(View.GONE);
-            line1.setVisibility(View.GONE);
         } else if (type.equals(Const.WEIBO_FAVORITE)) {
             mReply.setVisibility(View.GONE);
             layout_comment.setVisibility(View.GONE);
-            cancel_follow.setVisibility(View.GONE);
         } else if (type.equals(Const.COMMENT)) {
-            follow_blogger.setVisibility(View.GONE);
-            line1.setVisibility(View.GONE);
             layout_forward.setVisibility(View.GONE);
             write_comment.setVisibility(View.GONE);
             layout_comment.setVisibility(View.GONE);
             collection.setVisibility(View.GONE);
             my_weibo_home.setVisibility(View.GONE);
-            cancel_follow.setVisibility(View.GONE);
             line6.setVisibility(View.GONE);
             line3.setVisibility(View.GONE);
             line4.setVisibility(View.GONE);
@@ -174,7 +158,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
         } else  if(type.equals(Const.SEARCH)){
             mReply.setVisibility(View.GONE);
             layout_comment.setVisibility(View.GONE);
-            cancel_follow.setVisibility(View.GONE);
             line3.setVisibility(View.GONE);
             line5.setVisibility(View.GONE);
             line.setVisibility(View.GONE);
@@ -283,19 +266,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    /**
-     * 关注某用户
-     */
-    @OnClick(R.id.cancel_follow)
-    private void onClickFriendships() {
-        if (isFollow) {
-            cancel_follow.setText("关注该博主");
-            mFriendshipsAPI.destroy(uid, screen_name, mListener);
-        } else {
-            cancel_follow.setText("取消关注");
-            mFriendshipsAPI.create(uid, screen_name, mListener);
-        }
-    }
 
     /**
      * 微博 OpenAPI 回调接口。
@@ -322,15 +292,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
                     CommentList commentList = CommentList.parse(response);
                     if (commentList != null) {
                         all_comment_num.setText(commentList.commentList.size() + "");
-                    }
-                } else {
-                    //解析是否关注该用户
-                    FollowBean followBean = FollowBean.parse(response);
-                    isFollow = followBean.following;
-                    if (isFollow) {
-                        cancel_follow.setText("取消关注");
-                    } else {
-                        cancel_follow.setText("关注该博主");
                     }
                 }
             }
