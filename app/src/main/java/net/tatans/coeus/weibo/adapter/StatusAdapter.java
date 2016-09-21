@@ -3,6 +3,7 @@ package net.tatans.coeus.weibo.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.StatusList;
 import com.squareup.picasso.Picasso;
 
+import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.activity.ImagesActivity;
 import net.tatans.coeus.weibo.activity.WeiboMenuDetailsActivity;
@@ -63,6 +66,7 @@ public class StatusAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        //初始化
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
@@ -77,28 +81,39 @@ public class StatusAdapter extends BaseAdapter {
             holder.home_page_he_user = (TextView) convertView.findViewById(R.id.home_page_he_user);
             holder.home_page_he_pic = (ImageView) convertView.findViewById(R.id.home_page_he_pic);
             holder.home_page_he_pic_text = (TextView) convertView.findViewById(R.id.home_page_he_pic_text);
-            holder.home_page_me_relaytive = (RelativeLayout) convertView.findViewById(R.id.home_page_me_relaytive);
             holder.home_page_he_relaytive = (RelativeLayout) convertView.findViewById(R.id.home_page_he_relaytive);
+            holder.linkTrans = (TextView) convertView.findViewById(R.id.link_trans);
+            holder.link = (TextView) convertView.findViewById(R.id.link);
+            holder.home_page = (LinearLayout) convertView.findViewById(R.id.home_page);
+            holder.lyt_link_list = (LinearLayout) convertView.findViewById(R.id.lyt_link_list);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        //获得当前position的微博内容
         final Status status = statusList.statusList.get(position);
         Matcher mt_me = Const.pattern.matcher(status.text);
         holder.home_page_usercontent.setText(status.text);
         String str = status.text;
+//        TatansLog.d("antony", "getView():" + position);
+//        TatansLog.d("antony", "statusList.statusList.get(" + position + ").text:" + status.text);
+        //设置微博的网页链接
+        int i = 0;
+        holder.lyt_link_list.removeAllViews();//防止网页链接在其他没有链接的item里出现
         while (mt_me.find()) {
-            String mgroup = mt_me.group(0);
-            str = str.replace(mgroup, "网页链接");
-            SpannableString spannableString = new SpannableString(str);
-            spannableString.setSpan(HomeSpan.getInstance(mgroup, mContext), str.indexOf("网页链接"), str.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            holder.home_page_usercontent.setText(spannableString);
-            holder.home_page_usercontent.setMovementMethod(LinkMovementMethod.getInstance());
+            String group = mt_me.group();
+            i = ++i;
+            str = str.replace(group, mContext.getString(R.string.link) + i);
+            holder.home_page_usercontent.setText(str);
+            SpannableString spannableString = new SpannableString(mContext.getString(R.string.link) + i);
+            spannableString.setSpan(HomeSpan.getInstance(group, mContext), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.lyt_link_list.addView(generateTextView(spannableString));
         }
+        //设置时间
         String time = TimeFormat.dTime(status.created_at);
         holder.home_page_username.setText(status.user.screen_name);
         holder.home_page_usertime.setText(time);
-
+        //设置图片
         if (status.original_pic == null || status.original_pic.equals("") || status.original_pic == "") {
             holder.home_page_pic.setVisibility(View.GONE);
             holder.home_page_pic_text.setVisibility(View.GONE);
@@ -106,7 +121,10 @@ public class StatusAdapter extends BaseAdapter {
             pic_urls = status.pic_urls;
             holder.home_page_pic_text.setVisibility(View.VISIBLE);
             holder.home_page_pic.setVisibility(View.VISIBLE);
-            Picasso.with(mContext).load(status.original_pic).resize(100, 100).placeholder(R.drawable.icon_image_model_short).resize(100, 100).error(R.drawable.icon_image_model_short).resize(100, 100).into(holder.home_page_pic);
+            Picasso.with(mContext).load(status.original_pic).resize(100, 100)
+                    .placeholder(R.drawable.icon_image_model_short).resize(100, 100)
+                    .error(R.drawable.icon_image_model_short).resize(100, 100)
+                    .into(holder.home_page_pic);
             holder.home_page_pic_text.setText(status.pic_urls.size() + "张图片点击查看");
         }
         /**这里主要对转发的处理*/
@@ -125,19 +143,21 @@ public class StatusAdapter extends BaseAdapter {
                 holder.home_page_usercomments.setText("抱歉，此微博已被作者删除。");
             } else {
                 holder.home_page_he_user.setVisibility(View.VISIBLE);
-                holder.home_page_he_user.setText("@" + status.retweeted_status.user.screen_name + ":");
-
+                holder.home_page_he_user.setText("@" + status.retweeted_status.user.screen_name + ":");//用户名
+                //转发微博内容
                 holder.home_page_usercomments.setText(status.retweeted_status.text);
                 Matcher mt_he = Const.pattern.matcher(status.retweeted_status.text);
                 String strs = status.retweeted_status.text;
                 while (mt_he.find()) {
-                    String mgroup = mt_he.group(0);
-                    strs = strs.replace(mgroup, "网页链接");
-                    SpannableString spannableString = new SpannableString(strs);
-                    spannableString.setSpan(HomeSpan.getInstance(mgroup, mContext), strs.indexOf("网页链接"), strs.indexOf("网页链接") + 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    holder.home_page_usercomments.setText(spannableString);
-                    holder.home_page_usercomments.setMovementMethod(LinkMovementMethod.getInstance());
+                    String group = mt_he.group();
+                    i = ++i;
+                    strs = strs.replace(group, mContext.getString(R.string.link) + i);
+                    holder.home_page_usercomments.setText(strs);
+                    SpannableString spannableString = new SpannableString(mContext.getString(R.string.link) + i);
+                    spannableString.setSpan(HomeSpan.getInstance(group, mContext), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    holder.lyt_link_list.addView(generateTextView(spannableString));
                 }
+                //设置图片
                 if (status.retweeted_status.original_pic == null) {
                     holder.home_page_he_pic.setVisibility(View.GONE);
                     holder.home_page_he_pic_text.setVisibility(View.GONE);
@@ -149,16 +169,20 @@ public class StatusAdapter extends BaseAdapter {
                         holder.home_page_he_pic.setVisibility(View.GONE);
                         holder.home_page_he_pic_text.setVisibility(View.GONE);
                     } else {
-                        Picasso.with(mContext).load(status.retweeted_status.original_pic).resize(100, 100).placeholder(R.drawable.icon_image_model_short).resize(100, 100).error(R.drawable.icon_image_model_short).resize(100, 100).into(holder.home_page_he_pic);
-                        if (!(status.retweeted_status.pic_urls == null))
+                        Picasso.with(mContext).load(status.retweeted_status.original_pic).resize(100, 100)
+                                .placeholder(R.drawable.icon_image_model_short).resize(100, 100)
+                                .error(R.drawable.icon_image_model_short).resize(100, 100)
+                                .into(holder.home_page_he_pic);
+                        if (status.retweeted_status.pic_urls != null)
                             holder.home_page_he_pic_text.setText(status.retweeted_status.pic_urls.size() + "张图片点击查看");
                     }
                 }
             }
         }
+        //设置点击事件
         holder.home_page_me_relaytive.setOnClickListener(new OnClickListenerIml(position));
         holder.home_page_he_relaytive.setOnClickListener(new OnClickListenerIml(position));
-        holder.home_page_usercontent.setOnClickListener(new OnClickListenerIml(position));
+        holder.home_page.setOnClickListener(new OnClickListenerIml(position));
         return convertView;
     }
 
@@ -176,6 +200,10 @@ public class StatusAdapter extends BaseAdapter {
          */
         private TextView home_page_usercontent;
         /**
+         * 网页链接
+         */
+        private TextView link;
+        /**
          * 图片
          */
         private ImageView home_page_pic;
@@ -191,10 +219,16 @@ public class StatusAdapter extends BaseAdapter {
          */
         private TextView home_page_usercomments;
         /**
+         * 转发的网页链接
+         */
+        private TextView linkTrans;
+        /**
          * 转发的图片
          */
         private ImageView home_page_he_pic;
         private TextView home_page_he_pic_text;
+        private LinearLayout home_page;
+        private LinearLayout lyt_link_list;
     }
 
 
@@ -216,7 +250,7 @@ public class StatusAdapter extends BaseAdapter {
                 case R.id.home_page_me_relaytive://不是转发微博
                     ImagesStart("original", status);
                     break;
-                case R.id.home_page_usercontent://点击微博进入菜单详情
+                case R.id.home_page://点击微博进入菜单详情
                     intent.setClass(mContext, WeiboMenuDetailsActivity.class);
                     intent.putExtra("userInfo", (Serializable) status.user);
                     if (isComefrom.equals(Const.REMIND)) {
@@ -256,6 +290,22 @@ public class StatusAdapter extends BaseAdapter {
             intent.putStringArrayListExtra(Const.PICURLS, status.retweeted_status.pic_urls);
         }
         mContext.startActivity(intent);
+    }
+
+    int index = 0;
+
+    private TextView generateTextView(SpannableString str) {
+        TatansLog.d("antony", "generateTextView():" + index++);
+        TextView tv = new TextView(mContext);
+        LinearLayout.LayoutParams LP_WW = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LP_WW.setMarginStart(25);
+        tv.setText(str);
+        tv.setTextColor(Color.argb(0xff, 0x00, 0xff, 0xff));
+        tv.setTextSize(25);
+        tv.setLayoutParams(LP_WW);
+        tv.setMovementMethod(LinkMovementMethod.getInstance());
+        return tv;
     }
 
 }

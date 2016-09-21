@@ -39,5 +39,6 @@
     <string name="follow_blogger">关注该博主</string>
     <string name="cancel_follow">取消关注</string>
     <string name="forward">转发</string>
+    <string name="link">网页链接</string>
 
 </resources>

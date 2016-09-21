@@ -32,7 +32,7 @@ public class HomeSpan extends ClickableSpan {
     @Override
     public void updateDrawState(TextPaint ds) {
         super.updateDrawState(ds);
-        ds.setColor(Color.parseColor("#ff0000"));
+        ds.setColor(Color.parseColor("#ff00ffff"));
         ds.setUnderlineText(true);
     }
 
