@@ -8,7 +8,77 @@
             <set />
           </value>
         </entry>
+        <entry key="/a.dummy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/TBISAndroidEnvironment/gradle-2.8/caches/modules-2/files-2.1/net.tatans.coeus/coeus-network/5.4.0-SNAPSHOT/21b35f8f0d10f8814e194a68ad426153a9d8828f/coeus-network-5.4.0-SNAPSHOT-sources.jar!/net/tatans/coeus/network/tools/TatansDb.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../FxService/app/src/main/java/net/tatans/coeus/fxservice/FxService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../alarmClock/coeus-alarmclock/app/src/main/java/net/tatans/coeus/alarm/activities/AddAlarmActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../alarmClock/coeus-alarmclock/app/src/main/java/net/tatans/coeus/alarm/activities/SetAlarmTimeHourActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../alarmClock/coeus-alarmclock/app/src/main/java/net/tatans/coeus/alarm/bean/Alarm.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../coeus-calendar/ShareSDK/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus-calendar/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus-calendar/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus-calendar/app/src/main/assets/ShareSDK.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus-calendar/app/src/main/java/net/tatans/coeus/calendar/activity/CalendarApplication.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus-calendar/app/src/main/java/net/tatans/coeus/calendar/activity/DetailsActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/vcs.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/workspace.xml">
           <value>
             <set />
           </value>
@@ -98,12 +168,52 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/LoginActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/MainActivity.java">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/MyHomePageActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/RemindMeActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/VoicesActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/adapter/StatusAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/bean/AccountBean.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/util/Const.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/util/Constants.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/util/HomeSpan.java">
           <value>
             <set />
           </value>
@@ -114,6 +224,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/rhea/weibo/MainActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/home_page_fragment_item.xml">
           <value>
             <set />
           </value>
@@ -129,6 +244,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <value>
             <set />
           </value>
@@ -184,6 +304,176 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/weibosdk/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_novel/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/braodcastReciver/PhoneBroadcastReceiver.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/service/FxService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/service/FxService1.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/service/FxService2.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/service/activity/MainActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/service/view/FxService2.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/util/FloatCallView.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/util/FloatViewControl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/util/LockLayer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/util/PhoneUtil.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/util/Topbar.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/res/layout/activity_main.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/res/layout/kb_answer.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/res/values/attrs.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../gradle-demo/app/src/main/java/net/tatans/rhea/demo/cache/SaveBitmapActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/app.iml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/java/net/tatans/rhea/countdowntimer/CountDownService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/java/net/tatans/rhea/countdowntimer/MainActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/java/net/tatans/rhea/countdowntimer/SettingActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/java/net/tatans/rhea/countdowntimer/activity/MonthMassageActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/java/net/tatans/rhea/countdowntimer/adapter/MonthDayAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/java/net/tatans/rhea/countdowntimer/bean/MassageTimeBean.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/java/net/tatans/rhea/countdowntimer/bean/SelectResultBean.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/res/layout/activity_main.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/res/layout/month_day.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/res/layout/month_day_item.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/res/layout/setting.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../rhea-timepiece/app/src/main/res/values/strings.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../test/coeus_service/app/src/main/java/net/tatans/coeus/service/FxService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../test/coeus_service/app/src/main/java/net/tatans/coeus/service/activity/TatansServiceApplication.java">
           <value>
             <set />
           </value>

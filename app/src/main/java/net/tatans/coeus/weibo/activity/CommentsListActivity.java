@@ -62,7 +62,7 @@ public class CommentsListActivity extends BaseActivity {
      */
     private void RequestData() {
         long uid = Long.parseLong(mAccessToken.getUid());
-        mCommentsAPI.timeline(uid, 0, 50, 1, false, mListener);
+        mCommentsAPI.toME(uid, 0, 50, 1, 0,0, mListener);
     }
 
     /**

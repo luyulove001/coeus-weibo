@@ -38,12 +38,6 @@ import net.tatans.rhea.network.view.ViewIoc;
 public class CommentDetailsActivity extends BaseActivity {
     @ViewIoc(R.id.all_comment_list)
     private PullToRefreshListView mPullToRefresh;
-    @ViewIoc(R.id.line)
-    private View line;
-    @ViewIoc(R.id.line1)
-    private View line1;
-    @ViewIoc(R.id.line2)
-    private View line2;
     @ViewIoc(R.id.write_comment)
     private LinearLayout mWriteComment;
     private Oauth2AccessToken accessToken;
@@ -131,7 +125,7 @@ public class CommentDetailsActivity extends BaseActivity {
                 CommentList comments1 = CommentList.parse(response);
                 if (comments1.commentList == null || comments1.commentList.isEmpty()) {
                     isEnd = true;
-                    TatansToast.showAndCancel("未请求到数据");
+                    TatansToast.showAndCancel("暂无评论");
                     return;
                 }
                 if (comments1.commentList.size() < 50)

@@ -80,7 +80,6 @@ public class RequestWeiboData {
      * 请求数据
      */
     public void RequestData() {
-//        Long mUid = Long.parseLong(mAccessToken.getUid());
         mStatuses.userTimeline(mUid, 0, 0, 20, index, false, 0, false, mListener);
     }
 

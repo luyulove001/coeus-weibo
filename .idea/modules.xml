@@ -4,16 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ShareOneKey/ShareOneKey.iml" filepath="$PROJECT_DIR$/ShareOneKey/ShareOneKey.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/coeus-weibo.iml" filepath="$PROJECT_DIR$/coeus-weibo.iml" />
       <module fileurl="file://$PROJECT_DIR$/coeus-weibo.iml" filepath="$PROJECT_DIR$/coeus-weibo.iml" />
       <module fileurl="file://$PROJECT_DIR$/gradle-demo.iml" filepath="$PROJECT_DIR$/gradle-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/myweibosdk/myweibosdk.iml" filepath="$PROJECT_DIR$/myweibosdk/myweibosdk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/myweibosdk/myweibosdk.iml" filepath="$PROJECT_DIR$/myweibosdk/myweibosdk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" filepath="$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" filepath="$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/tiris_library/tiris_library.iml" filepath="$PROJECT_DIR$/tiris_library/tiris_library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/weibosdk/weibosdk.iml" filepath="$PROJECT_DIR$/weibosdk/weibosdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/weibosdk/weibosdk.iml" filepath="$PROJECT_DIR$/weibosdk/weibosdk.iml" />
     </modules>
   </component>

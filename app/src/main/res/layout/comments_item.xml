@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minHeight="80dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorBottomDark">
 
     <LinearLayout
         android:id="@+id/layout_srceen_name"

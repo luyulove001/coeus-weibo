@@ -54,7 +54,6 @@ public class HomeFragment extends Fragment {
      * 加载的页数
      */
     private int index = 1;
-    private String regex = "http://t.cn/[a-zA-Z0-9]+";
     /**
      * 当前 Token 信息
      */

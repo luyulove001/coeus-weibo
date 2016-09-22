@@ -38,6 +38,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ContactListActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CommentsListActivity"
