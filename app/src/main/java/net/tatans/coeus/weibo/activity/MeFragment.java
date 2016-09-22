@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
-
 import com.sina.weibo.sdk.openapi.LogoutAPI;
 
 import net.tatans.coeus.network.tools.TatansToast;
@@ -90,7 +89,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 getActivity().startActivity(intent);
                 break;
             case R.id.cancellation://退出登录
-                if (AccessTokenKeeper.readAccessToken(getActivity()).isSessionValid()){
+                if (AccessTokenKeeper.readAccessToken(getActivity()).isSessionValid()) {
                     new LogoutAPI(getActivity(), Constants.APP_KEY,
                             AccessTokenKeeper.readAccessToken(getActivity())).logout(mLogoutListener);
                 } else {

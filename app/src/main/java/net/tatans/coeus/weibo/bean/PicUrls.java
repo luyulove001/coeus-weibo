@@ -7,9 +7,9 @@ import java.io.Serializable;
  */
 public class PicUrls implements Serializable {
 
-	private static final long serialVersionUID = 2354439978931122615L;
+    private static final long serialVersionUID = 2354439978931122615L;
 
-	private String thumbnail_pic;
+    private String thumbnail_pic;
 
     public String getThumbnail_pic() {
         return thumbnail_pic;

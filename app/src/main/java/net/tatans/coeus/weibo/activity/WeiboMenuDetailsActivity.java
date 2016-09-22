@@ -19,10 +19,8 @@ import com.sina.weibo.sdk.openapi.models.Favorite;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import net.tatans.coeus.network.tools.BaseActivity;
-import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
-import net.tatans.coeus.weibo.bean.FollowBean;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
@@ -155,7 +153,7 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
             line3.setVisibility(View.GONE);
             line4.setVisibility(View.GONE);
             line5.setVisibility(View.GONE);
-        } else  if(type.equals(Const.SEARCH)){
+        } else if (type.equals(Const.SEARCH)) {
             mReply.setVisibility(View.GONE);
             layout_comment.setVisibility(View.GONE);
             line3.setVisibility(View.GONE);
@@ -257,7 +255,7 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     private void onClickHome() {
         Intent intent = getIntent();
         intent.setClass(this, MyHomePageActivity.class);
-        User userInfo = (User)intent.getSerializableExtra("userInfo");
+        User userInfo = (User) intent.getSerializableExtra("userInfo");
         intent.putExtra("description", userInfo.description);
         intent.putExtra("followers_count", userInfo.followers_count + "");
         intent.putExtra("friends_count", userInfo.friends_count + "");

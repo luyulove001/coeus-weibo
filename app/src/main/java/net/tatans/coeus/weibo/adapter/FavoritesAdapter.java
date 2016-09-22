@@ -91,9 +91,9 @@ public class FavoritesAdapter extends BaseAdapter {
             holder.home_page_usercontent.setMovementMethod(LinkMovementMethod.getInstance());
         }
         String time = TimeFormat.dTime(favorite.status.created_at);
-        if(favorite.status.user != null){
+        if (favorite.status.user != null) {
             holder.home_page_username.setText(favorite.status.user.screen_name);
-        }else{
+        } else {
             holder.home_page_username.setText("微博已删除");
         }
         holder.home_page_usertime.setText(time);

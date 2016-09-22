@@ -23,9 +23,6 @@ import net.tatans.coeus.weibo.util.Constants;
 import net.tatans.rhea.network.view.ContentView;
 import net.tatans.rhea.network.view.ViewIoc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by LCM on 2016/7/28. 14:43
  *

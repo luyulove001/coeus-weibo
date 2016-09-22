@@ -118,6 +118,7 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * 判断某应用是否存在
+     *
      * @param pkgName 应用的包名
      * @return
      */

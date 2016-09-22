@@ -81,12 +81,12 @@ public class CommentAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-            Comment comment =mList.commentList.get(mPosition);
-            Intent intent =  new Intent(mContext, WeiboMenuDetailsActivity.class);
-            intent.putExtra("id",comment.id);
-            intent.putExtra(Const.WEIBO_ID,comment.status.id);
-            intent.putExtra(Const.COMMENTS_COUNT,comment.status.comments_count);
-            intent.putExtra(Const.TYPE,Const.COMMENT);
+            Comment comment = mList.commentList.get(mPosition);
+            Intent intent = new Intent(mContext, WeiboMenuDetailsActivity.class);
+            intent.putExtra("id", comment.id);
+            intent.putExtra(Const.WEIBO_ID, comment.status.id);
+            intent.putExtra(Const.COMMENTS_COUNT, comment.status.comments_count);
+            intent.putExtra(Const.TYPE, Const.COMMENT);
             intent.putExtra(Const.UID, comment.status.user.id);
             intent.putExtra(Const.SCREEN_NAME, comment.status.user.screen_name);
             intent.putExtra(Const.FAVORITES, comment.status.favorited);

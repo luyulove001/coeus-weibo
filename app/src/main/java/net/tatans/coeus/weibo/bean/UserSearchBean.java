@@ -1,7 +1,5 @@
 package net.tatans.coeus.weibo.bean;
 
-import com.sina.weibo.sdk.openapi.models.User;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

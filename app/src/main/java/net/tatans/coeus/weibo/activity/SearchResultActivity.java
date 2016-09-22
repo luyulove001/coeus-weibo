@@ -21,16 +21,11 @@ import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.StatusAdapter;
 import net.tatans.coeus.weibo.adapter.UserSearchAdapter;
-import net.tatans.coeus.weibo.bean.PicUrls;
 import net.tatans.coeus.weibo.bean.SearchResultUser;
-import net.tatans.coeus.weibo.bean.StatusContent;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.rhea.network.view.ContentView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
  * 用于显示查询出来的结果

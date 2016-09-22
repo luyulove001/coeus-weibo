@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sina.weibo.sdk.openapi.models.Comment;
@@ -64,13 +65,13 @@ public class AllCommentAdapter extends BaseAdapter {
             holder.home_page_usercontent = (TextView) convertView.findViewById(R.id.home_page_usercontent);
             holder.home_page_pic = (ImageView) convertView.findViewById(R.id.home_page_pic);
             holder.home_page_pic_text = (TextView) convertView.findViewById(R.id.home_page_pic_text);
-            holder.home_page_me_relaytive = (LinearLayout) convertView.findViewById(R.id.home_page_me_relaytive);
+            holder.home_page_me_relaytive = (RelativeLayout) convertView.findViewById(R.id.home_page_me_relaytive);
             holder.home_page_usercomments = (TextView) convertView.findViewById(R.id.home_page_usercomments);
             holder.home_page_he_user = (TextView) convertView.findViewById(R.id.home_page_he_user);
             holder.home_page_he_pic = (ImageView) convertView.findViewById(R.id.home_page_he_pic);
             holder.home_page_he_pic_text = (TextView) convertView.findViewById(R.id.home_page_he_pic_text);
-            holder.home_page_me_relaytive = (LinearLayout) convertView.findViewById(R.id.home_page_me_relaytive);
-            holder.home_page_he_relaytive = (LinearLayout) convertView.findViewById(R.id.home_page_he_relaytive);
+            holder.home_page_me_relaytive = (RelativeLayout) convertView.findViewById(R.id.home_page_me_relaytive);
+            holder.home_page_he_relaytive = (RelativeLayout) convertView.findViewById(R.id.home_page_he_relaytive);
             holder.home_page_he_rela = (LinearLayout) convertView.findViewById(R.id.home_page_he_rela);
             convertView.setTag(holder);
         } else {
@@ -115,8 +116,8 @@ public class AllCommentAdapter extends BaseAdapter {
          */
         private ImageView home_page_pic;
         private TextView home_page_pic_text;
-        private LinearLayout home_page_me_relaytive;
-        private LinearLayout home_page_he_relaytive;
+        private RelativeLayout home_page_me_relaytive;
+        private RelativeLayout home_page_he_relaytive;
         private LinearLayout home_page_he_rela;
         /**
          * 转发用户名

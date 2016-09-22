@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
@@ -15,17 +14,25 @@ import com.sina.weibo.sdk.auth.sso.SsoHandler;
  * 登录回调工具类
  */
 
-public class  LoginUtil  {
-    /** 微博授权时，启动 SSO 界面的 Activity */
+public class LoginUtil {
+    /**
+     * 微博授权时，启动 SSO 界面的 Activity
+     */
     private Context mContext;
-    /** 授权认证所需要的信息 */
+    /**
+     * 授权认证所需要的信息
+     */
     private AuthInfo mAuthInfo;
-    /** SSO 授权认证实例 */
+    /**
+     * SSO 授权认证实例
+     */
     private SsoHandler mSsoHandler;
-    /** 微博授权认证回调 */
+    /**
+     * 微博授权认证回调
+     */
     private WeiboAuthListener mAuthListener;
 
-    public LoginUtil(Context context){
+    public LoginUtil(Context context) {
         this.mContext = context;
     }
 
@@ -39,7 +46,7 @@ public class  LoginUtil  {
         mAuthInfo = authInfo;
         mAuthListener = authListener;
         if (null == mSsoHandler && mAuthInfo != null) {
-            mSsoHandler = new SsoHandler((Activity)mContext, mAuthInfo);
+            mSsoHandler = new SsoHandler((Activity) mContext, mAuthInfo);
         }
 
         if (mSsoHandler != null) {
@@ -52,7 +59,7 @@ public class  LoginUtil  {
     /**
      * 当 SSO 授权 Activity 退出时，该函数被调用。
      */
-    public void authorizeCallBack(int requestCode,int resultCode,Intent data){
+    public void authorizeCallBack(int requestCode, int resultCode, Intent data) {
         // SSO 授权回调
         // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
         if (mSsoHandler != null) {

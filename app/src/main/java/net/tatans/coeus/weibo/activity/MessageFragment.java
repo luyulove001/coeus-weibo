@@ -8,16 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
-import com.sina.weibo.sdk.openapi.StatusesAPI;
-
-import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
-import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Const;
-import net.tatans.coeus.weibo.util.Constants;
 
-public class MessageFragment extends Fragment  implements View.OnClickListener{
+public class MessageFragment extends Fragment implements View.OnClickListener {
     //获取视图
     private View view;
     private TextView mAboutMe;
@@ -54,18 +48,18 @@ public class MessageFragment extends Fragment  implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.about_me://@我的
                 intent.setClass(getActivity(), RemindMeActivity.class);
                 getActivity().startActivity(intent);
                 break;
             case R.id.comment://评论
-                intent.setClass(getActivity(),CommentsListActivity.class);
+                intent.setClass(getActivity(), CommentsListActivity.class);
                 getActivity().startActivity(intent);
                 break;
-            case  R.id.write_weibo://写微博
-                intent.setClass(getActivity(),CommentsActivity.class);
-                intent.putExtra(Const.TYPE,Const.WRITE_WEIBO);
+            case R.id.write_weibo://写微博
+                intent.setClass(getActivity(), CommentsActivity.class);
+                intent.putExtra(Const.TYPE, Const.WRITE_WEIBO);
                 getActivity().startActivity(intent);
                 break;
             default:

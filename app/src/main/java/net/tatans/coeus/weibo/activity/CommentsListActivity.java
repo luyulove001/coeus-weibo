@@ -2,7 +2,6 @@ package net.tatans.coeus.weibo.activity;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -62,7 +61,7 @@ public class CommentsListActivity extends BaseActivity {
      */
     private void RequestData() {
         long uid = Long.parseLong(mAccessToken.getUid());
-        mCommentsAPI.toME(uid, 0, 50, 1, 0,0, mListener);
+        mCommentsAPI.toME(uid, 0, 50, 1, 0, 0, mListener);
     }
 
     /**

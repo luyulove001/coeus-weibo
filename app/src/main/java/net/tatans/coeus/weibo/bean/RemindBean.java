@@ -1,56 +1,93 @@
 package net.tatans.coeus.weibo.bean;
 
-import com.sina.weibo.sdk.openapi.models.Geo;
-import com.sina.weibo.sdk.openapi.models.Status;
-import com.sina.weibo.sdk.openapi.models.User;
-
 /**
  * Created by LCM on 2016/8/1. 12:53
+ *
  * @我的
  */
 
 public class RemindBean {
 
-    /** 用户UID（int64） */
-    private  String  userId;
+    /**
+     * 用户UID（int64）
+     */
+    private String userId;
 
-    /** 微博创建时间 */
+    /**
+     * 微博创建时间
+     */
     private String created_at;
-    /** 微博ID */
+    /**
+     * 微博ID
+     */
     private String weiboId;
-    /** 微博MID */
+    /**
+     * 微博MID
+     */
     private String mid;
-    /** 字符串型的微博ID */
+    /**
+     * 字符串型的微博ID
+     */
     private String idstr;
-    /** 微博信息内容 */
+    /**
+     * 微博信息内容
+     */
     private String text;
-    /** 微博来源 */
+    /**
+     * 微博来源
+     */
     private String source;
-    /** 是否已收藏，true：是，false：否  */
+    /**
+     * 是否已收藏，true：是，false：否
+     */
     private boolean favorited;
-    /** 是否被截断，true：是，false：否 */
+    /**
+     * 是否被截断，true：是，false：否
+     */
     private boolean truncated;
-    /**（暂未支持）回复ID */
+    /**
+     * （暂未支持）回复ID
+     */
     private String in_reply_to_status_id;
-    /**（暂未支持）回复人UID */
+    /**
+     * （暂未支持）回复人UID
+     */
     private String in_reply_to_user_id;
-    /**（暂未支持）回复人昵称 */
+    /**
+     * （暂未支持）回复人昵称
+     */
     private String in_reply_to_screen_name;
-    /** 缩略图片地址（小图），没有时不返回此字段 */
+    /**
+     * 缩略图片地址（小图），没有时不返回此字段
+     */
     private String thumbnail_pic;
-    /** 中等尺寸图片地址（中图），没有时不返回此字段 */
+    /**
+     * 中等尺寸图片地址（中图），没有时不返回此字段
+     */
     private String bmiddle_pic;
-    /** 原始图片地址（原图），没有时不返回此字段 */
+    /**
+     * 原始图片地址（原图），没有时不返回此字段
+     */
     private String original_pic;
-    /** 转发数 */
+    /**
+     * 转发数
+     */
     private int reposts_count;
-    /** 评论数 */
+    /**
+     * 评论数
+     */
     private int comments_count;
-    /** 表态数 */
+    /**
+     * 表态数
+     */
     private int attitudes_count;
-    /** 用户昵称 */
+    /**
+     * 用户昵称
+     */
     private String screen_name;
-    /** 友好显示名称 */
+    /**
+     * 友好显示名称
+     */
     public String name;
 
     public String getUserId() {

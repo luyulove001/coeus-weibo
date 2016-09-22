@@ -16,16 +16,15 @@
 
 package net.tatans.coeus.weibo.bean;
 
-import java.util.ArrayList;
+import android.text.TextUtils;
+
+import com.sina.weibo.sdk.openapi.models.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.text.TextUtils;
-import android.util.Log;
-
-import com.sina.weibo.sdk.openapi.models.User;
+import java.util.ArrayList;
 
 /**
  * 微博列表结构。

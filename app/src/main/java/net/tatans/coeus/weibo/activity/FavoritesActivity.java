@@ -34,7 +34,8 @@ public class FavoritesActivity extends BaseActivity {
     private boolean isEnd = false;
     private int index = 1;
     private boolean isRefresh = false;
-    private  FavoriteList favoriteList= new FavoriteList();
+    private FavoriteList favoriteList = new FavoriteList();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class FavoritesActivity extends BaseActivity {
                 mFavoritesApi.favorites(50, 1, mListener);
                 mPullToRefresh.setRefreshing();
                 isRefresh = true;
-                isEnd=false;
+                isEnd = false;
                 index = 1;
             }
         });
@@ -63,12 +64,12 @@ public class FavoritesActivity extends BaseActivity {
         mPullToRefresh.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
             @Override
             public void onLastItemVisible() {
-                if(!isEnd){
+                if (!isEnd) {
                     index += 1;
                     mFavoritesApi.favorites(50, index, mListener);
                     TatansToast.showAndCancel("加载第" + index + "页");
                     isRefresh = false;
-                }else{
+                } else {
                     TatansToast.showAndCancel("没有更多内容了");
                 }
             }
@@ -88,8 +89,8 @@ public class FavoritesActivity extends BaseActivity {
                 isEnd = true;
                 return;
             }
-            if(favoriteList.favoriteList ==null || favoriteList.favoriteList.isEmpty()||isRefresh){
-                favoriteList =favorite;
+            if (favoriteList.favoriteList == null || favoriteList.favoriteList.isEmpty() || isRefresh) {
+                favoriteList = favorite;
                 mFavorites = new FavoritesAdapter(FavoritesActivity.this, favoriteList);
                 mPullToRefresh.setAdapter(mFavorites);
                 mPullToRefresh.onRefreshComplete();

@@ -1,7 +1,5 @@
 package net.tatans.coeus.weibo.util;
 
-import net.tatans.coeus.network.tools.TatansLog;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

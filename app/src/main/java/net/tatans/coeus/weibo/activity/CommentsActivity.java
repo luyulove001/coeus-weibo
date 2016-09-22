@@ -187,7 +187,7 @@ public class CommentsActivity extends BaseActivity {
             case 0:
                 if (data != null) {
                     String dataName = data.getExtras().getString(Const.CONTACT);
-                    comments_content.setText(comments_content.getText().toString() + "@"+ dataName+"  ");//" " 不能去掉提供@我时的一个空白字符串
+                    comments_content.setText(comments_content.getText().toString() + "@" + dataName + "  ");//" " 不能去掉提供@我时的一个空白字符串
                 }
                 break;
             case 1:
