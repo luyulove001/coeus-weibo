@@ -15,9 +15,12 @@ public class Const {
     public static String CONTACT = "contact";
     public static String CONTACT_OR_FOllOW = "ContactOrFollow";
     public static String FOLLOW = "follow";
-    //正则表达式
+    //正则表达式 所有链接
     public static Pattern pattern = Pattern
             .compile("(http://|ftp://|https://|www){1}([a-zA-Z0-9.]+/|[a-zA-Z0-9.]+)*");
+    //正则表达式 链接前有全文:
+    public static Pattern pattern1 = Pattern
+            .compile("全文： +(http://|ftp://|https://|www){1}([a-zA-Z0-9.]+/|[a-zA-Z0-9.]+)*");
 
     public static String PICURLS = "pic_urls";
 

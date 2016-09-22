@@ -40,5 +40,6 @@
     <string name="cancel_follow">取消关注</string>
     <string name="forward">转发</string>
     <string name="link">网页链接</string>
+    <string name="full_text">全文</string>
 
 </resources>

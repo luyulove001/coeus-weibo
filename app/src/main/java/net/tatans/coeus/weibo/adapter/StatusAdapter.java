@@ -92,14 +92,22 @@ public class StatusAdapter extends BaseAdapter {
         }
         //获得当前position的微博内容
         final Status status = statusList.statusList.get(position);
-        Matcher mt_me = Const.pattern.matcher(status.text);
         holder.home_page_usercontent.setText(status.text);
         String str = status.text;
-//        TatansLog.d("antony", "getView():" + position);
-//        TatansLog.d("antony", "statusList.statusList.get(" + position + ").text:" + status.text);
+        TatansLog.d("antony", "statusList.statusList.get(" + position + ").text:" + status.text);
         //设置微博的网页链接
         int i = 0;
         holder.lyt_link_list.removeAllViews();//防止网页链接在其他没有链接的item里出现
+        Matcher fullText = Const.pattern1.matcher(status.text);
+        while (fullText.find()) {
+            String group = fullText.group();
+            str = str.replace(group, mContext.getString(R.string.full_text));
+            holder.home_page_usercontent.setText(str);
+            SpannableString spannableString = new SpannableString("查看" + mContext.getString(R.string.full_text));
+            spannableString.setSpan(HomeSpan.getInstance(group.substring(4), mContext), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.lyt_link_list.addView(generateTextView(spannableString));
+        }
+        Matcher mt_me = Const.pattern.matcher(str);
         while (mt_me.find()) {
             String group = mt_me.group();
             i = ++i;
@@ -146,8 +154,17 @@ public class StatusAdapter extends BaseAdapter {
                 holder.home_page_he_user.setText("@" + status.retweeted_status.user.screen_name + ":");//用户名
                 //转发微博内容
                 holder.home_page_usercomments.setText(status.retweeted_status.text);
-                Matcher mt_he = Const.pattern.matcher(status.retweeted_status.text);
                 String strs = status.retweeted_status.text;
+                fullText = Const.pattern1.matcher(strs);
+                while (fullText.find()) {
+                    String group = fullText.group();
+                    strs = strs.replace(group, mContext.getString(R.string.full_text));
+                    holder.home_page_usercomments.setText(strs);
+                    SpannableString spannableString = new SpannableString("查看" + mContext.getString(R.string.full_text));
+                    spannableString.setSpan(HomeSpan.getInstance(group.substring(4), mContext), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    holder.lyt_link_list.addView(generateTextView(spannableString));
+                }
+                Matcher mt_he = Const.pattern.matcher(strs);
                 while (mt_he.find()) {
                     String group = mt_he.group();
                     i = ++i;
@@ -295,7 +312,6 @@ public class StatusAdapter extends BaseAdapter {
     int index = 0;
 
     private TextView generateTextView(SpannableString str) {
-        TatansLog.d("antony", "generateTextView():" + index++);
         TextView tv = new TextView(mContext);
         LinearLayout.LayoutParams LP_WW = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
