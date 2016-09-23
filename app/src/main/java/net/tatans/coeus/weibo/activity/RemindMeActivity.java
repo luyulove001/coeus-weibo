@@ -13,30 +13,28 @@ import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.legacy.StatusesAPI;
 import com.sina.weibo.sdk.openapi.models.StatusList;
 
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansToast;
+import net.tatans.coeus.network.view.ViewInject;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.StatusAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
-import net.tatans.rhea.network.view.ContentView;
-import net.tatans.rhea.network.view.ViewIoc;
 
 /**
  * Created by LCM on 2016/7/28. 14:43
  *
  * @我的
  */
-@ContentView(R.layout.remind_me)
-public class RemindMeActivity extends BaseActivity {
+public class RemindMeActivity extends TatansActivity {
 
     private Oauth2AccessToken accessToken;
 
     private StatusesAPI mStatusesApi;
 
     private StatusAdapter adapter;
-    @ViewIoc(R.id.home_page_listview)
+    @ViewInject(id = R.id.home_page_listview)
     private PullToRefreshListView pullToRefresh;
     private StatusList status = new StatusList();
     private boolean isRefresh = false, isEnd = false;
@@ -45,6 +43,7 @@ public class RemindMeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.remind_me);
         initData();
     }
 

@@ -18,7 +18,17 @@
             <set />
           </value>
         </entry>
+        <entry key="D:/TBISAndroidEnvironment/gradle-2.8/caches/modules-2/files-2.1/net.tatans.coeus/coeus-network/5.4.0-SNAPSHOT/21b35f8f0d10f8814e194a68ad426153a9d8828f/coeus-network-5.4.0-SNAPSHOT-sources.jar!/net/tatans/coeus/network/tools/TatansApplication.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="D:/TBISAndroidEnvironment/gradle-2.8/caches/modules-2/files-2.1/net.tatans.coeus/coeus-network/5.4.0-SNAPSHOT/21b35f8f0d10f8814e194a68ad426153a9d8828f/coeus-network-5.4.0-SNAPSHOT-sources.jar!/net/tatans/coeus/network/tools/TatansDb.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/TBISAndroidEnvironment/gradle-2.8/caches/modules-2/files-2.1/net.tatans.coeus/coeus-network/5.4.0-SNAPSHOT/21b35f8f0d10f8814e194a68ad426153a9d8828f/coeus-network-5.4.0-SNAPSHOT-sources.jar!/net/tatans/rhea/network/register/RegCertificateUtil.java">
           <value>
             <set />
           </value>
@@ -173,12 +183,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/ContactListActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/FavoritesActivity.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/FindFragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/HomeFragment.java">
           <value>
             <set />
           </value>
@@ -229,6 +249,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/VoicesActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/net/tatans/coeus/weibo/activity/WeiboApp.java">
           <value>
             <set />
           </value>
@@ -474,6 +499,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/service/activity/MainActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/service/activity/ServiceSettingActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../coeus_service/app/src/main/java/net/tatans/coeus/service/activity/TatansServiceApplication.java">
           <value>
             <set />
           </value>

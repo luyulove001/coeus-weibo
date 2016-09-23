@@ -18,58 +18,55 @@ import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 import com.sina.weibo.sdk.openapi.models.Favorite;
 import com.sina.weibo.sdk.openapi.models.User;
 
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansToast;
+import net.tatans.coeus.network.view.ViewInject;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
-import net.tatans.rhea.network.event.OnClick;
-import net.tatans.rhea.network.view.ContentView;
-import net.tatans.rhea.network.view.ViewIoc;
 
 /**
  * Created by LCM on 2016/8/12. 9:10
  * 点击某条微博菜单页
  */
-@ContentView(R.layout.weibo_menu)
-public class WeiboMenuDetailsActivity extends BaseActivity {
+public class WeiboMenuDetailsActivity extends TatansActivity implements View.OnClickListener {
     //获取视图
-    @ViewIoc(R.id.reply)
+    @ViewInject(id = R.id.reply, click = "onClick")
     private TextView mReply;
-    @ViewIoc(R.id.write_comment)
+    @ViewInject(id = R.id.write_comment, click = "onClick")
     private TextView write_comment;
-    @ViewIoc(R.id.layout_forward)
+    @ViewInject(id = R.id.layout_forward, click = "onClick")
     private LinearLayout layout_forward;
-    @ViewIoc(R.id.layout_comment)
+    @ViewInject(id = R.id.layout_comment, click = "onClick")
     private LinearLayout layout_comment;
-    @ViewIoc(R.id.layout_all_comment)
+    @ViewInject(id = R.id.layout_all_comment, click = "onClick")
     private LinearLayout layout_all_comment;
-    @ViewIoc(R.id.forward)
+    @ViewInject(id = R.id.forward)
     private TextView forward;
-    @ViewIoc(R.id.forward_num)
+    @ViewInject(id = R.id.forward_num)
     private TextView forward_num;
-    @ViewIoc(R.id.comment)
+    @ViewInject(id = R.id.comment)
     private TextView comment;
-    @ViewIoc(R.id.comment_num)
+    @ViewInject(id = R.id.comment_num)
     private TextView comment_num;
-    @ViewIoc(R.id.all_comment)
+    @ViewInject(id = R.id.all_comment)
     private TextView all_comment;
-    @ViewIoc(R.id.all_comment_num)
+    @ViewInject(id = R.id.all_comment_num)
     private TextView all_comment_num;
-    @ViewIoc(R.id.collection)
+    @ViewInject(id = R.id.collection, click = "onClick")
     private TextView collection;
-    @ViewIoc(R.id.my_weibo_home)
+    @ViewInject(id = R.id.my_weibo_home, click = "onClickHome")
     private TextView my_weibo_home;
-    @ViewIoc(R.id.line)
+    @ViewInject(id = R.id.line)
     private View line;
-    @ViewIoc(R.id.line6)
+    @ViewInject(id = R.id.line6)
     private View line6;
-    @ViewIoc(R.id.line5)
+    @ViewInject(id = R.id.line5)
     private View line5;
-    @ViewIoc(R.id.line4)
+    @ViewInject(id = R.id.line4)
     private View line4;
-    @ViewIoc(R.id.line3)
+    @ViewInject(id = R.id.line3)
     private View line3;
 
     private String type;
@@ -98,6 +95,7 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.weibo_menu);
         type = getIntent().getExtras().getString(Const.TYPE);
         weiboId = Long.valueOf(getIntent().getExtras().getString(Const.WEIBO_ID));
         uid = Long.valueOf(getIntent().getExtras().getString(Const.UID));
@@ -175,7 +173,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     /**
      * 点击回复
      */
-    @OnClick(R.id.reply)
     private void onClickReply() {
         Intent intent = getIntent();
         intent.setClass(this, CommentsActivity.class);
@@ -191,7 +188,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     /**
      * 点击转发
      */
-    @OnClick(R.id.layout_forward)
     private void onClickForward() {
         Intent intent = getIntent();
         intent.setClass(this, CommentsActivity.class);
@@ -202,7 +198,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     /**
      * 点击评论
      */
-    @OnClick(R.id.layout_comment)
     private void onClickComment() {
         Intent intent = new Intent(this, CommentDetailsActivity.class);
         intent.putExtra(Const.WEIBO_ID, weiboId);
@@ -213,7 +208,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     /**
      * 点击查看所有评论
      */
-    @OnClick(R.id.layout_all_comment)
     private void onClickAllComment() {
         Intent intent = new Intent(this, CommentDetailsActivity.class);
         intent.putExtra(Const.WEIBO_ID, weiboId);
@@ -224,7 +218,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     /**
      * 点击写评论
      */
-    @OnClick(R.id.write_comment)
     private void onClickWriteComment() {
         Intent intent = new Intent(this, CommentsActivity.class);
         intent.putExtra(Const.TYPE, Const.WRITE_COMMENT);
@@ -235,7 +228,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     /**
      * 点击收藏，收藏一条微博
      */
-    @OnClick(R.id.collection)
     private void onClickFavorites() {
         if (isFavorites) {
             mFavoritesAPI.destroy(weiboId, mListener);
@@ -251,7 +243,6 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
     /**
      * 点击进入博主主页
      */
-    @OnClick(R.id.my_weibo_home)
     private void onClickHome() {
         Intent intent = getIntent();
         intent.setClass(this, MyHomePageActivity.class);
@@ -301,4 +292,31 @@ public class WeiboMenuDetailsActivity extends BaseActivity {
             TatansToast.showAndCancel(info.toString());
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.reply:
+                onClickReply();
+                break;
+            case R.id.write_comment:
+                onClickWriteComment();
+                break;
+            case R.id.layout_forward:
+                onClickForward();
+                break;
+            case R.id.layout_comment:
+                onClickComment();
+                break;
+            case R.id.layout_all_comment:
+                onClickAllComment();
+                break;
+            case R.id.collection:
+                onClickFavorites();
+                break;
+            case R.id.my_weibo_home:
+                onClickHome();
+                break;
+        }
+    }
 }

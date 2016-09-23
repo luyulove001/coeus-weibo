@@ -26,11 +26,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Fragment mMessageFragment;
     private Fragment mFindFragment;
     private Fragment mMeFragment;
-    private Handler mHandler;
+    private Handler handler;
     private int click_judgment = 1;
 
     public void setHandler(Handler handler) {
-        mHandler = handler;
+        this.handler = handler;
     }
 
     @Override
@@ -133,7 +133,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setSelect(0);
                 click_judgment += 1;
                 if (click_judgment > 1) {
-                    mHandler.sendEmptyMessage(2);
+                    handler.sendEmptyMessage(2);
                 }
 
                 break;

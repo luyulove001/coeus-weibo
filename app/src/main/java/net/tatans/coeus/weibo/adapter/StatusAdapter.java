@@ -182,7 +182,7 @@ public class StatusAdapter extends BaseAdapter {
                     holder.home_page_he_pic.setVisibility(View.VISIBLE);
                     holder.home_page_he_pic_text.setVisibility(View.VISIBLE);
                     //该判断为转发后用户信息图片或者是投票或是音乐
-                    if (status.retweeted_status.original_pic.equals("")) {
+                    if ("".equals(status.retweeted_status.original_pic)) {
                         holder.home_page_he_pic.setVisibility(View.GONE);
                         holder.home_page_he_pic_text.setVisibility(View.GONE);
                     } else {

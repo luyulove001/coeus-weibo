@@ -17,7 +17,7 @@ import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.legacy.SearchAPI;
 
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansToast;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.bean.UserSearchBean;
@@ -37,7 +37,7 @@ import java.util.Map;
  * Created by cly on 2016/7/25.
  */
 
-public class SearchActivity extends BaseActivity {
+public class SearchActivity extends TatansActivity {
     /**
      * 输入框
      */

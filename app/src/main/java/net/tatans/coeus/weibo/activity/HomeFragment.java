@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
      * 判断是否加载到最后了
      */
     private boolean isEnd = false;
-    private MainActivity mActivity;
+    private MainActivity activity;
     private View view;
     /**
      * 加载的页数
@@ -86,8 +86,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mActivity = (MainActivity) activity;
-        mActivity.setHandler(mHandler);
+        this.activity = (MainActivity) activity;
+        this.activity.setHandler(mHandler);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -17,26 +18,23 @@ import com.sina.weibo.sdk.openapi.CommentsAPI;
 import com.sina.weibo.sdk.openapi.models.CommentList;
 import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansToast;
+import net.tatans.coeus.network.view.ViewInject;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.AllCommentAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
-import net.tatans.rhea.network.event.OnClick;
-import net.tatans.rhea.network.view.ContentView;
-import net.tatans.rhea.network.view.ViewIoc;
 
 /**
  * Created by LCM on 2016/8/11. 8:44
  * 评论详情
  */
-@ContentView(R.layout.comment_details)
-public class CommentDetailsActivity extends BaseActivity {
-    @ViewIoc(R.id.all_comment_list)
+public class CommentDetailsActivity extends TatansActivity implements View.OnClickListener{
+    @ViewInject(id = R.id.all_comment_list)
     private PullToRefreshListView mPullToRefresh;
-    @ViewIoc(R.id.write_comment)
+    @ViewInject(id = R.id.write_comment, click = "onClick")
     private LinearLayout mWriteComment;
     private Oauth2AccessToken accessToken;
     private CommentsAPI mCommentAPI;
@@ -56,6 +54,7 @@ public class CommentDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.comment_details);
         initData();
     }
 
@@ -102,7 +101,6 @@ public class CommentDetailsActivity extends BaseActivity {
     /**
      * 写评论
      */
-    @OnClick(R.id.write_comment)
     private void onClickComment() {
         Intent intent = getIntent();
         intent.setClass(this, CommentsActivity.class);
@@ -147,4 +145,9 @@ public class CommentDetailsActivity extends BaseActivity {
         }
     };
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.write_comment)
+            onClickComment();
+    }
 }

@@ -31,14 +31,16 @@ import com.iflytek.cloud.SpeechEvent;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
-import com.iflytek.sunflower.FlowerCollector;
 
 import net.tatans.coeus.network.tools.TatansToast;
-import net.tatans.coeus.speech.parser.JsonParser;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.util.NetworkConnectionUtil;
 import net.tatans.coeus.weibo.util.SoundUtil;
 import net.tatans.coeus.weibo.view.RippleBackground;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -314,9 +316,29 @@ public class VoicesActivity extends Activity implements OnClickListener, OnHover
             if (isLast) {
             } else {
                 resultData = resultData
-                        + JsonParser.parseIatResult(results.getResultString());
+                        + parseIatResult(results.getResultString());
             }
 
+        }
+
+        public String parseIatResult(String json) {
+            StringBuffer ret = new StringBuffer();
+
+            try {
+                JSONTokener e = new JSONTokener(json);
+                JSONObject joResult = new JSONObject(e);
+                JSONArray words = joResult.getJSONArray("ws");
+
+                for (int i = 0; i < words.length(); ++i) {
+                    JSONArray items = words.getJSONObject(i).getJSONArray("cw");
+                    JSONObject obj = items.getJSONObject(0);
+                    ret.append(obj.getString("w"));
+                }
+            } catch (Exception var8) {
+                var8.printStackTrace();
+            }
+
+            return ret.toString();
         }
 
         public void onVolumeChanged(int volume, byte[] data) {
@@ -400,16 +422,12 @@ public class VoicesActivity extends Activity implements OnClickListener, OnHover
     @Override
     protected void onResume() {
         // 开放统计 移动数据统计分析
-        FlowerCollector.onResume(VoicesActivity.this);
-        FlowerCollector.onPageStart(TAG);
         super.onResume();
     }
 
     @Override
     protected void onPause() {
         // 开放统计 移动数据统计分析
-        FlowerCollector.onPageEnd(TAG);
-        FlowerCollector.onPause(VoicesActivity.this);
         rippleBackground.stopRippleAnimation();// 关闭动画
         super.onPause();
     }

@@ -13,7 +13,6 @@ public class WeiboApp extends TatansApplication {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-        setAppSpeaker();
     }
 
     public static WeiboApp getInstance() {

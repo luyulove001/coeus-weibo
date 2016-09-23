@@ -14,7 +14,7 @@ import com.sina.weibo.sdk.openapi.models.StatusList;
 
 import net.tatans.coeus.network.callback.HttpRequestCallBack;
 import net.tatans.coeus.network.callback.HttpRequestParams;
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansHttp;
 import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.network.tools.TatansToast;
@@ -23,7 +23,6 @@ import net.tatans.coeus.weibo.adapter.StatusAdapter;
 import net.tatans.coeus.weibo.adapter.UserSearchAdapter;
 import net.tatans.coeus.weibo.bean.SearchResultUser;
 import net.tatans.coeus.weibo.util.Const;
-import net.tatans.rhea.network.view.ContentView;
 
 import java.util.ArrayList;
 
@@ -31,8 +30,7 @@ import java.util.ArrayList;
  * 用于显示查询出来的结果
  * Created by cly on 2016/7/27.
  */
-@ContentView(R.layout.home_page)
-public class SearchResultActivity extends BaseActivity {
+public class SearchResultActivity extends TatansActivity {
     private static final String REQUEST_USER = "http://m.weibo.cn/page/pageJson";
     private PullToRefreshListView listView;
     /**
@@ -82,6 +80,7 @@ public class SearchResultActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.home_page);
         listView = (PullToRefreshListView) findViewById(R.id.home_page_listview);
         isStatues = getIntent().getBooleanExtra("isStatues", true);//搜索类型 true 微博; false 用户
         content = getIntent().getStringExtra("content");//搜索内容

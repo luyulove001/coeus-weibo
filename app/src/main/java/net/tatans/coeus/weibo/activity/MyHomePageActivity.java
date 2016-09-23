@@ -3,9 +3,6 @@ package net.tatans.coeus.weibo.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -15,37 +12,35 @@ import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.models.User;
 
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
+import net.tatans.coeus.network.view.ViewInject;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
 import net.tatans.coeus.weibo.util.RequestWeiboData;
-import net.tatans.rhea.network.view.ContentView;
-import net.tatans.rhea.network.view.ViewIoc;
 
 /**
  * Created by LCM on 2016/8/4. 13:36
  * 我的主页
  */
-@ContentView(R.layout.personal_info)
-public class MyHomePageActivity extends BaseActivity {
+public class MyHomePageActivity extends TatansActivity {
     //获取视图
-    @ViewIoc(R.id.name)
+    @ViewInject(id = R.id.name)
     private TextView name;
-    @ViewIoc(R.id.gender)
+    @ViewInject(id = R.id.gender)
     private TextView gender;
-    @ViewIoc(R.id.friends)
+    @ViewInject(id = R.id.friends)
     private TextView friends;
-    @ViewIoc(R.id.followers)
+    @ViewInject(id = R.id.followers)
     private TextView followers;
-    @ViewIoc(R.id.verified)
+    @ViewInject(id = R.id.verified)
     private TextView verified;
-    @ViewIoc(R.id.address)
+    @ViewInject(id = R.id.address)
     private TextView address;
-    @ViewIoc(R.id.company)
+    @ViewInject(id = R.id.company)
     private TextView company;
-    @ViewIoc(R.id.home_page_listview)
+    @ViewInject(id = R.id.home_page_listview)
     private PullToRefreshListView pullToRefreshListView;
     /**
      * 当前 Token 信息
@@ -60,6 +55,7 @@ public class MyHomePageActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.personal_info);
         initData();
 
     }

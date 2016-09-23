@@ -69,14 +69,10 @@ configurations.all {
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'net.tatans.coeus:coeus-network:5.4.0-SNAPSHOT'
+    compile 'net.tatans.coeus:coeus-network:5.1.0-release'
     compile project(':myweibosdk')
     compile project(':weibosdk')
-    compile('net.tatans.coeus:coeus-speech-lib:1.1.0-SNAPSHOT') {
-        exclude group: 'com.iflytek.clound', module: 'Msc'
-    }
-    compile files('libs/picasso-2.5.2.jar')
-    compile 'com.belerweb:pinyin4j:2.5.0'
+//    compile 'com.belerweb:pinyin4j:2.5.0'
     compile project(':pulltorefresh')
     compile 'com.alibaba:fastjson:1.2.6'
     compile 'com.android.support:support-v4:19.0.0'

@@ -11,23 +11,21 @@ import com.sina.weibo.sdk.openapi.CommentsAPI;
 import com.sina.weibo.sdk.openapi.models.CommentList;
 import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansToast;
+import net.tatans.coeus.network.view.ViewInject;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.CommentAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Constants;
-import net.tatans.rhea.network.view.ContentView;
-import net.tatans.rhea.network.view.ViewIoc;
 
 /**
  * Created by LCM on 2016/7/27. 13:18
  * 评论列表
  */
-@ContentView(R.layout.comments)
-public class CommentsListActivity extends BaseActivity {
+public class CommentsListActivity extends TatansActivity {
     //获取视图
-    @ViewIoc(R.id.comments_list)
+    @ViewInject(id = R.id.comments_list)
     private ListView mCommentsList;
 
     /**
@@ -44,6 +42,7 @@ public class CommentsListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.comments);
         initData();
         RequestData();
     }

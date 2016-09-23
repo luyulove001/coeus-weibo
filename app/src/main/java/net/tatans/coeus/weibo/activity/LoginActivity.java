@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.sina.weibo.sdk.auth.AuthInfo;
@@ -12,15 +13,13 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.exception.WeiboException;
 
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansToast;
+import net.tatans.coeus.network.view.ViewInject;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Constants;
 import net.tatans.coeus.weibo.util.LoginUtil;
-import net.tatans.rhea.network.event.OnClick;
-import net.tatans.rhea.network.view.ContentView;
-import net.tatans.rhea.network.view.ViewIoc;
 
 import java.text.SimpleDateFormat;
 
@@ -28,11 +27,10 @@ import java.text.SimpleDateFormat;
  * Created by LCM on 2016/7/22. 13:31
  * 登录activity
  */
-@ContentView(R.layout.login)
-public class LoginActivity extends BaseActivity {
-    @ViewIoc(R.id.login)
+public class LoginActivity extends TatansActivity implements View.OnClickListener{
+    @ViewInject(id = R.id.login, click = "onClick")
     private TextView mLogin;//登录
-    @ViewIoc(R.id.register)
+    @ViewInject(id = R.id.register, click = "onClick")
     private TextView mRegister;//注册
 
     private AuthInfo mAuthInfo;
@@ -44,7 +42,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.login);
         if (!AccessTokenKeeper.readAccessToken(this).getToken().equals("") && AccessTokenKeeper.readAccessToken(this).isSessionValid()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
@@ -58,7 +56,6 @@ public class LoginActivity extends BaseActivity {
     /**
      * 登录
      */
-    @OnClick(R.id.login)
     public void Login() {
         mLoginUtil.setWeiboAuthInfo(mAuthInfo, mLoginListener);
     }
@@ -66,7 +63,6 @@ public class LoginActivity extends BaseActivity {
     /**
      * 注册
      */
-    @OnClick(R.id.register)
     public void Register() {
         if (isPkgInstalled("com.sina.weibo")) {
             Intent intent = new Intent();
@@ -75,6 +71,18 @@ public class LoginActivity extends BaseActivity {
             startActivity(intent);
         } else {
             TatansToast.showAndCancel("请下载新浪微博客户端或新浪微博官网进行注册");
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.login:
+                Login();
+                break;
+            case R.id.register:
+                Register();
+                break;
         }
     }
 

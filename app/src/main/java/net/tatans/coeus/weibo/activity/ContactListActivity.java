@@ -15,16 +15,15 @@ import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
 import com.sina.weibo.sdk.openapi.models.User;
 
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansToast;
+import net.tatans.coeus.network.view.ViewInject;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.ContactListAdapter;
 import net.tatans.coeus.weibo.bean.ContactList;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
-import net.tatans.rhea.network.view.ContentView;
-import net.tatans.rhea.network.view.ViewIoc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +32,13 @@ import java.util.List;
  * Created by LCM on 2016/7/25. 13:17
  * 联系人,粉丝列表
  */
-@ContentView(R.layout.sort_activity)
-public class ContactListActivity extends BaseActivity {
+public class ContactListActivity extends TatansActivity {
     //获取视图
-    @ViewIoc(R.id.edt_search)
+    @ViewInject(id = R.id.edt_search)
     private EditText mEdtSearch;
-    @ViewIoc(R.id.refresh_listview)
+    @ViewInject(id = R.id.refresh_listview)
     private PullToRefreshListView refresh_listview;
-    @ViewIoc(R.id.con_or_follow)
+    @ViewInject(id = R.id.con_or_follow)
     private TextView con_or_follow;
     /**
      * 字体高度
@@ -61,6 +59,7 @@ public class ContactListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.sort_activity);
         initData();
         initViewEvent();
         RequestData();

@@ -11,22 +11,20 @@ import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.legacy.FavoritesAPI;
 import com.sina.weibo.sdk.openapi.models.FavoriteList;
 
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansToast;
+import net.tatans.coeus.network.view.ViewInject;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.FavoritesAdapter;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Constants;
-import net.tatans.rhea.network.view.ContentView;
-import net.tatans.rhea.network.view.ViewIoc;
 
 /**
  * Created by LCM on 2016/8/5. 13:11
  * 收藏界面
  */
-@ContentView(R.layout.favoriters)
-public class FavoritesActivity extends BaseActivity {
-    @ViewIoc(R.id.home_page_listview)
+public class FavoritesActivity extends TatansActivity {
+    @ViewInject(id = R.id.home_page_listview)
     private PullToRefreshListView mPullToRefresh;
     private Oauth2AccessToken accessToken;
     private FavoritesAPI mFavoritesApi;
@@ -39,6 +37,7 @@ public class FavoritesActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.favoriters);
         initData();
     }
 

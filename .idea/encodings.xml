@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="jar://D:/TBISAndroidEnvironment/gradle-2.8/caches/modules-2/files-2.1/net.tatans.coeus/coeus-network/5.4.0-SNAPSHOT/21b35f8f0d10f8814e194a68ad426153a9d8828f/coeus-network-5.4.0-SNAPSHOT-sources.jar!/net/tatans/coeus/network/tools/TatansApplication.java" charset="GBK" />
+    <file url="jar://D:/TBISAndroidEnvironment/gradle-2.8/caches/modules-2/files-2.1/net.tatans.coeus/coeus-network/5.4.0-SNAPSHOT/21b35f8f0d10f8814e194a68ad426153a9d8828f/coeus-network-5.4.0-SNAPSHOT-sources.jar!/net/tatans/rhea/network/register/RegCertificateUtil.java" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

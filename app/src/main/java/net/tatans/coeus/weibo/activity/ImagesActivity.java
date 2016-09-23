@@ -12,16 +12,14 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansBitmap;
 import net.tatans.coeus.network.tools.TatansToast;
+import net.tatans.coeus.network.view.ViewInject;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.adapter.ViewPagerAdapter;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.ShareDialog;
-import net.tatans.rhea.network.event.OnClick;
-import net.tatans.rhea.network.view.ContentView;
-import net.tatans.rhea.network.view.ViewIoc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,13 +36,12 @@ import cn.sharesdk.wechat.moments.WechatMoments;
  * Created by LCM on 2016/8/8. 10:33
  * 显示图片的activity
  */
-@ContentView(R.layout.images)
-public class ImagesActivity extends BaseActivity implements PlatformActionListener {
+public class ImagesActivity extends TatansActivity implements PlatformActionListener {
     //存放图片链接
     private ArrayList<String> pic_urls;
-    @ViewIoc(R.id.images_view_page)
+    @ViewInject(id = R.id.images_view_page)
     private ViewPager viewPager;
-    @ViewIoc(R.id.search)
+    @ViewInject(id = R.id.search, click = "onClickShare")
     private LinearLayout search;
     private ViewPagerAdapter adapter;
     /**
@@ -62,6 +59,7 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.images);
         setTitle("第一张");
         //得到图片链接的集合
         pic_urls = getIntent().getExtras().getStringArrayList(Const.PICURLS);
@@ -87,7 +85,6 @@ public class ImagesActivity extends BaseActivity implements PlatformActionListen
     /**
      * 点击分享
      */
-    @OnClick(R.id.search)
     private void onClickShare() {
         showShareDialog();
     }

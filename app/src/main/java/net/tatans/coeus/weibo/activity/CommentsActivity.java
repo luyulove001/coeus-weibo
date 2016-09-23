@@ -23,49 +23,46 @@ import com.sina.weibo.sdk.openapi.legacy.StatusesAPI;
 import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 import com.sina.weibo.sdk.openapi.models.StatusList;
 
-import net.tatans.coeus.network.tools.BaseActivity;
+import net.tatans.coeus.network.tools.TatansActivity;
 import net.tatans.coeus.network.tools.TatansApplication;
 import net.tatans.coeus.network.tools.TatansLog;
 import net.tatans.coeus.network.tools.TatansToast;
+import net.tatans.coeus.network.view.ViewInject;
 import net.tatans.coeus.weibo.R;
 import net.tatans.coeus.weibo.tools.AccessTokenKeeper;
 import net.tatans.coeus.weibo.util.Const;
 import net.tatans.coeus.weibo.util.Constants;
-import net.tatans.rhea.network.event.OnClick;
-import net.tatans.rhea.network.view.ContentView;
-import net.tatans.rhea.network.view.ViewIoc;
 
 
 /**
  * 转发并评论界面
  */
-@ContentView(R.layout.activity_comments)
-public class CommentsActivity extends BaseActivity {
+public class CommentsActivity extends TatansActivity implements View.OnClickListener {
     /**
      * 分享内容
      */
-    @ViewIoc(R.id.comments_content)
+    @ViewInject(id = R.id.comments_content)
     EditText comments_content;
     /**
      * 语音输入按钮
      */
-    @ViewIoc(R.id.comments_voice_input)
+    @ViewInject(id = R.id.comments_voice_input, click = "onClick")
     RelativeLayout comments_voice_input;
     /**
      * @按钮
      */
-    @ViewIoc(R.id.comments_fenxiang)
+    @ViewInject(id = R.id.comments_fenxiang, click = "onClick")
     RelativeLayout comments_fenxiang;
     /**
      * 发送按钮
      */
-    @ViewIoc(R.id.comments_send)
+    @ViewInject(id = R.id.comments_send, click = "onClick")
     TextView comments_send;
 
     //转发和评论按钮
-    @ViewIoc(R.id.forward_comment)
+    @ViewInject(id = R.id.forward_comment)
     LinearLayout mForwardComment;
-    @ViewIoc(R.id.checkBox)
+    @ViewInject(id = R.id.checkBox)
     private CheckBox checkBox;
     /**
      * 当前 Token 信息
@@ -89,6 +86,7 @@ public class CommentsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_comments);
         initData();
         CheckBoxListener();
     }
@@ -125,7 +123,6 @@ public class CommentsActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.comments_voice_input)
     public void voiceClick() {
         Intent intent = new Intent();
         intent.setClass(CommentsActivity.this, VoicesActivity.class);
@@ -155,7 +152,6 @@ public class CommentsActivity extends BaseActivity {
     /**
      * 发送按钮
      */
-    @OnClick(R.id.comments_send)
     private void commentSendClick() {
         String content = comments_content.getText().toString();
         if (type.equals(Const.WRITE_WEIBO)) {
@@ -172,7 +168,6 @@ public class CommentsActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.comments_fenxiang)
     private void commentsFenxiang() {
         Intent intent = new Intent(this, ContactListActivity.class);
         intent.putExtra(Const.CONTACT_OR_FOllOW, 1);
@@ -251,4 +246,18 @@ public class CommentsActivity extends BaseActivity {
         }
     };
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.comments_voice_input:
+                voiceClick();
+                break;
+            case R.id.comments_fenxiang:
+                commentsFenxiang();
+                break;
+            case R.id.comments_send:
+                commentSendClick();
+                break;
+        }
+    }
 }
